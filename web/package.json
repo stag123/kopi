@@ -1,0 +1,45 @@
+{
+  "name": "Kopi",
+  "version": "0.0.1",
+  "author": "Artemiy Alekseev",
+  "description": "No",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "catw": "~0.2.0",
+    "handlebars": "latest",
+    "handlebars-loader": "^1.6.0",
+    "hbsfy": "latest",
+    "node-lessify": "latest",
+    "object-assign": "^4.1.1",
+    "require-globify": "latest",
+    "watchify": "latest"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "scripts": {
+    "build-js": "webpack main.js bundle.js",
+    "watch-js": "watchify -g require-globify -g [ hbsfy -e html,hbs ] -g node-lessify app.js -o bundle.js",
+    "watch-css": "catw -c 'lessc -' '../css/*.less' -o ../css/bundle.css -v",
+    "build-css": "catw -c 'lessc -' '../css/*.less' > ../css/bundle.css",
+    "watch": "npm run watch-css & npm run watch-js",
+    "build": "npm run build-css && npm run build-js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^8.0.0",
+    "css-loader": "^0.28.7",
+    "file-loader": "^1.1.5",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "style-loader": "^0.19.0",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.9.1"
+  }
+}
