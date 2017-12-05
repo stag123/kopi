@@ -1,6 +1,7 @@
 module.exports = {
     entry : {
-        map: ["./js/pages/map.js"]
+        map: ["./js/pages/map.js"],
+        index: ["./js/pages/index.js"],
     },
     output: {
         path: __dirname + "/bundle",
@@ -19,14 +20,25 @@ module.exports = {
                 }
             },
             {
-                test   : /\.less$/,
+                test: /\.less$/,
                 exclude: /node_modules/,
-                loader : 'style!css!less'
+                use: [{
+                    loader: "style-loader" // creates style nodes from JS strings
+                }, {
+                    loader: "css-loader" // translates CSS into CommonJS
+                }, {
+                    loader: "less-loader" // compiles Less to CSS
+                }]
             },
             {
-                test   : /\.(jpg|png|gif)$/,
-                include: /images/,
-                loader : 'url'
+                test: /\.(png|jp(e*)g|svg)$/,
+                use: [{
+                    loader: 'url-loader?name=images/[name].[ext]',
+                    options: {
+                        limit: 8000, // Convert images < 8kb to base64 strings
+                        name: 'images/[hash]-[name].[ext]'
+                    }
+                }]
             },
             {
                 test: /\.hbs$/,
