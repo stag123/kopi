@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="map">
     <?php for ($j = 0; $j < 20; $j++) {?>
     <div class="map-row">
-        <?php for ($i = 0; $i < 17; $i++) {?>
+        <?php for ($i = 0; $i < 20; $i++) {?>
         <div class="index__background b<?=rand(1, 9);?>"></div>
         <?php } ?>
     </div>
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'id' => 'login-form',
         'layout' => 'horizontal',
         'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
+            'template' => "<div class=\"col-lg-2\">{label}</div>\n<div class=\"col-lg-5\">{input}</div>\n<div class=\"col-lg-5\">{error}</div>",
             'labelOptions' => ['class' => 'col-lg-1 control-label'],
         ],
     ]); ?>

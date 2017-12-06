@@ -30,7 +30,7 @@ AppAsset::register($this);
     <?php
     NavBar::begin([
         'options' => [
-            'class' => 'navbar-fixed-top',
+            'class' => '',
         ],
     ]);
     echo Nav::widget([
