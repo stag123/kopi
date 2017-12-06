@@ -43,14 +43,15 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
-            'enablePrettyUrl' => true,
+            'class' => 'yii\web\UrlManager',
+            // Hide index.php
             'showScriptName' => false,
+            // Use pretty URLs
+            'enablePrettyUrl' => true,
             'rules' => [
             ],
-        ],
-        */
+        ]
     ],
     'params' => $params,
 ];

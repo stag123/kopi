@@ -33,13 +33,28 @@ AppAsset::register($this);
             'class' => '',
         ],
     ]);
+
+    $items = [
+        ['label' => 'Главная', 'url' => ['/site/index']],
+        ['label' => 'Об игре', 'url' => ['/site/about']],
+        ['label' => 'Сообщить об ошибке', 'url' => ['/site/contact']]
+    ];
+
+    if (!Yii::$app->user->isGuest) {
+        $items[] = (
+            '<li>'
+            . Html::beginForm(['/site/logout'], 'post')
+            . Html::submitButton(
+                'Logout (' . Yii::$app->user->identity->username . ')',
+                ['class' => 'btn btn-link logout']
+            )
+            . Html::endForm()
+            . '</li>'
+        );
+    }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-left'],
-        'items' => [
-            ['label' => 'Главная', 'url' => ['/site/index']],
-            ['label' => 'Об игре', 'url' => ['/site/about']],
-            ['label' => 'Сообщить об ошибке', 'url' => ['/site/contact']],
-        ],
+        'items' => $items
     ]);
     NavBar::end();
     ?>
@@ -56,6 +71,7 @@ AppAsset::register($this);
 </footer>
 
 <?php $this->endBody() ?>
+<script async type="text/javascript" src="//ulogin.ru/js/ulogin.js"></script>
 </body>
 </html>
 <?php $this->endPage() ?>
