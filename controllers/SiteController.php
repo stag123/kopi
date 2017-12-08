@@ -63,6 +63,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        var_dump($this->resource);die();
         if (!Yii::$app->user->isGuest) {
             return $this->redirect('map/index');
         }

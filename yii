@@ -17,5 +17,7 @@ require __DIR__ . '/vendor/yiisoft/yii2/Yii.php';
 $config = require __DIR__ . '/config/console.php';
 
 $application = new yii\console\Application($config);
+
+require __DIR__ . '/config/di.php';
 $exitCode = $application->run();
 exit($exitCode);
