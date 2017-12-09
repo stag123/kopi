@@ -1,16 +1,8 @@
 <?php
-
-use yii\di\ServiceLocator;
-use app\components\Resource;
-
-$locator = Yii::$app;
-
-$locator->set('resource', function() {
-    return new Resource();
+Yii::$app->set('commandResourceCreate', function() {
+    return new app\components\resource\commands\Create();
 });
 
-$locator = new ServiceLocator();
-
-$locator->set('resource', function() {
-    return new Resource();
+Yii::$app->set('commandVillageCreate', function() {
+    return new app\components\village\commands\Create();
 });

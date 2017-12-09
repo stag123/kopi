@@ -1,3 +1,33 @@
+.hexagon {
+  width: 60px;
+  top: 15px;
+  height: 30px;
+  background: lawngreen;
+  position: relative;
+  opacity: 0.4;
+}
+.hexagon:before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 15px solid lawngreen;
+}
+.hexagon:after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 15px solid lawngreen;
+}
 .map > :nth-child(even) .index__background {
   position: relative;
   left: 30px;
@@ -41,4 +71,10 @@
 }
 .map .map-row .index__background.b9 {
   background-image: url(/images/backgrounds/grass_05.png);
+}
+.map .map-row .index__background.b10 {
+  background-image: url(/images/backgrounds/grass_05.png);
+}
+.map .map-row .index__background.village {
+  background-image: url(/images/buildings/medieval_smallCastle.png);
 }

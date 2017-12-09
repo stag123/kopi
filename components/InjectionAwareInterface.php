@@ -3,7 +3,8 @@
 namespace app\components;
 
 /**
- * @property \app\components\Resource resource
+ * @property \app\components\resource\commands\Create commandResourceCreate
+ * @property \app\components\village\commands\Create commandVillageCreate
  */
 interface InjectionAwareInterface {
 

@@ -1,4 +1,4 @@
-const OK = "hello from webpack'";
+//const OK = "hello from webpack'";
 
-alert(OK);
+//alert(OK);
 

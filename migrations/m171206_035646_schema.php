@@ -24,10 +24,10 @@ class m171206_035646_schema extends Migration
             'name'     => $this->string(),
             'last_name'  => $this->string(),
             'identity'   => $this->string(),
-            'auth_key' => $this->string(32)->notNull(),
+            'auth_key' => $this->string(32),
             'status' => $this->smallInteger()->defaultValue(10),
-            'created_at' => $this->datetime()->notNull(),
-            'updated_at' => $this->datetime()->notNull(),
+            'created_at' => $this->datetime(),
+            'updated_at' => $this->datetime(),
         ], $tableOptions);
 
         /** Ресурсы */
@@ -48,8 +48,14 @@ class m171206_035646_schema extends Migration
             'value'             => $this->integer()->notNull(),
         ], $tableOptions);
 
+        $this->createIndex('UQ_resource_value_resource_group', '{{%resource_value}}', ['resource_id', 'resource_group_id'], true);
+
         $this->addForeignKey(
             'FK_resoure_value_resorce', '{{%resource_value}}', 'resource_id', '{{%resource}}', 'id', 'CASCADE', 'CASCADE'
+        );
+
+        $this->addForeignKey(
+            'FK_resoure_value_resource_group', '{{%resource_value}}', 'resource_group_id', '{{%resource_group}}', 'id', 'CASCADE', 'CASCADE'
         );
 
         /** Карта и деревня */
@@ -57,8 +63,11 @@ class m171206_035646_schema extends Migration
             'id' => $this->primaryKey(),
             'x' => $this->integer()->notNull(),
             'y' => $this->integer()->notNull(),
-            'type' => $this->integer()->notNull()
+            'type' => $this->integer()->notNull(),
+            'status' => $this->integer()->notNull(),
         ], $tableOptions);
+
+        $this->createIndex('UQ_map_xy', '{{%map}}', ['x', 'y'], true);
 
         $this->createTable('{{%village_map}}', [
             'id' => $this->primaryKey(),
@@ -81,9 +90,14 @@ class m171206_035646_schema extends Migration
         $this->addForeignKey(
             'FK_village_map', '{{%village}}', 'map_id', '{{%map}}', 'id', 'CASCADE', 'CASCADE'
         );
+
+        $this->createIndex('UQ_village_map', '{{%village}}', 'map_id', true);
+
         $this->addForeignKey(
             'FK_village_resource_group', '{{%village}}', 'village_resource_id', '{{%resource_group}}', 'id', 'CASCADE', 'CASCADE'
         );
+
+        $this->createIndex('UQ_village_resource_group', '{{%village}}', 'village_resource_id', true);
 
         /** Строения */
         $this->createTable('{{%build}}', [
@@ -98,7 +112,11 @@ class m171206_035646_schema extends Migration
             'build_id'            => $this->integer()->notNull(),
             'price_resource_id'   => $this->integer()->notNull(),
             'cost'                => $this->integer()->notNull(),
+            'build_time'          => $this->integer()->notNull(),
         ], $tableOptions);
+
+        $this->createIndex('UQ_build_info_price_resource_id', '{{%build_info}}', 'price_resource_id', true);
+        $this->createIndex('UQ_build_info_build_level', '{{%build_info}}', ['build_id', 'level'], true);
 
         $this->addForeignKey(
             'FK_build_info_resource_group', '{{%build_info}}', 'price_resource_id', '{{%resource_group}}', 'id', 'CASCADE', 'CASCADE'
@@ -114,6 +132,8 @@ class m171206_035646_schema extends Migration
             'village_id'        => $this->integer()->notNull(),
             'village_map_id'    => $this->integer()->notNull()
         ], $tableOptions);
+
+        $this->createIndex('UQ_build_village_village_village_map', '{{%build_village}}', ['village_id', 'village_map_id'], true);
 
         $this->addForeignKey(
             'FK_build_village_build', '{{%build_village}}', 'build_id', '{{%build}}', 'id', 'CASCADE', 'CASCADE'
@@ -139,7 +159,10 @@ class m171206_035646_schema extends Migration
             'attack_horse'      => $this->integer()->notNull(),
             'defence_horse'     => $this->integer()->notNull(),
             'cost'              => $this->integer()->notNull(),
+            'build_time'        => $this->integer()->notNull(),
         ], $tableOptions);
+
+        $this->createIndex('UQ_unit_price', '{{%unit}}', 'price_resource_id', true);
 
         $this->addForeignKey(
             'FK_unit_resource_group', '{{%unit}}', 'price_resource_id', '{{%resource_group}}', 'id', 'CASCADE', 'CASCADE'
@@ -165,6 +188,8 @@ class m171206_035646_schema extends Migration
             'value'             => $this->integer()->notNull(),
         ], $tableOptions);
 
+        $this->createIndex('UQ_unit_value_unit_group', '{{%unit_value}}', ['unit_id', 'unit_group_id'], true);
+
         $this->addForeignKey(
             'FK_unit_value_group', '{{%unit_value}}', 'unit_group_id', '{{%unit_group}}', 'id', 'CASCADE', 'CASCADE'
         );
@@ -175,9 +200,9 @@ class m171206_035646_schema extends Migration
         /** Очередь заданий */
         $this->createTable('{{%task}}', [
             'id' => $this->primaryKey(),
-            'created_at' => $this->datetime()->notNull(),
-            'updated_at' => $this->datetime()->notNull(),
-            'start_at' => $this->datetime()->notNull(),
+            'created_at' => $this->datetime(),
+            'updated_at' => $this->datetime(),
+            'duration' => $this->integer()->notNull(),
         ], $tableOptions);
 
         $this->createTable('{{%task_attack}}', [
@@ -187,6 +212,8 @@ class m171206_035646_schema extends Migration
             'unit_group_id'     => $this->integer()->notNull(),
             'task_id'  => $this->integer()->notNull(),
         ], $tableOptions);
+
+        $this->createIndex('UQ_task_attack_task', '{{%task_attack}}', 'task_id', true);
 
         $this->addForeignKey(
             'FK_task_attack_village_from', '{{%task_attack}}', 'village_from_id', '{{%village}}', 'id', 'CASCADE', 'CASCADE'
@@ -207,6 +234,8 @@ class m171206_035646_schema extends Migration
             'build_village_id'    =>  $this->integer()->notNull(),
             'task_id'             => $this->integer()->notNull(),
         ], $tableOptions);
+
+        $this->createIndex('UQ_task_build_task', '{{%task_build}}', 'task_id', true);
 
         $this->addForeignKey(
             'FK_task_build_village', '{{%task_build}}', 'village_id', '{{%village}}', 'id', 'CASCADE', 'CASCADE'
@@ -233,6 +262,8 @@ class m171206_035646_schema extends Migration
             'FK_task_unit_task', '{{%task_unit}}', 'task_id', '{{%task}}', 'id', 'CASCADE', 'CASCADE'
         );
 
+        $this->createIndex('UQ_task_unit_task', '{{%task_unit}}', 'task_id', true);
+
         $this->createTable('{{%task_trade}}', [
             'id'                   => $this->primaryKey(),
             'village_from_id'      => $this->integer()->notNull(),
@@ -253,6 +284,8 @@ class m171206_035646_schema extends Migration
         $this->addForeignKey(
             'FK_task_trade_resource_group', '{{%task_trade}}', 'resource_group_id', '{{%resource_group}}', 'id', 'CASCADE', 'CASCADE'
         );
+
+        $this->createIndex('UQ_task_trade_task', '{{%task_trade}}', 'task_id', true);
     }
 
     /**

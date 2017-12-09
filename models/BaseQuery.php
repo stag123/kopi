@@ -41,22 +41,4 @@ class BaseQuery extends \yii\db\ActiveQuery
     public function ids() {
         return $this->asArray(true)->select('id')->all();
     }
-
-    /**
-     * @inheritdoc
-     * @return LearnAttempt[]|array
-     */
-    public function all($db = null)
-    {
-        return parent::all($db);
-    }
-
-    /**
-     * @inheritdoc
-     * @return LearnAttempt|array|null
-     */
-    public function one($db = null)
-    {
-        return parent::one($db);
-    }
 }

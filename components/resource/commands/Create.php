@@ -1,20 +1,15 @@
 <?php
 
-namespace app\components;
+namespace app\components\resource\commands;
 use app\models\Resource as ResourceModel;
 use app\models\ResourceValue;
 use app\models\ResourceGroup;
 use app\types\ResourceType;
 
 
-class Resource extends \yii\base\Component {
+class Create extends \app\components\BaseComponent {
 
-    const IRON = 'iron';
-    const STONE = 'stone';
-    const WOOD = 'wood';
-    const GRAIN = 'grain';
-
-    public function create(array $resources) {
+    public function execute(array $resources) {
         $group = new ResourceGroup();
         $group_id = $group->save();
         foreach($resources as $id => $value) {
@@ -24,5 +19,6 @@ class Resource extends \yii\base\Component {
             $value->resource_group_id = $group_id;
             $value->save();
         }
+        return $group_id;
     }
 }

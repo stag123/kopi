@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "user".
+ * This is the model class for table "{{%user}}".
  *
  * @property integer $id
  * @property string $email
@@ -20,14 +20,14 @@ use Yii;
  *
  * @property Village[] $villages
  */
-class User extends BaseModel
+class User extends \app\models\BaseModel
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'user';
+        return '{{%user}}';
     }
 
     /**

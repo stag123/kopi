@@ -7,10 +7,10 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\User;
+use app\models\UserIdentity;
 use app\models\ContactForm;
 
-class SiteController extends Controller
+class SiteController extends BaseController
 {
     public function actions()
     {
@@ -63,7 +63,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        var_dump($this->resource);die();
         if (!Yii::$app->user->isGuest) {
             return $this->redirect('map/index');
         }
@@ -89,29 +88,26 @@ class SiteController extends Controller
             //проверяем, чтобы в ответе были данные, и не было ошибки
             if (!empty($data) and !isset($data['error']) && $data['identity']){
 
-                if(!$user = User::findByIdentity($data['identity'])) {
-                    $user = new User();
+                if(!$user = UserIdentity::findByIdentity($data['identity'])) {
+                    $user = new UserIdentity();
                     $user->identity = $data['identity'];
                     $user->email = isset($data['email']) ? $data['email']: '';
                     $user->username = trim("{$data['first_name']}, {$data['last_name']}", ',');
-                    if (!$user->save()) {
-                        var_dump($user->errors);die();
-                    }
-                    $user = User::findIdentity($user->id);
-                }
+                    $user->save();
 
+                    $this->commandVillageCreate->execute($user);
+                    $user = UserIdentity::findIdentity($user->id);
+                }
                 Yii::$app->user->login($user, 3600*24*30);
-            } else {
+            }/** else {
                 $user = new User();
                 $user->username = 'demo';
-                if (!$user->save()) {
-                    var_dump($user->errors);die();
-                }
+                $user->save();
 
                 $user = User::findIdentity($user->id);
 
                 Yii::$app->user->login($user, 3600*24*30);
-            }
+            }*/
 
             return $this->goBack();
         }

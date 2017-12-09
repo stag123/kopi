@@ -74,8 +74,8 @@ module.exports = __webpack_require__(1);
 /* 1 */
 /***/ (function(module, exports) {
 
-var OK = "hello from webpack'";
-alert(OK);
+//const OK = "hello from webpack'";
+//alert(OK);
 
 /***/ })
 /******/ ]);
