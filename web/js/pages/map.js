@@ -1,4 +1,2 @@
-//const OK = "hello from webpack'";
-
-//alert(OK);
+import "./less/map.less";
 

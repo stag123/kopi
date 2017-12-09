@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -64,7 +65,7 @@ class SiteController extends BaseController
     public function actionIndex()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->redirect('map/index');
+            return $this->redirect(Url::to(['map/index']));
         }
 
         if (Yii::$app->request->isPost && $token = Yii::$app->request->post('token')) {
@@ -99,15 +100,9 @@ class SiteController extends BaseController
                     $user = UserIdentity::findIdentity($user->id);
                 }
                 Yii::$app->user->login($user, 3600*24*30);
-            }/** else {
-                $user = new User();
-                $user->username = 'demo';
-                $user->save();
-
-                $user = User::findIdentity($user->id);
-
-                Yii::$app->user->login($user, 3600*24*30);
-            }*/
+            } else {
+                throw new BadRequestHttpException("Login failed");
+            }
 
             return $this->goBack();
         }

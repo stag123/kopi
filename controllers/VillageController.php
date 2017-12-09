@@ -2,10 +2,10 @@
 
 namespace app\controllers;
 
-use yii\web\Controller;
+use app\models\Village;
 
 
-class VillageController extends Controller
+class VillageController extends BaseController
 {
     /**
     * Displays homepage.
@@ -17,8 +17,9 @@ class VillageController extends Controller
         return $this->render('index');
     }
 
-    public function buildAction()
+    public function actionView()
     {
-
+        $village = Village::findOne(['id' => \Yii::$app->request->get('id')]);
+        return $this->render('view', ['village' => $village]);
     }
 }

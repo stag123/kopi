@@ -1,0 +1,134 @@
+@color-map-green: lawngreen;
+@color-map-blue: skyblue;
+
+.active(@size, @color) {
+    width: @size;
+    display: block;
+  //  top: @size / 4;
+    height: @size / 2;
+    background-color: @color;
+    z-index: 2;
+    position: absolute;
+    &:before {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        top: -1 * @size / 4;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-left: @size / 2 solid transparent;
+        border-right: @size / 2 solid transparent;
+        border-bottom:  @size / 4 solid @color;
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        bottom: -1 * @size / 4;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-left: @size / 2 solid transparent;
+        border-right: @size / 2 solid transparent;
+        border-top: @size / 4 solid @color;
+    }
+}
+
+.map {
+    .selector {
+        display: none;
+    }
+    & > :nth-child(even) {
+        .map-cell {
+            .index__background {
+                left: 30px;
+            }
+            .selector {
+                margin-left: 28px !important;
+            }
+        }
+    }
+    .map-row {
+        height: 40px;
+        line-height:40px;
+        clear: both;
+        letter-spacing: -10px;
+        position: relative;
+        
+        .map-cell {
+            height: 60px;
+            width: 60px;
+            display: inline-block;
+            
+            .index__background {
+                position: relative;
+                background-repeat: no-repeat;
+                background-size: 60px 60px;
+                height: 60px;
+                width: 60px;
+                display: inline-block;
+                z-index: 1;
+        
+                &.b1 {
+                    background-image: url(/images/backgrounds/grass_05.png)
+                }
+                &.b2 {
+                    background-image: url(/images/backgrounds/grass_10.png)
+                }
+                &.b3 {
+                    background-image: url(/images/backgrounds/grass_11.png)
+                }
+                &.b4 {
+                    background-image: url(/images/backgrounds/grass_12.png)
+                }
+                &.b5 {
+                    background-image: url(/images/backgrounds/grass_13.png)
+                }
+                &.b6 {
+                    background-image: url(/images/backgrounds/grass_14.png)
+                }
+                &.b7 {
+                    background-image: url(/images/backgrounds/grass_15.png)
+                }
+                &.b8 {
+                    background-image: url(/images/backgrounds/grass_16.png)
+                }
+                &.b9 {
+                    background-image: url(/images/backgrounds/grass_05.png)
+                }
+                &.b10 {
+                    background-image: url(/images/backgrounds/grass_05.png)
+                }
+                &.village {
+                    background-image: url(/images/buildings/medieval_smallCastle.png);
+                    cursor: pointer;
+                }
+            }
+    
+            .selector {
+                margin-left: -2px;
+                margin-top: 14px;
+            }
+            
+            &.my-village {
+                .selector {
+                    z-index: 3;
+                    .active(64px, @color-map-blue);
+                }
+                .index__background {
+                    z-index: 4;
+                }
+            }
+    
+            &:hover {
+                .selector {
+                    .active(64px, @color-map-green);
+                }
+                .index__background {
+                    z-index: 3;
+                }
+            }
+        }
+    }
+}

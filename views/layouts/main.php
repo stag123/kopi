@@ -9,8 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
-
-AppAsset::register($this);
+use yii\helpers\Url;
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -35,9 +34,9 @@ AppAsset::register($this);
     ]);
 
     $items = [
-        ['label' => 'Главная', 'url' => ['/site/index']],
+        ['label' => Yii::$app->user->isGuest ? 'Главная' : 'Карта', 'url' => Url::to(['/site/index'])]/*,
         ['label' => 'Об игре', 'url' => ['/site/about']],
-        ['label' => 'Сообщить об ошибке', 'url' => ['/site/contact']]
+        ['label' => 'Сообщить об ошибке', 'url' => ['/site/contact']]*/
     ];
 
     if (!Yii::$app->user->isGuest) {

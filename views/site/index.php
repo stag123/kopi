@@ -6,9 +6,12 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use app\assets\SiteAsset;
 
 $this->title = 'Авторизация / Регистрация';
 $this->params['breadcrumbs'][] = $this->title;
+
+SiteAsset::register($this);
 ?>
 
 <div class="site-login">
