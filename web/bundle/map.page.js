@@ -60,74 +60,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(1);
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(4);
-
-/***/ }),
-/* 2 */,
-/* 3 */,
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(5);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {"hmr":true}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(7)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/less-loader/dist/cjs.js!./map.less", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/less-loader/dist/cjs.js!./map.less");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(6)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, ".map .selector {\n  display: none;\n}\n.map > :nth-child(even) .map-cell .index__background {\n  left: 30px;\n}\n.map > :nth-child(even) .map-cell .selector {\n  margin-left: 28px !important;\n}\n.map .map-row {\n  height: 40px;\n  line-height: 40px;\n  clear: both;\n  letter-spacing: -10px;\n  position: relative;\n}\n.map .map-row .map-cell {\n  height: 60px;\n  width: 60px;\n  display: inline-block;\n}\n.map .map-row .map-cell .index__background {\n  position: relative;\n  background-repeat: no-repeat;\n  background-size: 60px 60px;\n  height: 60px;\n  width: 60px;\n  display: inline-block;\n  z-index: 1;\n}\n.map .map-row .map-cell .index__background.b1 {\n  background-image: url(/images/backgrounds/grass_05.png);\n}\n.map .map-row .map-cell .index__background.b2 {\n  background-image: url(/images/backgrounds/grass_10.png);\n}\n.map .map-row .map-cell .index__background.b3 {\n  background-image: url(/images/backgrounds/grass_11.png);\n}\n.map .map-row .map-cell .index__background.b4 {\n  background-image: url(/images/backgrounds/grass_12.png);\n}\n.map .map-row .map-cell .index__background.b5 {\n  background-image: url(/images/backgrounds/grass_13.png);\n}\n.map .map-row .map-cell .index__background.b6 {\n  background-image: url(/images/backgrounds/grass_14.png);\n}\n.map .map-row .map-cell .index__background.b7 {\n  background-image: url(/images/backgrounds/grass_15.png);\n}\n.map .map-row .map-cell .index__background.b8 {\n  background-image: url(/images/backgrounds/grass_16.png);\n}\n.map .map-row .map-cell .index__background.b9 {\n  background-image: url(/images/backgrounds/grass_05.png);\n}\n.map .map-row .map-cell .index__background.b10 {\n  background-image: url(/images/backgrounds/grass_05.png);\n}\n.map .map-row .map-cell .index__background.village {\n  background-image: url(/images/buildings/medieval_smallCastle.png);\n  cursor: pointer;\n}\n.map .map-row .map-cell .selector {\n  margin-left: -2px;\n  margin-top: 14px;\n}\n.map .map-row .map-cell.my-village .selector {\n  z-index: 3;\n  width: 64px;\n  display: block;\n  height: 32px;\n  background-color: skyblue;\n  z-index: 2;\n  position: absolute;\n}\n.map .map-row .map-cell.my-village .selector:before {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  top: -16px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 32px solid transparent;\n  border-right: 32px solid transparent;\n  border-bottom: 16px solid skyblue;\n}\n.map .map-row .map-cell.my-village .selector:after {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  bottom: -16px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 32px solid transparent;\n  border-right: 32px solid transparent;\n  border-top: 16px solid skyblue;\n}\n.map .map-row .map-cell.my-village .index__background {\n  z-index: 4;\n}\n.map .map-row .map-cell:hover .selector {\n  width: 64px;\n  display: block;\n  height: 32px;\n  background-color: lawngreen;\n  z-index: 2;\n  position: absolute;\n}\n.map .map-row .map-cell:hover .selector:before {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  top: -16px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 32px solid transparent;\n  border-right: 32px solid transparent;\n  border-bottom: 16px solid lawngreen;\n}\n.map .map-row .map-cell:hover .selector:after {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  bottom: -16px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 32px solid transparent;\n  border-right: 32px solid transparent;\n  border-top: 16px solid lawngreen;\n}\n.map .map-row .map-cell:hover .index__background {\n  z-index: 3;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 6 */
 /***/ (function(module, exports) {
 
 /*
@@ -209,7 +146,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 7 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -265,7 +202,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(8);
+var	fixUrls = __webpack_require__(2);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -581,7 +518,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 8 */
+/* 2 */
 /***/ (function(module, exports) {
 
 
@@ -673,6 +610,67 @@ module.exports = function (css) {
 	// send back the fixed css
 	return fixedCss;
 };
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(4);
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(5);
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(6);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/less-loader/dist/cjs.js!./map.less", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/less-loader/dist/cjs.js!./map.less");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "html,\nbody {\n  height: 100%;\n  min-width: 1280px;\n  min-height: 720px;\n}\n.wrap {\n  min-height: 100%;\n  height: auto;\n  margin: 0 auto -60px;\n  padding: 0 0 60px;\n  background: #303030;\n}\n.wrap > .container {\n  width: 100%;\n  height: 100%;\n  padding: 0;\n  margin: 0;\n}\n.footer {\n  height: 60px;\n  background-color: #f5f5f5;\n  border-top: 1px solid #ddd;\n  padding-top: 20px;\n  display: none;\n}\n.jumbotron {\n  text-align: center;\n  background-color: transparent;\n}\n.jumbotron .btn {\n  font-size: 21px;\n  padding: 14px 24px;\n}\n.not-set {\n  color: #c55;\n  font-style: italic;\n}\n/* add sorting icons to gridview sort links */\na.asc:after,\na.desc:after {\n  position: relative;\n  top: 1px;\n  display: inline-block;\n  font-family: 'Glyphicons Halflings';\n  font-style: normal;\n  font-weight: normal;\n  line-height: 1;\n  padding-left: 5px;\n}\na.asc:after {\n  content: \"\\E151\";\n}\na.desc:after {\n  content: \"\\E152\";\n}\n.sort-numerical a.asc:after {\n  content: \"\\E153\";\n}\n.sort-numerical a.desc:after {\n  content: \"\\E154\";\n}\n.sort-ordinal a.asc:after {\n  content: \"\\E155\";\n}\n.sort-ordinal a.desc:after {\n  content: \"\\E156\";\n}\n.grid-view th {\n  white-space: nowrap;\n}\n.hint-block {\n  display: block;\n  margin-top: 5px;\n  color: #999;\n}\n.error-summary {\n  color: #a94442;\n  background: #fdf7f7;\n  border-left: 3px solid #eed3d7;\n  padding: 10px 20px;\n  margin: 0 0 15px 0;\n}\n/* align the logout \"link\" (button in form) of the navbar */\n.navbar {\n  background: #f5f5f5;\n}\n.nav li > form > button.logout {\n  padding: 15px;\n  border: none;\n}\n.site-login {\n  position: absolute;\n  background: #fff;\n  top: 200px;\n  left: 50%;\n  width: 600px;\n  margin-left: -300px;\n  padding: 30px;\n  border-radius: 5px;\n}\n@media (max-width: 767px) {\n  .nav li > form > button.logout {\n    display: block;\n    text-align: left;\n    width: 100%;\n    padding: 10px 15px;\n  }\n}\n.nav > li > form > button.logout:focus,\n.nav > li > form > button.logout:hover {\n  text-decoration: none;\n}\n.nav > li > form > button.logout:focus {\n  outline: none;\n}\n.arrow {\n  width: 0;\n  height: 0;\n  border: 40px solid transparent;\n  display: inline-block;\n  margin: 30px 10px;\n  position: absolute;\n}\n.arrow.bottom {\n  border-top-color: orangered;\n  border-bottom: 0;\n  margin: 10px auto;\n  display: block;\n  bottom: 0px;\n  left: 50%;\n  margin-left: -20px;\n}\n.arrow.left {\n  border-right-color: gold;\n  border-left: 0;\n  vertical-align: top;\n  top: 50%;\n  margin-top: -40px;\n  left: 0;\n}\n.arrow.top {\n  border-bottom-color: yellowgreen;\n  border-top: 0;\n  margin: 10px auto;\n  display: block;\n  top: -20px;\n  left: 50%;\n  margin-left: -20px;\n}\n.arrow.right {\n  border-left-color: steelblue;\n  border-right: 0;\n  right: -20px;\n  top: 50%;\n  margin-top: -40px;\n}\n.map-container {\n  text-align: center;\n  width: 704px;\n  height: 484px;\n  padding: 40px;\n  margin: 0 auto;\n  position: relative;\n}\n.map-container .map {\n  padding: 2px;\n  width: 604px;\n  height: 384px;\n  overflow: hidden;\n  display: inline-block;\n}\n.map-container .map .selector {\n  display: none;\n}\n.map-container .map > :nth-child(even) .map-cell .index__background {\n  left: 30px;\n}\n.map-container .map > :nth-child(even) .map-cell .selector {\n  margin-left: 28px !important;\n}\n.map-container .map .map-row {\n  height: 40px;\n  line-height: 40px;\n  clear: both;\n  letter-spacing: -10px;\n  position: relative;\n}\n.map-container .map .map-row .map-cell {\n  height: 60px;\n  width: 60px;\n  display: inline-block;\n}\n.map-container .map .map-row .map-cell .index__background {\n  position: relative;\n  background-repeat: no-repeat;\n  background-size: 60px 60px;\n  height: 60px;\n  width: 60px;\n  display: inline-block;\n  z-index: 1;\n  background-image: url(/images/backgrounds/grass_05.png);\n}\n.map-container .map .map-row .map-cell .index__background.b1 {\n  background-image: url(/images/backgrounds/grass_05.png);\n}\n.map-container .map .map-row .map-cell .index__background.b2 {\n  background-image: url(/images/backgrounds/grass_10.png);\n}\n.map-container .map .map-row .map-cell .index__background.b3 {\n  background-image: url(/images/backgrounds/grass_11.png);\n}\n.map-container .map .map-row .map-cell .index__background.b4 {\n  background-image: url(/images/backgrounds/grass_12.png);\n}\n.map-container .map .map-row .map-cell .index__background.b5 {\n  background-image: url(/images/backgrounds/grass_13.png);\n}\n.map-container .map .map-row .map-cell .index__background.b6 {\n  background-image: url(/images/backgrounds/grass_14.png);\n}\n.map-container .map .map-row .map-cell .index__background.b7 {\n  background-image: url(/images/backgrounds/grass_15.png);\n}\n.map-container .map .map-row .map-cell .index__background.b8 {\n  background-image: url(/images/backgrounds/grass_16.png);\n}\n.map-container .map .map-row .map-cell .index__background.b9 {\n  background-image: url(/images/backgrounds/grass_05.png);\n}\n.map-container .map .map-row .map-cell .index__background.b10 {\n  background-image: url(/images/backgrounds/grass_05.png);\n}\n.map-container .map .map-row .map-cell .index__background.village {\n  background-image: url(/images/buildings/medieval_smallCastle.png);\n  cursor: pointer;\n}\n.map-container .map .map-row .map-cell .selector {\n  margin-left: -2px;\n}\n.map-container .map .map-row .map-cell.my-village .selector {\n  z-index: 3;\n  width: 64px;\n  display: block;\n  margin-top: 14px;\n  height: 32px;\n  background-color: skyblue;\n  z-index: 2;\n  position: absolute;\n}\n.map-container .map .map-row .map-cell.my-village .selector:before {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  top: -16px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 32px solid transparent;\n  border-right: 32px solid transparent;\n  border-bottom: 16px solid skyblue;\n}\n.map-container .map .map-row .map-cell.my-village .selector:after {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  bottom: -16px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 32px solid transparent;\n  border-right: 32px solid transparent;\n  border-top: 16px solid skyblue;\n}\n.map-container .map .map-row .map-cell.my-village .index__background {\n  z-index: 4;\n}\n.map-container .map .map-row .map-cell:hover .selector {\n  width: 64px;\n  display: block;\n  margin-top: 14px;\n  height: 32px;\n  background-color: lawngreen;\n  z-index: 2;\n  position: absolute;\n}\n.map-container .map .map-row .map-cell:hover .selector:before {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  top: -16px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 32px solid transparent;\n  border-right: 32px solid transparent;\n  border-bottom: 16px solid lawngreen;\n}\n.map-container .map .map-row .map-cell:hover .selector:after {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  bottom: -16px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 32px solid transparent;\n  border-right: 32px solid transparent;\n  border-top: 16px solid lawngreen;\n}\n.map-container .map .map-row .map-cell:hover .index__background {\n  z-index: 3;\n}\n", ""]);
+
+// exports
 
 
 /***/ })

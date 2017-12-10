@@ -6,3 +6,14 @@ Yii::$app->set('commandResourceCreate', function() {
 Yii::$app->set('commandVillageCreate', function() {
     return new app\components\village\commands\Create();
 });
+
+global $user;
+
+Yii::$app->set('currentUser', function() {
+    global $user;
+    if (isset($user)) {
+        return $user;
+    }
+    $user = app\models\User::findOne(Yii::$app->user->id);
+    return $user;
+});

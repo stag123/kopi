@@ -1,7 +1,8 @@
 module.exports = {
     entry : {
         map: ["./js/pages/map.js"],
-        index: ["./js/pages/index.js"],
+        site: ["./js/pages/site.js"],
+        village: ["./js/pages/village.js"],
     },
     output: {
         path: __dirname + "/bundle",

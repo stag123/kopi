@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use app\models\Map;
 
@@ -14,11 +15,15 @@ class MapController extends Controller
      */
     public function actionIndex()
     {
-        $maps = Map::find()->with('village')->all();
-        $mapData = [];
-        foreach($maps as $map) {
-            $mapData[$map->x][$map->y] = $map;
+        $x = \Yii::$app->request->get('x');
+        $y = \Yii::$app->request->get('y');
+
+        if (!Map::check($x, $y)) {
+            throw new BadRequestHttpException("Error map position");
         }
-        return $this->render('index', ['mapData' => $mapData]);
+
+        $mapData = Map::getPart($x, $y);
+
+        return $this->render('index', ['mapData' => $mapData, 'x' => (int) $x, 'y' => (int) $y]);
     }
 }

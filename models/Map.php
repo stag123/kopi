@@ -97,4 +97,37 @@ class Map extends \app\models\BaseModel
         }
         return static::find()->where(['status' => self::STATUS_FREE])->offset(rand(1, $count))->one();
     }
+
+    public static function check($x, $y) {
+        if (!is_numeric($x) || !is_numeric($y)) {
+            return false;
+        }
+        if ($x >=0 && $x <= self::SIZE && $y >= 0 && $y <= self::SIZE) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function getPart($x, $y, $size = 8) {
+        $maps = Map::find()
+            ->with('village')
+            ->andWhere(['>=', 'x',  $x - $size / 2])
+            ->andWhere(['>=', 'y', $y - $size / 2])
+            ->andWhere(['<=', 'x', $x + $size / 2])
+            ->andWhere(['<=', 'y',  $y + $size / 2])
+            ->all();
+
+        $mapData = [];
+        foreach($maps as $map) {
+            $mapData[$map->y][$map->x] = $map;
+        }
+
+        $data = [];
+        for ($i = $y - $size / 2; $i <= $y + $size / 2; $i++) {
+            for ($j = $x - $size / 2; $j <= $x + $size / 2; $j++) {
+                $data[$i][$j] = isset($mapData[$i][$j]) ? $mapData[$i][$j]: null;
+            }
+        }
+        return $data;
+    }
 }

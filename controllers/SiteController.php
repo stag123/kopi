@@ -65,7 +65,8 @@ class SiteController extends BaseController
     public function actionIndex()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->redirect(Url::to(['map/index']));
+            $village = $this->currentUser->getVillages()->one();
+            return $this->redirect(Url::to(['map/index', 'x' => $village->map->x, 'y' => $village->map->y]));
         }
 
         if (Yii::$app->request->isPost && $token = Yii::$app->request->post('token')) {
