@@ -16,7 +16,7 @@ class Create extends \app\components\BaseComponent {
             $value = new ResourceValue();
             $value->value = $value;
             $value->id = $id;
-            $value->resource_group_id = $group_id;
+            $value->group_id = $group_id;
             $value->save();
         }
         return $group_id;

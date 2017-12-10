@@ -114,3 +114,141 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
   outline: none;
 }
+.village-container {
+  text-align: center;
+  width: 704px;
+  height: 484px;
+  padding: 40px;
+  margin: 0 auto;
+  position: relative;
+}
+.village-container .map {
+  padding: 2px;
+  width: 604px;
+  height: 384px;
+  overflow: hidden;
+  display: inline-block;
+}
+.village-container .map .selector {
+  display: none;
+}
+.village-container .map > :nth-child(even) .map-cell .index__background {
+  left: 45px;
+}
+.village-container .map > :nth-child(even) .map-cell .selector {
+  margin-left: 43px !important;
+}
+.village-container .map .map-row {
+  height: 60px;
+  line-height: 60px;
+  clear: both;
+  letter-spacing: -10px;
+  position: relative;
+}
+.village-container .map .map-row .map-cell {
+  height: 90px;
+  width: 90px;
+  display: inline-block;
+}
+.village-container .map .map-row .map-cell .index__background {
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: 90px 90px;
+  height: 90px;
+  width: 90px;
+  display: inline-block;
+  z-index: 1;
+  background-image: url(/images/backgrounds/grass_05.png);
+}
+.village-container .map .map-row .map-cell .index__background.b1 {
+  background-image: url(/images/backgrounds/grass_16.png);
+}
+.village-container .map .map-row .map-cell .index__background.b2 {
+  background-image: url(/images/backgrounds/grass_15.png);
+}
+.village-container .map .map-row .map-cell .index__background.b3 {
+  background-image: url(/images/backgrounds/grass_13.png);
+}
+.village-container .map .map-row .map-cell .index__background.b4 {
+  background-image: url(/images/backgrounds/grass_04.png);
+}
+.village-container .map .map-row .map-cell .index__background.village {
+  background-image: url(/images/buildings/medieval_smallCastle.png);
+  cursor: pointer;
+}
+.village-container .map .map-row .map-cell .selector {
+  margin-left: -2px;
+}
+.village-container .map .map-row .map-cell.my-village .selector {
+  z-index: 3;
+  width: 94px;
+  display: block;
+  margin-top: 21.5px;
+  height: 47px;
+  background-color: skyblue;
+  z-index: 2;
+  position: absolute;
+}
+.village-container .map .map-row .map-cell.my-village .selector:before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -23.5px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 47px solid transparent;
+  border-right: 47px solid transparent;
+  border-bottom: 23.5px solid skyblue;
+}
+.village-container .map .map-row .map-cell.my-village .selector:after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  bottom: -23.5px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 47px solid transparent;
+  border-right: 47px solid transparent;
+  border-top: 23.5px solid skyblue;
+}
+.village-container .map .map-row .map-cell.my-village .index__background {
+  z-index: 4;
+}
+.village-container .map .map-row .map-cell:hover .selector {
+  width: 94px;
+  display: block;
+  margin-top: 21.5px;
+  height: 47px;
+  background-color: lawngreen;
+  z-index: 2;
+  position: absolute;
+}
+.village-container .map .map-row .map-cell:hover .selector:before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -23.5px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 47px solid transparent;
+  border-right: 47px solid transparent;
+  border-bottom: 23.5px solid lawngreen;
+}
+.village-container .map .map-row .map-cell:hover .selector:after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  bottom: -23.5px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 47px solid transparent;
+  border-right: 47px solid transparent;
+  border-top: 23.5px solid lawngreen;
+}
+.village-container .map .map-row .map-cell:hover .index__background {
+  z-index: 3;
+}

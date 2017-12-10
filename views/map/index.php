@@ -7,7 +7,6 @@ use yii\helpers\Url;
 use app\assets\MapAsset;
 
 MapAsset::register($this);
-
 ?>
 
 

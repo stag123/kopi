@@ -9,10 +9,12 @@ use Yii;
  *
  * @property integer $id
  *
- * @property BuildInfo $buildInfo
+ * @property Build[] $builds
+ * @property Build $build
  * @property ResourceValue[] $resourceValues
  * @property Resource[] $resources
  * @property TaskTrade[] $taskTrades
+ * @property Unit[] $units
  * @property Unit $unit
  * @property Village $village
  */
@@ -31,7 +33,8 @@ class ResourceGroup extends \app\models\BaseModel
      */
     public function rules()
     {
-        return [];
+        return [
+        ];
     }
 
     /**
@@ -47,9 +50,17 @@ class ResourceGroup extends \app\models\BaseModel
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBuildInfo()
+    public function getBuilds()
     {
-        return $this->hasOne(BuildInfo::className(), ['price_resource_id' => 'id']);
+        return $this->hasMany(Build::className(), ['change_resource_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBuild()
+    {
+        return $this->hasOne(Build::className(), ['price_resource_id' => 'id']);
     }
 
     /**
@@ -57,7 +68,7 @@ class ResourceGroup extends \app\models\BaseModel
      */
     public function getResourceValues()
     {
-        return $this->hasMany(ResourceValue::className(), ['resource_group_id' => 'id']);
+        return $this->hasMany(ResourceValue::className(), ['group_id' => 'id']);
     }
 
     /**
@@ -65,7 +76,7 @@ class ResourceGroup extends \app\models\BaseModel
      */
     public function getResources()
     {
-        return $this->hasMany(Resource::className(), ['id' => 'resource_id'])->viaTable('{{%resource_value}}', ['resource_group_id' => 'id']);
+        return $this->hasMany(Resource::className(), ['id' => 'resource_id'])->viaTable('{{%resource_value}}', ['group_id' => 'id']);
     }
 
     /**
@@ -74,6 +85,14 @@ class ResourceGroup extends \app\models\BaseModel
     public function getTaskTrades()
     {
         return $this->hasMany(TaskTrade::className(), ['resource_group_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUnits()
+    {
+        return $this->hasMany(Unit::className(), ['change_resource_id' => 'id']);
     }
 
     /**

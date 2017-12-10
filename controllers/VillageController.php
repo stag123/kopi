@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Village;
+use app\models\VillageMap;
 
 
 class VillageController extends BaseController
@@ -20,6 +21,7 @@ class VillageController extends BaseController
     public function actionView()
     {
         $village = Village::findOne(['id' => \Yii::$app->request->get('id')]);
-        return $this->render('view', ['village' => $village]);
+        $mapData = VillageMap::getByVillage($village);
+        return $this->render('view', ['village' => $village, 'mapData' => $mapData]);
     }
 }

@@ -8,10 +8,15 @@ use Yii;
  * This is the model class for table "{{%build}}".
  *
  * @property integer $id
- * @property string $name
- * @property string $code
+ * @property integer $level
+ * @property integer $type_id
+ * @property integer $price_resource_id
+ * @property integer $build_time
+ * @property integer $change_resource_id
  *
- * @property BuildInfo[] $buildInfos
+ * @property ResourceGroup $changeResource
+ * @property ResourceGroup $priceResource
+ * @property BuildType $type
  * @property BuildVillage[] $buildVillages
  */
 class Build extends \app\models\BaseModel
@@ -30,7 +35,13 @@ class Build extends \app\models\BaseModel
     public function rules()
     {
         return [
-            [['name', 'code'], 'string', 'max' => 255],
+            [['level', 'type_id', 'price_resource_id', 'build_time', 'change_resource_id'], 'required'],
+            [['level', 'type_id', 'price_resource_id', 'build_time', 'change_resource_id'], 'integer'],
+            [['price_resource_id'], 'unique'],
+            [['type_id', 'level'], 'unique', 'targetAttribute' => ['type_id', 'level'], 'message' => 'The combination of Level and Type ID has already been taken.'],
+            [['change_resource_id'], 'exist', 'skipOnError' => true, 'targetClass' => ResourceGroup::className(), 'targetAttribute' => ['change_resource_id' => 'id']],
+            [['price_resource_id'], 'exist', 'skipOnError' => true, 'targetClass' => ResourceGroup::className(), 'targetAttribute' => ['price_resource_id' => 'id']],
+            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => BuildType::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
     }
 
@@ -41,17 +52,36 @@ class Build extends \app\models\BaseModel
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'code' => 'Code',
+            'level' => 'Level',
+            'type_id' => 'Type ID',
+            'price_resource_id' => 'Price Resource ID',
+            'build_time' => 'Build Time',
+            'change_resource_id' => 'Change Resource ID',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBuildInfos()
+    public function getChangeResource()
     {
-        return $this->hasMany(BuildInfo::className(), ['build_id' => 'id']);
+        return $this->hasOne(ResourceGroup::className(), ['id' => 'change_resource_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPriceResource()
+    {
+        return $this->hasOne(ResourceGroup::className(), ['id' => 'price_resource_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getType()
+    {
+        return $this->hasOne(BuildType::className(), ['id' => 'type_id']);
     }
 
     /**

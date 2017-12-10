@@ -9,10 +9,10 @@ use Yii;
  *
  * @property integer $id
  * @property integer $resource_id
- * @property integer $resource_group_id
+ * @property integer $group_id
  * @property integer $value
  *
- * @property ResourceGroup $resourceGroup
+ * @property ResourceGroup $group
  * @property Resource $resource
  */
 class ResourceValue extends \app\models\BaseModel
@@ -31,10 +31,10 @@ class ResourceValue extends \app\models\BaseModel
     public function rules()
     {
         return [
-            [['resource_id', 'resource_group_id', 'value'], 'required'],
-            [['resource_id', 'resource_group_id', 'value'], 'integer'],
-            [['resource_id', 'resource_group_id'], 'unique', 'targetAttribute' => ['resource_id', 'resource_group_id'], 'message' => 'The combination of Resource ID and Resource Group ID has already been taken.'],
-            [['resource_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => ResourceGroup::className(), 'targetAttribute' => ['resource_group_id' => 'id']],
+            [['resource_id', 'group_id', 'value'], 'required'],
+            [['resource_id', 'group_id', 'value'], 'integer'],
+            [['resource_id', 'group_id'], 'unique', 'targetAttribute' => ['resource_id', 'group_id'], 'message' => 'The combination of Resource ID and Group ID has already been taken.'],
+            [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => ResourceGroup::className(), 'targetAttribute' => ['group_id' => 'id']],
             [['resource_id'], 'exist', 'skipOnError' => true, 'targetClass' => Resource::className(), 'targetAttribute' => ['resource_id' => 'id']],
         ];
     }
@@ -47,7 +47,7 @@ class ResourceValue extends \app\models\BaseModel
         return [
             'id' => 'ID',
             'resource_id' => 'Resource ID',
-            'resource_group_id' => 'Resource Group ID',
+            'group_id' => 'Group ID',
             'value' => 'Value',
         ];
     }
@@ -55,9 +55,9 @@ class ResourceValue extends \app\models\BaseModel
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResourceGroup()
+    public function getGroup()
     {
-        return $this->hasOne(ResourceGroup::className(), ['id' => 'resource_group_id']);
+        return $this->hasOne(ResourceGroup::className(), ['id' => 'group_id']);
     }
 
     /**

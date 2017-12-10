@@ -6,6 +6,7 @@ use app\components\BaseComponent;
 use app\models\Map;
 use app\models\User;
 use app\models\Village;
+use app\models\VillageMap;
 use app\types\ResourceType;
 use yii\web\BadRequestHttpException;
 
@@ -31,5 +32,7 @@ class Create extends BaseComponent {
         $village->user_id = $user->id;
         $village->village_resource_id = $resource_group_id;
         $village->save();
+
+        VillageMap::generate($village->id);
     }
 }

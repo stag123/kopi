@@ -12,7 +12,7 @@ use Yii;
  * @property string $code
  *
  * @property ResourceValue[] $resourceValues
- * @property ResourceGroup[] $resourceGroups
+ * @property ResourceGroup[] $groups
  */
 class Resource extends \app\models\BaseModel
 {
@@ -57,8 +57,8 @@ class Resource extends \app\models\BaseModel
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResourceGroups()
+    public function getGroups()
     {
-        return $this->hasMany(ResourceGroup::className(), ['id' => 'resource_group_id'])->viaTable('{{%resource_value}}', ['resource_id' => 'id']);
+        return $this->hasMany(ResourceGroup::className(), ['id' => 'group_id'])->viaTable('{{%resource_value}}', ['resource_id' => 'id']);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use yii\db\Migration;
+use \app\components\BaseMigration;
 
 use app\models\Resource;
 use app\models\Map;
@@ -9,7 +9,7 @@ use app\types\ResourceType;
 /**
  * Class m171207_214825_data
  */
-class m171207_214825_data extends Migration
+class m171207_214825_data extends BaseMigration
 {
     /**
      * @inheritdoc
@@ -42,7 +42,7 @@ class m171207_214825_data extends Migration
 
         Map::generate();
 
-        Yii::$app->commandResourceCreate->execute([
+        $this->commandResourceCreate->execute([
             ResourceType::IRON => 100,
             ResourceType::WOOD => 100,
             ResourceType::GRAIN => 100,

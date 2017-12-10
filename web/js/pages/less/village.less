@@ -1,1 +1,104 @@
 @import "./site.less";
+@import "./cursor.less";
+
+@import "./site.less";
+@import "./cursor.less";
+
+@color-map-green: lawngreen;
+@color-map-blue: skyblue;
+
+.village-container {
+    text-align: center;
+    width: 704px;
+    height: 484px;
+    padding: 40px;
+    margin: 0 auto;
+    position: relative;
+    .map {
+        padding: 2px;
+        width: 604px;
+        height: 384px;
+        overflow: hidden;
+        display: inline-block;
+        
+        .selector {
+            display: none;
+        }
+        & > :nth-child(even) {
+            .map-cell {
+                .index__background {
+                    left: 45px;
+                }
+                .selector {
+                    margin-left: 43px !important;
+                }
+            }
+        }
+        .map-row {
+            height: 60px;
+            line-height: 60px;
+            clear: both;
+            letter-spacing: -10px;
+            position: relative;
+            
+            .map-cell {
+                height: 90px;
+                width: 90px;
+                display: inline-block;
+                
+                .index__background {
+                    position: relative;
+                    background-repeat: no-repeat;
+                    background-size: 90px 90px;
+                    height: 90px;
+                    width: 90px;
+                    display: inline-block;
+                    z-index: 1;
+                    
+                    background-image: url(/images/backgrounds/grass_05.png);
+                    
+                    &.b1 {
+                        background-image: url(/images/backgrounds/grass_16.png);// url(/images/backgrounds/grass_02.png);
+                    }
+                    &.b2 {
+                        background-image: url(/images/backgrounds/grass_15.png); //url(/images/backgrounds/grass_01.png);
+                    }
+                    &.b3 {
+                        background-image: url(/images/backgrounds/grass_13.png);
+                    }
+                    &.b4 {
+                        background-image: url(/images/backgrounds/grass_04.png);
+                    }
+                    
+                    &.village {
+                        background-image: url(/images/buildings/medieval_smallCastle.png);
+                        cursor: pointer;
+                    }
+                }
+                
+                .selector {
+                    margin-left: -2px;
+                }
+                
+                &.my-village {
+                    .selector {
+                        z-index: 3;
+                        .active(94px, @color-map-blue);
+                    }
+                    .index__background {
+                        z-index: 4;
+                    }
+                }
+                
+                &:hover {
+                    .selector {
+                        .active(94px, @color-map-green);
+                    }
+                    .index__background {
+                        z-index: 3;
+                    }
+                }
+            }
+        }
+    }
+}

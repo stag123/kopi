@@ -13,8 +13,6 @@ use Yii;
  * @property string $name
  * @property integer $village_resource_id
  *
- * @property BuildVillage[] $buildVillages
- * @property VillageMap[] $villageMaps
  * @property TaskAttack[] $taskAttacks
  * @property TaskAttack[] $taskAttacks0
  * @property TaskBuild[] $taskBuilds
@@ -25,6 +23,7 @@ use Yii;
  * @property ResourceGroup $villageResource
  * @property Map $map
  * @property User $user
+ * @property VillageMap[] $villageMaps
  */
 class Village extends \app\models\BaseModel
 {
@@ -65,22 +64,6 @@ class Village extends \app\models\BaseModel
             'name' => 'Name',
             'village_resource_id' => 'Village Resource ID',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBuildVillages()
-    {
-        return $this->hasMany(BuildVillage::className(), ['village_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getVillageMaps()
-    {
-        return $this->hasMany(VillageMap::className(), ['id' => 'village_map_id'])->viaTable('{{%build_village}}', ['village_id' => 'id']);
     }
 
     /**
@@ -161,5 +144,13 @@ class Village extends \app\models\BaseModel
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVillageMaps()
+    {
+        return $this->hasMany(VillageMap::className(), ['village_id' => 'id']);
     }
 }

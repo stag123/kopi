@@ -8,7 +8,6 @@ use Yii;
  * This is the model class for table "{{%build_village}}".
  *
  * @property integer $id
- * @property integer $level
  * @property integer $build_id
  * @property integer $village_id
  * @property integer $village_map_id
@@ -34,8 +33,8 @@ class BuildVillage extends \app\models\BaseModel
     public function rules()
     {
         return [
-            [['level', 'build_id', 'village_id', 'village_map_id'], 'required'],
-            [['level', 'build_id', 'village_id', 'village_map_id'], 'integer'],
+            [['build_id', 'village_id', 'village_map_id'], 'required'],
+            [['build_id', 'village_id', 'village_map_id'], 'integer'],
             [['village_id', 'village_map_id'], 'unique', 'targetAttribute' => ['village_id', 'village_map_id'], 'message' => 'The combination of Village ID and Village Map ID has already been taken.'],
             [['village_map_id'], 'exist', 'skipOnError' => true, 'targetClass' => VillageMap::className(), 'targetAttribute' => ['village_map_id' => 'id']],
             [['build_id'], 'exist', 'skipOnError' => true, 'targetClass' => Build::className(), 'targetAttribute' => ['build_id' => 'id']],
@@ -50,7 +49,6 @@ class BuildVillage extends \app\models\BaseModel
     {
         return [
             'id' => 'ID',
-            'level' => 'Level',
             'build_id' => 'Build ID',
             'village_id' => 'Village ID',
             'village_map_id' => 'Village Map ID',
