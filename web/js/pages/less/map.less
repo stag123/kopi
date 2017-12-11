@@ -4,6 +4,10 @@
 @color-map-green: lawngreen;
 @color-map-blue: skyblue;
 
+.container {
+    background-color: #303030;
+}
+
 .arrow {
     width: 0;
     height: 0;
@@ -13,11 +17,11 @@
     position: absolute;
     
     &.bottom {
-        border-top-color: orangered;
+        border-top-color: gold;
         border-bottom: 0;
         margin: 10px auto;
         display: block;
-        bottom: 0px;
+        bottom: -20px;
         left: 50%;
         margin-left: -20px;
     }
@@ -30,16 +34,16 @@
         left: 0;
     }
     &.top {
-        border-bottom-color: yellowgreen;
+        border-bottom-color: gold;
         border-top: 0;
         margin: 10px auto;
         display: block;
-        top: -20px;
+        top: 0;
         left: 50%;
         margin-left: -20px;
     }
     &.right {
-        border-left-color: steelblue;
+        border-left-color: gold;
         border-right: 0;
         right: -20px;
         top: 50%;
@@ -51,7 +55,7 @@
     text-align: center;
     width: 704px;
     height: 484px;
-    padding: 40px;
+    padding: 60px 40px;
     margin: 0 auto;
     position: relative;
     .map {

@@ -7,16 +7,97 @@
 @color-map-green: lawngreen;
 @color-map-blue: skyblue;
 
+.resource-container {
+    color: #FFF;
+    background: #707070;
+    border-radius: 0 0 20px 20px;
+    font-size: 12px;
+    width: 530px;
+    height: 40px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    padding: 10px;
+    z-index: 999;
+    position:relative;
+    
+    .resource {
+        height: 30px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        padding-left: 35px;
+        margin-right: 10px;
+        
+        display: inline-block;
+        width: 115px;
+        text-align: left;
+        
+        .count {
+           
+            vertical-align: middle;
+            line-height: 30px;
+            text-align: left;
+        }
+        &.wood {
+            color: sandybrown;
+            color: #fff;
+            background-image: url(/images/icons/wood.png);
+        }
+        
+        &.grain {
+            color: orange;
+            color: #fff;
+            background-image: url(/images/icons/grain.png);
+        }
+        
+        &.iron {
+            color: skyblue;
+            color: #fff;
+            background-image: url(/images/icons/iron.png);
+        }
+        
+        &.stone {
+            color: lightsteelblue;
+            color: #fff;
+            background-image: url(/images/icons/stone.png);
+        }
+    }
+}
+
+.menu-left {
+    height: 500px;;
+    width: 200px;
+    background: #909090;
+    position: absolute;
+    top: -70px;
+    right: 0;
+    text-align: left;
+    padding: 5px;
+    padding-top: 100px;
+    
+    .resource-container {
+        color: #FFF;
+        background: none;
+        border-radius: 0;
+        font-size: 12px;
+        width: 100px;
+        height: auto;
+        margin:0;
+    }
+}
+
+.container {
+    background-image: url(/images/backgrounds/b2.png);
+}
 .village-container {
     text-align: center;
-    width: 704px;
-    height: 484px;
-    padding: 40px;
-    margin: 0 auto;
+    width: 754px;
+    height: 500px;
+    padding-right: 200px;
     position: relative;
+    margin: 0 auto;
     .map {
         padding: 2px;
-        width: 604px;
+        width: 544px;
         height: 384px;
         overflow: hidden;
         display: inline-block;

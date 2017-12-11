@@ -51,6 +51,9 @@ $config = [
             'enablePrettyUrl' => true,
             'rules' => [
             ],
+        ],
+        'view' => [
+            'class' => 'app\components\BaseView'
         ]
     ],
     'params' => $params,

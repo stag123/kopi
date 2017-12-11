@@ -1,16 +1,14 @@
 html,
 body {
-    height: 100%;
-    min-width: 1280px;
-    min-height: 720px;
+    height: 540px;
+    min-width: 800px;
+    min-height: 540px;
+    background: #FFF;
 }
 
 .wrap {
     min-height: 100%;
     height: auto;
-    margin: 0 auto -60px;
-    padding: 0 0 60px;
-    background: #303030;
 }
 
 .wrap > .container {
@@ -133,4 +131,44 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
+}
+
+.menu {
+    color: #FFF;
+    height: 60px;
+    font-size: 16px;
+    text-align: center;
+    padding: 5px;
+    clear: both;
+    background: #707070;
+    line-height: 50px;
+    
+    .menu-item {
+        height: 40px;
+        background-size: 40px 40px;
+        background-repeat: no-repeat;
+        padding-left: 45px;
+        margin-right: 10px;
+        vertical-align: middle;
+        
+        display: inline-block;
+        color: #FFF;
+        
+
+        &.map {
+            background-image: url(/images/icons/map.png);
+        }
+        
+        &.village {
+            background-image: url(/images/icons/village.png);
+        }
+        
+        &.profile {
+            background-image: url(/images/icons/profile.png);
+        }
+        
+        &.exit {
+            background-image: url(/images/icons/exit.png);
+        }
+    }
 }

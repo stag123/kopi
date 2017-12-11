@@ -1,6 +1,6 @@
 <?php
 
-/* @var $this \yii\web\View */
+/* @var $this \app\components\BaseView */
 /* @var $content string */
 
 use app\widgets\Alert;
@@ -26,7 +26,23 @@ use yii\helpers\Url;
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
+
+    <?php if ($this->currentUser) {?>
+    <div class="menu">
+        <a href="<?=Url::to(['/map/index', 'x' => $this->currentUser->getVillages()->one()->map->x, 'y' => $this->currentUser->getVillages()->one()->map->y]);?>" class="menu-item map">
+            Карта
+        </a>
+        <a href="<?=Url::to(['/village/view', 'id' => $this->currentUser->getVillages()->one()->id]);?>" class="menu-item village">
+            Деревня
+        </a>
+        <?php /*<a href="<?=Url::to(['/user/index']);?>" class="menu-item profile">
+            Профиль
+        </a>*/?>
+        <a href="<?=Url::to(['/site/logout']);?>" class="menu-item exit">
+            Выход
+        </a>
+    </div>
+        <?php } /*
     NavBar::begin([
         'options' => [
             'class' => '',
@@ -37,25 +53,27 @@ use yii\helpers\Url;
         ['label' => Yii::$app->user->isGuest ? 'Главная' : 'Карта', 'url' => Url::to(['/site/index'])]/*,
         ['label' => 'Об игре', 'url' => ['/site/about']],
         ['label' => 'Сообщить об ошибке', 'url' => ['/site/contact']]*/
-    ];
+        /*];
 
-    if (!Yii::$app->user->isGuest) {
-        $items[] = (
-            '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>'
-        );
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-left'],
-        'items' => $items
-    ]);
-    NavBar::end();
+
+
+       if (!Yii::$app->user->isGuest) {
+           $items[] = (
+               '<li>'
+               . Html::beginForm(['/site/logout'], 'post')
+               . Html::submitButton(
+                   'Logout (' . Yii::$app->user->identity->username . ')',
+                   ['class' => 'btn btn-link logout']
+               )
+               . Html::endForm()
+               . '</li>'
+           );
+       }
+       echo Nav::widget([
+           'options' => ['class' => 'navbar-nav navbar-left'],
+           'items' => $items
+       ]);
+       NavBar::end();*/
     ?>
 
     <div class="container">

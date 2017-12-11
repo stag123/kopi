@@ -11,6 +11,21 @@ use app\assets\VillageAsset;
 
 VillageAsset::register($this);
 ?>
+<div class="resource-container">
+
+    <div class="resource wood">
+        <span class="count">80000 / 80000</span>
+    </div>
+    <div class="resource iron">
+        <span class="count">80000 / 80000</span>
+    </div>
+    <div class="resource stone">
+        <span class="count">80000 / 80000</span>
+    </div>
+    <div class="resource grain">
+        <span class="count">80000 / 80000</span>
+    </div>
+</div>
 
 <div class="village-container">
     <div class="map">
@@ -33,5 +48,27 @@ VillageAsset::register($this);
                 <?php } ?>
             </div>
         <?php } ?>
+    </div>
+
+    <div class="menu-left">
+        Добыча ресурсов:
+        <div class="resource-container">
+
+            <div class="resource wood">
+                <span class="count">100 в час</span>
+            </div>
+            <div class="resource iron">
+                <span class="count">100 в час</span>
+            </div>
+            <div class="resource stone">
+                <span class="count">100 в час</span>
+            </div>
+            <div class="resource grain">
+                <span class="count">100 в час</span>
+            </div>
+        </div>
+
+        Войска:
+        <div class="army">Нет войск</div>
     </div>
 </div>
