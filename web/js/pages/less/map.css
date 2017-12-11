@@ -1,0 +1,346 @@
+html,
+body {
+  height: 540px;
+  min-width: 800px;
+  min-height: 540px;
+  background: #FFF;
+}
+.wrap {
+  min-height: 100%;
+  height: auto;
+}
+.wrap > .container {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+.footer {
+  height: 60px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  display: none;
+}
+.jumbotron {
+  text-align: center;
+  background-color: transparent;
+}
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+}
+.not-set {
+  color: #c55;
+  font-style: italic;
+}
+/* add sorting icons to gridview sort links */
+a.asc:after,
+a.desc:after {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  padding-left: 5px;
+}
+a.asc:after {
+  content: "\e151";
+}
+a.desc:after {
+  content: "\e152";
+}
+.sort-numerical a.asc:after {
+  content: "\e153";
+}
+.sort-numerical a.desc:after {
+  content: "\e154";
+}
+.sort-ordinal a.asc:after {
+  content: "\e155";
+}
+.sort-ordinal a.desc:after {
+  content: "\e156";
+}
+.grid-view th {
+  white-space: nowrap;
+}
+.hint-block {
+  display: block;
+  margin-top: 5px;
+  color: #999;
+}
+.error-summary {
+  color: #a94442;
+  background: #fdf7f7;
+  border-left: 3px solid #eed3d7;
+  padding: 10px 20px;
+  margin: 0 0 15px 0;
+}
+/* align the logout "link" (button in form) of the navbar */
+.navbar {
+  background: #f5f5f5;
+}
+.nav li > form > button.logout {
+  padding: 15px;
+  border: none;
+}
+.site-login {
+  position: absolute;
+  background: #fff;
+  top: 200px;
+  left: 50%;
+  width: 600px;
+  margin-left: -300px;
+  padding: 30px;
+  border-radius: 5px;
+}
+@media (max-width: 767px) {
+  .nav li > form > button.logout {
+    display: block;
+    text-align: left;
+    width: 100%;
+    padding: 10px 15px;
+  }
+}
+.nav > li > form > button.logout:focus,
+.nav > li > form > button.logout:hover {
+  text-decoration: none;
+}
+.nav > li > form > button.logout:focus {
+  outline: none;
+}
+.menu {
+  color: #FFF;
+  height: 60px;
+  font-size: 16px;
+  text-align: center;
+  padding: 5px;
+  clear: both;
+  background: #707070;
+  line-height: 50px;
+}
+.menu .menu-item {
+  height: 40px;
+  background-size: 40px 40px;
+  background-repeat: no-repeat;
+  padding-left: 45px;
+  margin-right: 10px;
+  vertical-align: middle;
+  display: inline-block;
+  color: #FFF;
+}
+.menu .menu-item.map {
+  background-image: url(/images/icons/map.png);
+}
+.menu .menu-item.village {
+  background-image: url(/images/icons/village.png);
+}
+.menu .menu-item.profile {
+  background-image: url(/images/icons/profile.png);
+}
+.menu .menu-item.exit {
+  background-image: url(/images/icons/exit.png);
+}
+.container {
+  background-color: #303030;
+}
+.arrow {
+  width: 0;
+  height: 0;
+  border: 40px solid transparent;
+  display: inline-block;
+  margin: 30px 10px;
+  position: absolute;
+}
+.arrow.bottom {
+  border-top-color: gold;
+  border-bottom: 0;
+  margin: 10px auto;
+  display: block;
+  bottom: -20px;
+  left: 50%;
+  margin-left: -20px;
+}
+.arrow.left {
+  border-right-color: gold;
+  border-left: 0;
+  vertical-align: top;
+  top: 50%;
+  margin-top: -40px;
+  left: 0;
+}
+.arrow.top {
+  border-bottom-color: gold;
+  border-top: 0;
+  margin: 10px auto;
+  display: block;
+  top: 0;
+  left: 50%;
+  margin-left: -20px;
+}
+.arrow.right {
+  border-left-color: gold;
+  border-right: 0;
+  right: -20px;
+  top: 50%;
+  margin-top: -40px;
+}
+.map-container {
+  text-align: center;
+  width: 704px;
+  height: 484px;
+  padding: 60px 40px;
+  margin: 0 auto;
+  position: relative;
+}
+.map-container .map {
+  padding: 2px;
+  width: 604px;
+  height: 384px;
+  overflow: hidden;
+  display: inline-block;
+}
+.map-container .map .selector {
+  display: none;
+}
+.map-container .map > :nth-child(even) .map-cell .index__background {
+  left: 30px;
+}
+.map-container .map > :nth-child(even) .map-cell .selector {
+  margin-left: 28px !important;
+}
+.map-container .map .map-row {
+  height: 40px;
+  line-height: 40px;
+  clear: both;
+  letter-spacing: -10px;
+  position: relative;
+}
+.map-container .map .map-row .map-cell {
+  height: 60px;
+  width: 60px;
+  display: inline-block;
+}
+.map-container .map .map-row .map-cell .index__background {
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: 60px 60px;
+  height: 60px;
+  width: 60px;
+  display: inline-block;
+  z-index: 1;
+  background-image: url(/images/backgrounds/grass_05.png);
+}
+.map-container .map .map-row .map-cell .index__background.b1 {
+  background-image: url(/images/backgrounds/grass_05.png);
+}
+.map-container .map .map-row .map-cell .index__background.b2 {
+  background-image: url(/images/backgrounds/grass_10.png);
+}
+.map-container .map .map-row .map-cell .index__background.b3 {
+  background-image: url(/images/backgrounds/grass_11.png);
+}
+.map-container .map .map-row .map-cell .index__background.b4 {
+  background-image: url(/images/backgrounds/grass_12.png);
+}
+.map-container .map .map-row .map-cell .index__background.b5 {
+  background-image: url(/images/backgrounds/grass_13.png);
+}
+.map-container .map .map-row .map-cell .index__background.b6 {
+  background-image: url(/images/backgrounds/grass_14.png);
+}
+.map-container .map .map-row .map-cell .index__background.b7 {
+  background-image: url(/images/backgrounds/grass_15.png);
+}
+.map-container .map .map-row .map-cell .index__background.b8 {
+  background-image: url(/images/backgrounds/grass_16.png);
+}
+.map-container .map .map-row .map-cell .index__background.b9 {
+  background-image: url(/images/backgrounds/grass_05.png);
+}
+.map-container .map .map-row .map-cell .index__background.b10 {
+  background-image: url(/images/backgrounds/grass_05.png);
+}
+.map-container .map .map-row .map-cell .index__background.village {
+  background-image: url(/images/buildings/medieval_smallCastle.png);
+  cursor: pointer;
+}
+.map-container .map .map-row .map-cell .selector {
+  margin-left: -2px;
+}
+.map-container .map .map-row .map-cell.my-village .selector {
+  z-index: 3;
+  width: 64px;
+  display: block;
+  margin-top: 14px;
+  height: 32px;
+  background-color: skyblue;
+  z-index: 2;
+  position: absolute;
+}
+.map-container .map .map-row .map-cell.my-village .selector:before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -16px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 32px solid transparent;
+  border-right: 32px solid transparent;
+  border-bottom: 16px solid skyblue;
+}
+.map-container .map .map-row .map-cell.my-village .selector:after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  bottom: -16px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 32px solid transparent;
+  border-right: 32px solid transparent;
+  border-top: 16px solid skyblue;
+}
+.map-container .map .map-row .map-cell.my-village .index__background {
+  z-index: 4;
+}
+.map-container .map .map-row .map-cell:hover .selector {
+  width: 64px;
+  display: block;
+  margin-top: 14px;
+  height: 32px;
+  background-color: lawngreen;
+  z-index: 2;
+  position: absolute;
+}
+.map-container .map .map-row .map-cell:hover .selector:before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -16px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 32px solid transparent;
+  border-right: 32px solid transparent;
+  border-bottom: 16px solid lawngreen;
+}
+.map-container .map .map-row .map-cell:hover .selector:after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  bottom: -16px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 32px solid transparent;
+  border-right: 32px solid transparent;
+  border-top: 16px solid lawngreen;
+}
+.map-container .map .map-row .map-cell:hover .index__background {
+  z-index: 3;
+}
