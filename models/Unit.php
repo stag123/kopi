@@ -22,8 +22,8 @@ use Yii;
  * @property integer $change_resource_id
  * @property integer $build_time
  *
- * @property ResourceGroup $changeResource
- * @property ResourceGroup $priceResource
+ * @property Resource $changeResource
+ * @property Resource $priceResource
  * @property UnitValue[] $unitValues
  * @property UnitGroup[] $unitGroups
  */
@@ -47,8 +47,8 @@ class Unit extends \app\models\BaseModel
             [['speed', 'price_resource_id', 'resource_capacity', 'attack', 'defence', 'attack_archer', 'defence_archer', 'attack_horse', 'defence_horse', 'change_resource_id', 'build_time'], 'integer'],
             [['name', 'code'], 'string', 'max' => 255],
             [['price_resource_id'], 'unique'],
-            [['change_resource_id'], 'exist', 'skipOnError' => true, 'targetClass' => ResourceGroup::className(), 'targetAttribute' => ['change_resource_id' => 'id']],
-            [['price_resource_id'], 'exist', 'skipOnError' => true, 'targetClass' => ResourceGroup::className(), 'targetAttribute' => ['price_resource_id' => 'id']],
+            [['change_resource_id'], 'exist', 'skipOnError' => true, 'targetClass' => Resource::className(), 'targetAttribute' => ['change_resource_id' => 'id']],
+            [['price_resource_id'], 'exist', 'skipOnError' => true, 'targetClass' => Resource::className(), 'targetAttribute' => ['price_resource_id' => 'id']],
         ];
     }
 
@@ -80,7 +80,7 @@ class Unit extends \app\models\BaseModel
      */
     public function getChangeResource()
     {
-        return $this->hasOne(ResourceGroup::className(), ['id' => 'change_resource_id']);
+        return $this->hasOne(Resource::className(), ['id' => 'change_resource_id']);
     }
 
     /**
@@ -88,7 +88,7 @@ class Unit extends \app\models\BaseModel
      */
     public function getPriceResource()
     {
-        return $this->hasOne(ResourceGroup::className(), ['id' => 'price_resource_id']);
+        return $this->hasOne(Resource::className(), ['id' => 'price_resource_id']);
     }
 
     /**

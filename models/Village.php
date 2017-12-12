@@ -22,17 +22,13 @@ use Yii;
  * @property TaskTrade[] $taskTrades0
  * @property TaskUnit[] $taskUnits
  * @property UnitGroup[] $unitGroups
- * @property ResourceGroup $villageResource
+ * @property Resource $villageResource
  * @property Map $map
  * @property User $user
  * @property VillageMap[] $villageMaps
  */
 class Village extends \app\models\BaseModel
 {
-
-    const BASE_RESOURCE_SPEED = 100;
-    const BASE_RESOURCE_MAX = 800;
-
     /**
      * @inheritdoc
      */
@@ -53,7 +49,7 @@ class Village extends \app\models\BaseModel
             [['name'], 'string', 'max' => 255],
             [['map_id'], 'unique'],
             [['village_resource_id'], 'unique'],
-            [['village_resource_id'], 'exist', 'skipOnError' => true, 'targetClass' => ResourceGroup::className(), 'targetAttribute' => ['village_resource_id' => 'id']],
+            [['village_resource_id'], 'exist', 'skipOnError' => true, 'targetClass' => Resource::className(), 'targetAttribute' => ['village_resource_id' => 'id']],
             [['map_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map::className(), 'targetAttribute' => ['map_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -136,7 +132,7 @@ class Village extends \app\models\BaseModel
      */
     public function getVillageResource()
     {
-        return $this->hasOne(ResourceGroup::className(), ['id' => 'village_resource_id']);
+        return $this->hasOne(Resource::className(), ['id' => 'village_resource_id']);
     }
 
     /**

@@ -14,8 +14,8 @@ use Yii;
  * @property integer $build_time
  * @property integer $change_resource_id
  *
- * @property ResourceGroup $changeResource
- * @property ResourceGroup $priceResource
+ * @property Resource $changeResource
+ * @property Resource $priceResource
  * @property BuildType $type
  * @property BuildVillage[] $buildVillages
  */
@@ -39,8 +39,8 @@ class Build extends \app\models\BaseModel
             [['level', 'type_id', 'price_resource_id', 'build_time', 'change_resource_id'], 'integer'],
             [['price_resource_id'], 'unique'],
             [['type_id', 'level'], 'unique', 'targetAttribute' => ['type_id', 'level'], 'message' => 'The combination of Level and Type ID has already been taken.'],
-            [['change_resource_id'], 'exist', 'skipOnError' => true, 'targetClass' => ResourceGroup::className(), 'targetAttribute' => ['change_resource_id' => 'id']],
-            [['price_resource_id'], 'exist', 'skipOnError' => true, 'targetClass' => ResourceGroup::className(), 'targetAttribute' => ['price_resource_id' => 'id']],
+            [['change_resource_id'], 'exist', 'skipOnError' => true, 'targetClass' => Resource::className(), 'targetAttribute' => ['change_resource_id' => 'id']],
+            [['price_resource_id'], 'exist', 'skipOnError' => true, 'targetClass' => Resource::className(), 'targetAttribute' => ['price_resource_id' => 'id']],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => BuildType::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
     }
@@ -65,7 +65,7 @@ class Build extends \app\models\BaseModel
      */
     public function getChangeResource()
     {
-        return $this->hasOne(ResourceGroup::className(), ['id' => 'change_resource_id']);
+        return $this->hasOne(Resource::className(), ['id' => 'change_resource_id']);
     }
 
     /**
@@ -73,7 +73,7 @@ class Build extends \app\models\BaseModel
      */
     public function getPriceResource()
     {
-        return $this->hasOne(ResourceGroup::className(), ['id' => 'price_resource_id']);
+        return $this->hasOne(Resource::className(), ['id' => 'price_resource_id']);
     }
 
     /**

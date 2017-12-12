@@ -3,7 +3,7 @@
 namespace app\components\village\commands;
 
 use app\components\BaseComponent;
-use app\components\resource\Model as ResourceModel;
+use app\models\Resource;
 use app\models\Map;
 use app\models\User;
 use app\models\Village;
@@ -20,13 +20,13 @@ class Create extends BaseComponent {
         $map->status = Map::STATUS_VILLAGE;
         $map->save();
 
-        $model = new ResourceModel;
+        $model = new Resource;
         $model->grain = 800;
         $model->wood = 800;
         $model->stone = 800;
         $model->iron = 800;
 
-        $resource_group_id = $this->commandResourceCreate->execute($model);
+        $resource_group_id = $model->save();
 
         $village = new Village();
         $village->map_id = $map->id;

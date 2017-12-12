@@ -8,11 +8,17 @@ use Yii;
  * This is the model class for table "{{%resource}}".
  *
  * @property integer $id
- * @property string $name
- * @property string $code
+ * @property integer $wood
+ * @property integer $grain
+ * @property integer $iron
+ * @property integer $stone
  *
- * @property ResourceValue[] $resourceValues
- * @property ResourceGroup[] $groups
+ * @property Build[] $builds
+ * @property Build $build
+ * @property TaskTrade[] $taskTrades
+ * @property Unit[] $units
+ * @property Unit $unit
+ * @property Village $village
  */
 class Resource extends \app\models\BaseModel
 {
@@ -30,7 +36,7 @@ class Resource extends \app\models\BaseModel
     public function rules()
     {
         return [
-            [['name', 'code'], 'string', 'max' => 255],
+            [['wood', 'grain', 'iron', 'stone'], 'integer'],
         ];
     }
 
@@ -41,24 +47,58 @@ class Resource extends \app\models\BaseModel
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'code' => 'Code',
+            'wood' => 'Wood',
+            'grain' => 'Grain',
+            'iron' => 'Iron',
+            'stone' => 'Stone',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResourceValues()
+    public function getBuilds()
     {
-        return $this->hasMany(ResourceValue::className(), ['resource_id' => 'id']);
+        return $this->hasMany(Build::className(), ['change_resource_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGroups()
+    public function getBuild()
     {
-        return $this->hasMany(ResourceGroup::className(), ['id' => 'group_id'])->viaTable('{{%resource_value}}', ['resource_id' => 'id']);
+        return $this->hasOne(Build::className(), ['price_resource_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTaskTrades()
+    {
+        return $this->hasMany(TaskTrade::className(), ['resource_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUnits()
+    {
+        return $this->hasMany(Unit::className(), ['change_resource_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUnit()
+    {
+        return $this->hasOne(Unit::className(), ['price_resource_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVillage()
+    {
+        return $this->hasOne(Village::className(), ['village_resource_id' => 'id']);
     }
 }

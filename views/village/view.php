@@ -6,7 +6,7 @@
  * @var app\models\VillageMap[][] $mapData
  */
 
-$villageResource = $this->resourceQuery->fetch($village->villageResource);
+$villageResource = $village->villageResource;
 
 use app\assets\VillageAsset;
 
