@@ -3,11 +3,11 @@
 namespace app\components\village\commands;
 
 use app\components\BaseComponent;
+use app\components\resource\Model as ResourceModel;
 use app\models\Map;
 use app\models\User;
 use app\models\Village;
 use app\models\VillageMap;
-use app\types\ResourceType;
 use yii\web\BadRequestHttpException;
 
 class Create extends BaseComponent {
@@ -20,12 +20,13 @@ class Create extends BaseComponent {
         $map->status = Map::STATUS_VILLAGE;
         $map->save();
 
-        $resource_group_id = $this->commandResourceCreate->execute([
-            ResourceType::GRAIN => 800,
-            ResourceType::WOOD => 800,
-            ResourceType::STONE => 800,
-            ResourceType::IRON => 800
-        ]);
+        $model = new ResourceModel;
+        $model->grain = 800;
+        $model->wood = 800;
+        $model->stone = 800;
+        $model->iron = 800;
+
+        $resource_group_id = $this->commandResourceCreate->execute($model);
 
         $village = new Village();
         $village->map_id = $map->id;

@@ -1,23 +1,25 @@
 <?php
 
 namespace app\components\resource\commands;
-use app\models\Resource as ResourceModel;
 use app\models\ResourceValue;
 use app\models\ResourceGroup;
-use app\types\ResourceType;
+use app\components\resource\Model;
+use yii\web\BadRequestHttpException;
 
 
 class Create extends \app\components\BaseComponent {
 
-    public function execute(array $resources) {
+    public function execute(Model $model) {
         $group = new ResourceGroup();
         $group_id = $group->save();
-        foreach($resources as $id => $value) {
+        foreach(Model::$list as $id => $key) {
             $value = new ResourceValue();
-            $value->value = $value;
-            $value->id = $id;
+            $value->value = $model->$key;
+            $value->resource_id = $id;
             $value->group_id = $group_id;
-            $value->save();
+            if (!$value->save()) {
+                throw new BadRequestHttpException("Error create resource value");
+            };
         }
         return $group_id;
     }

@@ -9,12 +9,10 @@ use Yii;
  *
  * @property integer $id
  * @property integer $build_id
- * @property integer $village_id
  * @property integer $village_map_id
  *
  * @property VillageMap $villageMap
  * @property Build $build
- * @property Village $village
  * @property TaskBuild[] $taskBuilds
  */
 class BuildVillage extends \app\models\BaseModel
@@ -33,12 +31,11 @@ class BuildVillage extends \app\models\BaseModel
     public function rules()
     {
         return [
-            [['build_id', 'village_id', 'village_map_id'], 'required'],
-            [['build_id', 'village_id', 'village_map_id'], 'integer'],
-            [['village_id', 'village_map_id'], 'unique', 'targetAttribute' => ['village_id', 'village_map_id'], 'message' => 'The combination of Village ID and Village Map ID has already been taken.'],
+            [['build_id', 'village_map_id'], 'required'],
+            [['build_id', 'village_map_id'], 'integer'],
+            [['village_map_id'], 'unique'],
             [['village_map_id'], 'exist', 'skipOnError' => true, 'targetClass' => VillageMap::className(), 'targetAttribute' => ['village_map_id' => 'id']],
             [['build_id'], 'exist', 'skipOnError' => true, 'targetClass' => Build::className(), 'targetAttribute' => ['build_id' => 'id']],
-            [['village_id'], 'exist', 'skipOnError' => true, 'targetClass' => Village::className(), 'targetAttribute' => ['village_id' => 'id']],
         ];
     }
 
@@ -50,7 +47,6 @@ class BuildVillage extends \app\models\BaseModel
         return [
             'id' => 'ID',
             'build_id' => 'Build ID',
-            'village_id' => 'Village ID',
             'village_map_id' => 'Village Map ID',
         ];
     }
@@ -69,14 +65,6 @@ class BuildVillage extends \app\models\BaseModel
     public function getBuild()
     {
         return $this->hasOne(Build::className(), ['id' => 'build_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getVillage()
-    {
-        return $this->hasOne(Village::className(), ['id' => 'village_id']);
     }
 
     /**

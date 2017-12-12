@@ -12,6 +12,8 @@ use Yii;
  * @property integer $user_id
  * @property string $name
  * @property integer $village_resource_id
+ * @property string $created_at
+ * @property string $resource_updated_at
  *
  * @property TaskAttack[] $taskAttacks
  * @property TaskAttack[] $taskAttacks0
@@ -27,6 +29,10 @@ use Yii;
  */
 class Village extends \app\models\BaseModel
 {
+
+    const BASE_RESOURCE_SPEED = 100;
+    const BASE_RESOURCE_MAX = 800;
+
     /**
      * @inheritdoc
      */
@@ -43,6 +49,7 @@ class Village extends \app\models\BaseModel
         return [
             [['map_id', 'user_id', 'village_resource_id'], 'required'],
             [['map_id', 'user_id', 'village_resource_id'], 'integer'],
+            [['created_at', 'resource_updated_at'], 'safe'],
             [['name'], 'string', 'max' => 255],
             [['map_id'], 'unique'],
             [['village_resource_id'], 'unique'],
@@ -63,6 +70,8 @@ class Village extends \app\models\BaseModel
             'user_id' => 'User ID',
             'name' => 'Name',
             'village_resource_id' => 'Village Resource ID',
+            'created_at' => 'Created At',
+            'resource_updated_at' => 'Resource Updated At',
         ];
     }
 

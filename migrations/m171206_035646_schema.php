@@ -74,7 +74,9 @@ class m171206_035646_schema extends BaseMigration
             'map_id'              => $this->integer()->notNull(),
             'user_id'             => $this->integer()->notNull(),
             'name'                => $this->string(),
-            'village_resource_id' => $this->integer()->notNull()
+            'village_resource_id' => $this->integer()->notNull(),
+            'created_at'          => $this->datetime(),
+            'resource_updated_at' => $this->datetime(),
         ], $tableOptions);
 
         $this->addForeignKey(
@@ -318,8 +320,8 @@ class m171206_035646_schema extends BaseMigration
         $this->dropTable('{{%build}}');
         $this->dropTable('{{%build_type}}');
 
-        $this->dropTable('{{%village}}');
         $this->dropTable('{{%village_map}}');
+        $this->dropTable('{{%village}}');
         $this->dropTable('{{%map}}');
 
         $this->dropTable('{{%resource_value}}');

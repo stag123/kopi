@@ -3,7 +3,7 @@ body {
   height: 540px;
   min-width: 800px;
   min-height: 540px;
-  background: #FFF;
+  background: #303030;
 }
 .wrap {
   min-height: 100%;
@@ -149,7 +149,7 @@ a.desc:after {
   background: #707070;
   border-radius: 0 0 20px 20px;
   font-size: 12px;
-  width: 530px;
+  width: 531px;
   height: 40px;
   margin: 0 auto;
   margin-bottom: 30px;

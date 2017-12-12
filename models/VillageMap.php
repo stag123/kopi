@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-use app\types\ResourceType;
+use app\components\resource\Model as ResourceModel;
 
 /**
  * This is the model class for table "{{%village_map}}".
@@ -81,10 +81,10 @@ class VillageMap extends \app\models\BaseModel
 
     public static function generate($village_id, $grainCount = 3, $woodCount = 3, $ironCount = 3, $stoneCount = 3) {
         $map = array_merge(
-            array_fill(0, $grainCount, ResourceType::GRAIN),
-            array_fill(0, $woodCount, ResourceType::WOOD),
-            array_fill(0, $ironCount, ResourceType::IRON),
-            array_fill(0, $stoneCount, ResourceType::STONE),
+            array_fill(0, $grainCount, ResourceModel::GRAIN),
+            array_fill(0, $woodCount, ResourceModel::WOOD),
+            array_fill(0, $ironCount, ResourceModel::IRON),
+            array_fill(0, $stoneCount, ResourceModel::STONE),
             array_fill(0, self::SIZE * self::SIZE - $grainCount - $woodCount - $ironCount - $stoneCount, 0)
         );
 

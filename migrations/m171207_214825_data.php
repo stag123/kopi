@@ -4,7 +4,7 @@ use \app\components\BaseMigration;
 
 use app\models\Resource;
 use app\models\Map;
-use app\types\ResourceType;
+use app\components\resource\Model as ResourceModel;
 
 /**
  * Class m171207_214825_data
@@ -17,38 +17,30 @@ class m171207_214825_data extends BaseMigration
     public function safeUp()
     {
         $resource = new Resource();
-        $resource->id = ResourceType::IRON;
+        $resource->id = ResourceModel::IRON;
         $resource->name = 'Железо';
         $resource->code = 'iron';
         $resource->save();
 
         $resource = new Resource();
-        $resource->id = ResourceType::STONE;
+        $resource->id = ResourceModel::STONE;
         $resource->name = 'Камень';
         $resource->code = 'stone';
         $resource->save();
 
         $resource = new Resource();
-        $resource->id = ResourceType::WOOD;
+        $resource->id = ResourceModel::WOOD;
         $resource->name = 'Дерево';
         $resource->code = 'wood';
         $resource->save();
 
         $resource = new Resource();
-        $resource->id = ResourceType::GRAIN;
+        $resource->id = ResourceModel::GRAIN;
         $resource->name = 'Зерно';
         $resource->code = 'grain';
         $resource->save();
 
         Map::generate();
-
-        $this->commandResourceCreate->execute([
-            ResourceType::IRON => 100,
-            ResourceType::WOOD => 100,
-            ResourceType::GRAIN => 100,
-            ResourceType::STONE => 100,
-        ]);
-
     }
 
     /**

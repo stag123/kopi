@@ -1,12 +1,13 @@
 <?php
 
 /**
+ * @var app\components\BaseView $this
  * @var app\models\Village $village
  * @var app\models\VillageMap[][] $mapData
  */
-//var_dump($village);
 
-//die();
+$villageResource = $this->resourceQuery->fetch($village->villageResource);
+
 use app\assets\VillageAsset;
 
 VillageAsset::register($this);
@@ -14,16 +15,16 @@ VillageAsset::register($this);
 <div class="resource-container">
 
     <div class="resource wood">
-        <span class="count">80000 / 80000</span>
+        <span class="count"><span class="js_wood_count"><?= $villageResource->wood;?></span> / <span class="js_wood_max">80000</span></span>
     </div>
     <div class="resource iron">
-        <span class="count">80000 / 80000</span>
+        <span class="count"><span class="js_iron_count"><?= $villageResource->iron;?></span> / <span class="js_iron_max">80000</span>
     </div>
     <div class="resource stone">
-        <span class="count">80000 / 80000</span>
+        <span class="count"><span class="js_stone_count"><?= $villageResource->stone;?></span> / <span class="js_stone_max">80000</span>
     </div>
     <div class="resource grain">
-        <span class="count">80000 / 80000</span>
+        <span class="count"><span class="js_grain_count"><?= $villageResource->grain;?></span> / <span class="js_grain_max">80000</span>
     </div>
 </div>
 
@@ -55,16 +56,16 @@ VillageAsset::register($this);
         <div class="resource-container">
 
             <div class="resource wood">
-                <span class="count">100 в час</span>
+                <span class="count"><span class="js_wood_speed">100</span> в час</span>
             </div>
             <div class="resource iron">
-                <span class="count">100 в час</span>
+                <span class="count"><span class="js_iron_speed">100</span> в час</span>
             </div>
             <div class="resource stone">
-                <span class="count">100 в час</span>
+                <span class="count"><span class="js_stone_speed">100</span> в час</span>
             </div>
             <div class="resource grain">
-                <span class="count">100 в час</span>
+                <span class="count"><span class="js_grain_speed">100</span> в час</span>
             </div>
         </div>
 

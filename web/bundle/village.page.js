@@ -202,7 +202,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(2);
+var	fixUrls = __webpack_require__(4);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -519,6 +519,51 @@ function updateLink (link, options, obj) {
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(3);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/less-loader/dist/cjs.js!./site.less", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/less-loader/dist/cjs.js!./site.less");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "html,\nbody {\n  height: 540px;\n  min-width: 800px;\n  min-height: 540px;\n  background: #303030;\n}\n.wrap {\n  min-height: 100%;\n  height: auto;\n}\n.wrap > .container {\n  width: 100%;\n  height: 100%;\n  padding: 0;\n  margin: 0;\n}\n.footer {\n  height: 60px;\n  background-color: #f5f5f5;\n  border-top: 1px solid #ddd;\n  padding-top: 20px;\n  display: none;\n}\n.jumbotron {\n  text-align: center;\n  background-color: transparent;\n}\n.jumbotron .btn {\n  font-size: 21px;\n  padding: 14px 24px;\n}\n.not-set {\n  color: #c55;\n  font-style: italic;\n}\n/* add sorting icons to gridview sort links */\na.asc:after,\na.desc:after {\n  position: relative;\n  top: 1px;\n  display: inline-block;\n  font-family: 'Glyphicons Halflings';\n  font-style: normal;\n  font-weight: normal;\n  line-height: 1;\n  padding-left: 5px;\n}\na.asc:after {\n  content: \"\\E151\";\n}\na.desc:after {\n  content: \"\\E152\";\n}\n.sort-numerical a.asc:after {\n  content: \"\\E153\";\n}\n.sort-numerical a.desc:after {\n  content: \"\\E154\";\n}\n.sort-ordinal a.asc:after {\n  content: \"\\E155\";\n}\n.sort-ordinal a.desc:after {\n  content: \"\\E156\";\n}\n.grid-view th {\n  white-space: nowrap;\n}\n.hint-block {\n  display: block;\n  margin-top: 5px;\n  color: #999;\n}\n.error-summary {\n  color: #a94442;\n  background: #fdf7f7;\n  border-left: 3px solid #eed3d7;\n  padding: 10px 20px;\n  margin: 0 0 15px 0;\n}\n/* align the logout \"link\" (button in form) of the navbar */\n.navbar {\n  background: #f5f5f5;\n}\n.nav li > form > button.logout {\n  padding: 15px;\n  border: none;\n}\n.site-login {\n  position: absolute;\n  background: #fff;\n  top: 200px;\n  left: 50%;\n  width: 600px;\n  margin-left: -300px;\n  padding: 30px;\n  border-radius: 5px;\n}\n@media (max-width: 767px) {\n  .nav li > form > button.logout {\n    display: block;\n    text-align: left;\n    width: 100%;\n    padding: 10px 15px;\n  }\n}\n.nav > li > form > button.logout:focus,\n.nav > li > form > button.logout:hover {\n  text-decoration: none;\n}\n.nav > li > form > button.logout:focus {\n  outline: none;\n}\n.menu {\n  color: #FFF;\n  height: 60px;\n  font-size: 16px;\n  text-align: center;\n  padding: 5px;\n  clear: both;\n  background: #707070;\n  line-height: 50px;\n}\n.menu .menu-item {\n  height: 40px;\n  background-size: 40px 40px;\n  background-repeat: no-repeat;\n  padding-left: 45px;\n  margin-right: 10px;\n  vertical-align: middle;\n  display: inline-block;\n  color: #FFF;\n}\n.menu .menu-item.map {\n  background-image: url(/images/icons/map.png);\n}\n.menu .menu-item.village {\n  background-image: url(/images/icons/village.png);\n}\n.menu .menu-item.profile {\n  background-image: url(/images/icons/profile.png);\n}\n.menu .menu-item.exit {\n  background-image: url(/images/icons/exit.png);\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports) {
 
 
@@ -613,8 +658,6 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 3 */,
-/* 4 */,
 /* 5 */,
 /* 6 */,
 /* 7 */,
@@ -634,7 +677,32 @@ module.exports = __webpack_require__(12);
 "use strict";
 
 
+__webpack_require__(2);
+
 __webpack_require__(13);
+
+var _village2 = _interopRequireDefault(__webpack_require__(15));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var domCache = {
+  resourceWood: document.querySelector('.js_wood_count'),
+  resourceWoodHour: document.querySelector('.js_wood_speed'),
+  resourceWoodMax: document.querySelector('.js_wood_max'),
+  resourceGrain: document.querySelector('.js_grain_count'),
+  resourceGrainHour: document.querySelector('.js_grain_speed'),
+  resourceGrainMax: document.querySelector('.js_grain_max'),
+  resourceIron: document.querySelector('.js_iron_count'),
+  resourceIronHour: document.querySelector('.js_iron_speed'),
+  resourceIronMax: document.querySelector('.js_iron_max'),
+  resourceStone: document.querySelector('.js_stone_count'),
+  resourceStoneHour: document.querySelector('.js_stone_speed'),
+  resourceStoneMax: document.querySelector('.js_stone_max')
+};
+new _village2.default(domCache.resourceWood, domCache.resourceWoodHour.innerText, domCache.resourceWoodMax.innerText);
+new _village2.default(domCache.resourceGrain, domCache.resourceGrainHour.innerText, domCache.resourceGrainMax.innerText);
+new _village2.default(domCache.resourceStone, domCache.resourceStoneHour.innerText, domCache.resourceStoneMax.innerText);
+new _village2.default(domCache.resourceIron, domCache.resourceIronHour.innerText, domCache.resourceIronMax.innerText);
 
 /***/ }),
 /* 13 */
@@ -676,10 +744,72 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "html,\nbody {\n  height: 540px;\n  min-width: 800px;\n  min-height: 540px;\n  background: #FFF;\n}\n.wrap {\n  min-height: 100%;\n  height: auto;\n}\n.wrap > .container {\n  width: 100%;\n  height: 100%;\n  padding: 0;\n  margin: 0;\n}\n.footer {\n  height: 60px;\n  background-color: #f5f5f5;\n  border-top: 1px solid #ddd;\n  padding-top: 20px;\n  display: none;\n}\n.jumbotron {\n  text-align: center;\n  background-color: transparent;\n}\n.jumbotron .btn {\n  font-size: 21px;\n  padding: 14px 24px;\n}\n.not-set {\n  color: #c55;\n  font-style: italic;\n}\n/* add sorting icons to gridview sort links */\na.asc:after,\na.desc:after {\n  position: relative;\n  top: 1px;\n  display: inline-block;\n  font-family: 'Glyphicons Halflings';\n  font-style: normal;\n  font-weight: normal;\n  line-height: 1;\n  padding-left: 5px;\n}\na.asc:after {\n  content: \"\\E151\";\n}\na.desc:after {\n  content: \"\\E152\";\n}\n.sort-numerical a.asc:after {\n  content: \"\\E153\";\n}\n.sort-numerical a.desc:after {\n  content: \"\\E154\";\n}\n.sort-ordinal a.asc:after {\n  content: \"\\E155\";\n}\n.sort-ordinal a.desc:after {\n  content: \"\\E156\";\n}\n.grid-view th {\n  white-space: nowrap;\n}\n.hint-block {\n  display: block;\n  margin-top: 5px;\n  color: #999;\n}\n.error-summary {\n  color: #a94442;\n  background: #fdf7f7;\n  border-left: 3px solid #eed3d7;\n  padding: 10px 20px;\n  margin: 0 0 15px 0;\n}\n/* align the logout \"link\" (button in form) of the navbar */\n.navbar {\n  background: #f5f5f5;\n}\n.nav li > form > button.logout {\n  padding: 15px;\n  border: none;\n}\n.site-login {\n  position: absolute;\n  background: #fff;\n  top: 200px;\n  left: 50%;\n  width: 600px;\n  margin-left: -300px;\n  padding: 30px;\n  border-radius: 5px;\n}\n@media (max-width: 767px) {\n  .nav li > form > button.logout {\n    display: block;\n    text-align: left;\n    width: 100%;\n    padding: 10px 15px;\n  }\n}\n.nav > li > form > button.logout:focus,\n.nav > li > form > button.logout:hover {\n  text-decoration: none;\n}\n.nav > li > form > button.logout:focus {\n  outline: none;\n}\n.menu {\n  color: #FFF;\n  height: 60px;\n  font-size: 16px;\n  text-align: center;\n  padding: 5px;\n  clear: both;\n  background: #707070;\n  line-height: 50px;\n}\n.menu .menu-item {\n  height: 40px;\n  background-size: 40px 40px;\n  background-repeat: no-repeat;\n  padding-left: 45px;\n  margin-right: 10px;\n  vertical-align: middle;\n  display: inline-block;\n  color: #FFF;\n}\n.menu .menu-item.map {\n  background-image: url(/images/icons/map.png);\n}\n.menu .menu-item.village {\n  background-image: url(/images/icons/village.png);\n}\n.menu .menu-item.profile {\n  background-image: url(/images/icons/profile.png);\n}\n.menu .menu-item.exit {\n  background-image: url(/images/icons/exit.png);\n}\n.resource-container {\n  color: #FFF;\n  background: #707070;\n  border-radius: 0 0 20px 20px;\n  font-size: 12px;\n  width: 530px;\n  height: 40px;\n  margin: 0 auto;\n  margin-bottom: 30px;\n  padding: 10px;\n  z-index: 999;\n  position: relative;\n}\n.resource-container .resource {\n  height: 30px;\n  background-size: 30px 30px;\n  background-repeat: no-repeat;\n  padding-left: 35px;\n  margin-right: 10px;\n  display: inline-block;\n  width: 115px;\n  text-align: left;\n}\n.resource-container .resource .count {\n  vertical-align: middle;\n  line-height: 30px;\n  text-align: left;\n}\n.resource-container .resource.wood {\n  color: sandybrown;\n  color: #fff;\n  background-image: url(/images/icons/wood.png);\n}\n.resource-container .resource.grain {\n  color: orange;\n  color: #fff;\n  background-image: url(/images/icons/grain.png);\n}\n.resource-container .resource.iron {\n  color: skyblue;\n  color: #fff;\n  background-image: url(/images/icons/iron.png);\n}\n.resource-container .resource.stone {\n  color: lightsteelblue;\n  color: #fff;\n  background-image: url(/images/icons/stone.png);\n}\n.menu-left {\n  height: 500px;\n  width: 200px;\n  background: #909090;\n  position: absolute;\n  top: -70px;\n  right: 0;\n  text-align: left;\n  padding: 5px;\n  padding-top: 100px;\n}\n.menu-left .resource-container {\n  color: #FFF;\n  background: none;\n  border-radius: 0;\n  font-size: 12px;\n  width: 100px;\n  height: auto;\n  margin: 0;\n}\n.container {\n  background-image: url(/images/backgrounds/b2.png);\n}\n.village-container {\n  text-align: center;\n  width: 754px;\n  height: 500px;\n  padding-right: 200px;\n  position: relative;\n  margin: 0 auto;\n}\n.village-container .map {\n  padding: 2px;\n  width: 544px;\n  height: 384px;\n  overflow: hidden;\n  display: inline-block;\n}\n.village-container .map .selector {\n  display: none;\n}\n.village-container .map > :nth-child(even) .map-cell .index__background {\n  left: 45px;\n}\n.village-container .map > :nth-child(even) .map-cell .selector {\n  margin-left: 43px !important;\n}\n.village-container .map .map-row {\n  height: 60px;\n  line-height: 60px;\n  clear: both;\n  letter-spacing: -10px;\n  position: relative;\n}\n.village-container .map .map-row .map-cell {\n  height: 90px;\n  width: 90px;\n  display: inline-block;\n}\n.village-container .map .map-row .map-cell .index__background {\n  position: relative;\n  background-repeat: no-repeat;\n  background-size: 90px 90px;\n  height: 90px;\n  width: 90px;\n  display: inline-block;\n  z-index: 1;\n  background-image: url(/images/backgrounds/grass_05.png);\n}\n.village-container .map .map-row .map-cell .index__background.b1 {\n  background-image: url(/images/backgrounds/grass_16.png);\n}\n.village-container .map .map-row .map-cell .index__background.b2 {\n  background-image: url(/images/backgrounds/grass_15.png);\n}\n.village-container .map .map-row .map-cell .index__background.b3 {\n  background-image: url(/images/backgrounds/grass_13.png);\n}\n.village-container .map .map-row .map-cell .index__background.b4 {\n  background-image: url(/images/backgrounds/grass_04.png);\n}\n.village-container .map .map-row .map-cell .index__background.village {\n  background-image: url(/images/buildings/medieval_smallCastle.png);\n  cursor: pointer;\n}\n.village-container .map .map-row .map-cell .selector {\n  margin-left: -2px;\n}\n.village-container .map .map-row .map-cell.my-village .selector {\n  z-index: 3;\n  width: 94px;\n  display: block;\n  margin-top: 21.5px;\n  height: 47px;\n  background-color: skyblue;\n  z-index: 2;\n  position: absolute;\n}\n.village-container .map .map-row .map-cell.my-village .selector:before {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  top: -23.5px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 47px solid transparent;\n  border-right: 47px solid transparent;\n  border-bottom: 23.5px solid skyblue;\n}\n.village-container .map .map-row .map-cell.my-village .selector:after {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  bottom: -23.5px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 47px solid transparent;\n  border-right: 47px solid transparent;\n  border-top: 23.5px solid skyblue;\n}\n.village-container .map .map-row .map-cell.my-village .index__background {\n  z-index: 4;\n}\n.village-container .map .map-row .map-cell:hover .selector {\n  width: 94px;\n  display: block;\n  margin-top: 21.5px;\n  height: 47px;\n  background-color: lawngreen;\n  z-index: 2;\n  position: absolute;\n}\n.village-container .map .map-row .map-cell:hover .selector:before {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  top: -23.5px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 47px solid transparent;\n  border-right: 47px solid transparent;\n  border-bottom: 23.5px solid lawngreen;\n}\n.village-container .map .map-row .map-cell:hover .selector:after {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  bottom: -23.5px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 47px solid transparent;\n  border-right: 47px solid transparent;\n  border-top: 23.5px solid lawngreen;\n}\n.village-container .map .map-row .map-cell:hover .index__background {\n  z-index: 3;\n}\n", ""]);
+exports.push([module.i, "html,\nbody {\n  height: 540px;\n  min-width: 800px;\n  min-height: 540px;\n  background: #303030;\n}\n.wrap {\n  min-height: 100%;\n  height: auto;\n}\n.wrap > .container {\n  width: 100%;\n  height: 100%;\n  padding: 0;\n  margin: 0;\n}\n.footer {\n  height: 60px;\n  background-color: #f5f5f5;\n  border-top: 1px solid #ddd;\n  padding-top: 20px;\n  display: none;\n}\n.jumbotron {\n  text-align: center;\n  background-color: transparent;\n}\n.jumbotron .btn {\n  font-size: 21px;\n  padding: 14px 24px;\n}\n.not-set {\n  color: #c55;\n  font-style: italic;\n}\n/* add sorting icons to gridview sort links */\na.asc:after,\na.desc:after {\n  position: relative;\n  top: 1px;\n  display: inline-block;\n  font-family: 'Glyphicons Halflings';\n  font-style: normal;\n  font-weight: normal;\n  line-height: 1;\n  padding-left: 5px;\n}\na.asc:after {\n  content: \"\\E151\";\n}\na.desc:after {\n  content: \"\\E152\";\n}\n.sort-numerical a.asc:after {\n  content: \"\\E153\";\n}\n.sort-numerical a.desc:after {\n  content: \"\\E154\";\n}\n.sort-ordinal a.asc:after {\n  content: \"\\E155\";\n}\n.sort-ordinal a.desc:after {\n  content: \"\\E156\";\n}\n.grid-view th {\n  white-space: nowrap;\n}\n.hint-block {\n  display: block;\n  margin-top: 5px;\n  color: #999;\n}\n.error-summary {\n  color: #a94442;\n  background: #fdf7f7;\n  border-left: 3px solid #eed3d7;\n  padding: 10px 20px;\n  margin: 0 0 15px 0;\n}\n/* align the logout \"link\" (button in form) of the navbar */\n.navbar {\n  background: #f5f5f5;\n}\n.nav li > form > button.logout {\n  padding: 15px;\n  border: none;\n}\n.site-login {\n  position: absolute;\n  background: #fff;\n  top: 200px;\n  left: 50%;\n  width: 600px;\n  margin-left: -300px;\n  padding: 30px;\n  border-radius: 5px;\n}\n@media (max-width: 767px) {\n  .nav li > form > button.logout {\n    display: block;\n    text-align: left;\n    width: 100%;\n    padding: 10px 15px;\n  }\n}\n.nav > li > form > button.logout:focus,\n.nav > li > form > button.logout:hover {\n  text-decoration: none;\n}\n.nav > li > form > button.logout:focus {\n  outline: none;\n}\n.menu {\n  color: #FFF;\n  height: 60px;\n  font-size: 16px;\n  text-align: center;\n  padding: 5px;\n  clear: both;\n  background: #707070;\n  line-height: 50px;\n}\n.menu .menu-item {\n  height: 40px;\n  background-size: 40px 40px;\n  background-repeat: no-repeat;\n  padding-left: 45px;\n  margin-right: 10px;\n  vertical-align: middle;\n  display: inline-block;\n  color: #FFF;\n}\n.menu .menu-item.map {\n  background-image: url(/images/icons/map.png);\n}\n.menu .menu-item.village {\n  background-image: url(/images/icons/village.png);\n}\n.menu .menu-item.profile {\n  background-image: url(/images/icons/profile.png);\n}\n.menu .menu-item.exit {\n  background-image: url(/images/icons/exit.png);\n}\n.resource-container {\n  color: #FFF;\n  background: #707070;\n  border-radius: 0 0 20px 20px;\n  font-size: 12px;\n  width: 531px;\n  height: 40px;\n  margin: 0 auto;\n  margin-bottom: 30px;\n  padding: 10px;\n  z-index: 999;\n  position: relative;\n}\n.resource-container .resource {\n  height: 30px;\n  background-size: 30px 30px;\n  background-repeat: no-repeat;\n  padding-left: 35px;\n  margin-right: 10px;\n  display: inline-block;\n  width: 115px;\n  text-align: left;\n}\n.resource-container .resource .count {\n  vertical-align: middle;\n  line-height: 30px;\n  text-align: left;\n}\n.resource-container .resource.wood {\n  color: sandybrown;\n  color: #fff;\n  background-image: url(/images/icons/wood.png);\n}\n.resource-container .resource.grain {\n  color: orange;\n  color: #fff;\n  background-image: url(/images/icons/grain.png);\n}\n.resource-container .resource.iron {\n  color: skyblue;\n  color: #fff;\n  background-image: url(/images/icons/iron.png);\n}\n.resource-container .resource.stone {\n  color: lightsteelblue;\n  color: #fff;\n  background-image: url(/images/icons/stone.png);\n}\n.menu-left {\n  height: 500px;\n  width: 200px;\n  background: #909090;\n  position: absolute;\n  top: -70px;\n  right: 0;\n  text-align: left;\n  padding: 5px;\n  padding-top: 100px;\n}\n.menu-left .resource-container {\n  color: #FFF;\n  background: none;\n  border-radius: 0;\n  font-size: 12px;\n  width: 100px;\n  height: auto;\n  margin: 0;\n}\n.container {\n  background-image: url(/images/backgrounds/b2.png);\n}\n.village-container {\n  text-align: center;\n  width: 754px;\n  height: 500px;\n  padding-right: 200px;\n  position: relative;\n  margin: 0 auto;\n}\n.village-container .map {\n  padding: 2px;\n  width: 544px;\n  height: 384px;\n  overflow: hidden;\n  display: inline-block;\n}\n.village-container .map .selector {\n  display: none;\n}\n.village-container .map > :nth-child(even) .map-cell .index__background {\n  left: 45px;\n}\n.village-container .map > :nth-child(even) .map-cell .selector {\n  margin-left: 43px !important;\n}\n.village-container .map .map-row {\n  height: 60px;\n  line-height: 60px;\n  clear: both;\n  letter-spacing: -10px;\n  position: relative;\n}\n.village-container .map .map-row .map-cell {\n  height: 90px;\n  width: 90px;\n  display: inline-block;\n}\n.village-container .map .map-row .map-cell .index__background {\n  position: relative;\n  background-repeat: no-repeat;\n  background-size: 90px 90px;\n  height: 90px;\n  width: 90px;\n  display: inline-block;\n  z-index: 1;\n  background-image: url(/images/backgrounds/grass_05.png);\n}\n.village-container .map .map-row .map-cell .index__background.b1 {\n  background-image: url(/images/backgrounds/grass_16.png);\n}\n.village-container .map .map-row .map-cell .index__background.b2 {\n  background-image: url(/images/backgrounds/grass_15.png);\n}\n.village-container .map .map-row .map-cell .index__background.b3 {\n  background-image: url(/images/backgrounds/grass_13.png);\n}\n.village-container .map .map-row .map-cell .index__background.b4 {\n  background-image: url(/images/backgrounds/grass_04.png);\n}\n.village-container .map .map-row .map-cell .index__background.village {\n  background-image: url(/images/buildings/medieval_smallCastle.png);\n  cursor: pointer;\n}\n.village-container .map .map-row .map-cell .selector {\n  margin-left: -2px;\n}\n.village-container .map .map-row .map-cell.my-village .selector {\n  z-index: 3;\n  width: 94px;\n  display: block;\n  margin-top: 21.5px;\n  height: 47px;\n  background-color: skyblue;\n  z-index: 2;\n  position: absolute;\n}\n.village-container .map .map-row .map-cell.my-village .selector:before {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  top: -23.5px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 47px solid transparent;\n  border-right: 47px solid transparent;\n  border-bottom: 23.5px solid skyblue;\n}\n.village-container .map .map-row .map-cell.my-village .selector:after {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  bottom: -23.5px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 47px solid transparent;\n  border-right: 47px solid transparent;\n  border-top: 23.5px solid skyblue;\n}\n.village-container .map .map-row .map-cell.my-village .index__background {\n  z-index: 4;\n}\n.village-container .map .map-row .map-cell:hover .selector {\n  width: 94px;\n  display: block;\n  margin-top: 21.5px;\n  height: 47px;\n  background-color: lawngreen;\n  z-index: 2;\n  position: absolute;\n}\n.village-container .map .map-row .map-cell:hover .selector:before {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  top: -23.5px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 47px solid transparent;\n  border-right: 47px solid transparent;\n  border-bottom: 23.5px solid lawngreen;\n}\n.village-container .map .map-row .map-cell:hover .selector:after {\n  content: \"\";\n  position: absolute;\n  z-index: 2;\n  bottom: -23.5px;\n  left: 0;\n  width: 0;\n  height: 0;\n  border-left: 47px solid transparent;\n  border-right: 47px solid transparent;\n  border-top: 23.5px solid lawngreen;\n}\n.village-container .map .map-row .map-cell:hover .index__background {\n  z-index: 3;\n}\n", ""]);
 
 // exports
 
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ResourceVillage =
+/*#__PURE__*/
+function () {
+  function ResourceVillage(element, speedHour, max) {
+    _classCallCheck(this, ResourceVillage);
+
+    this.element = element;
+    this.speed = speedHour;
+    this.start_time = ResourceVillage.getTime();
+    this.max = max;
+    this.resource_start = parseInt(this.element.innerHTML);
+    this.startTimer();
+  }
+
+  _createClass(ResourceVillage, [{
+    key: "update",
+    value: function update() {
+      var res = Math.floor(this.speed * (ResourceVillage.getTime() - this.start_time) / 3600);
+
+      if (this.resource_start + res > this.max) {
+        this.element.innerHTML = this.max;
+        return;
+      }
+
+      this.element.innerHTML = this.resource_start + res;
+    }
+  }, {
+    key: "startTimer",
+    value: function startTimer() {
+      this.timer = window.setInterval(this.update.bind(this), 100);
+    }
+  }], [{
+    key: "getTime",
+    value: function getTime() {
+      return new Date().getTime() / 1000;
+    }
+  }]);
+
+  return ResourceVillage;
+}();
+
+var _default = ResourceVillage;
+exports.default = _default;
 
 /***/ })
 /******/ ]);
