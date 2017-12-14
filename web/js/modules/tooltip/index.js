@@ -17,8 +17,6 @@ div.innerHTML = TooltipTemplate();
 
 let _tooltipElement = div.querySelector(".tooltip");
 
-console.log(div);
-
 let _tooltipText = _tooltipElement.querySelector(".tooltip-inner"),
     _tooltipVisible = false,
     _tooltipArrow = _tooltipElement.querySelector(".arrow");
