@@ -1,6 +1,7 @@
 import "./less/site.less";
 import "./less/village.less";
 import ResourceVillage from "../modules/resource/village";
+import "../modules/tooltip";
 
 let domCache = {
     resourceWood: document.querySelector('.js_wood_count'),

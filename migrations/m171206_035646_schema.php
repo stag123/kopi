@@ -33,10 +33,10 @@ class m171206_035646_schema extends BaseMigration
         /** Ресурсы */
         $this->createTable('{{%resource}}', [
             'id' => $this->primaryKey(),
-            'wood' => $this->integer()->defaultValue(0),
-            'grain' => $this->integer()->defaultValue(0),
-            'iron' => $this->integer()->defaultValue(0),
-            'stone' => $this->integer()->defaultValue(0),
+            'wood' => $this->double(3)->defaultValue(0),
+            'grain' => $this->double(3)->defaultValue(0),
+            'iron' => $this->double(3)->defaultValue(0),
+            'stone' => $this->double(3)->defaultValue(0),
         ], $tableOptions);
         
         /** Карта и деревня */
@@ -57,7 +57,7 @@ class m171206_035646_schema extends BaseMigration
             'name'                => $this->string(),
             'village_resource_id' => $this->integer()->notNull(),
             'created_at'          => $this->datetime(),
-            'resource_updated_at' => $this->datetime(),
+            'resource_updated_at' => $this->bigInteger(),
         ], $tableOptions);
 
         $this->addForeignKey(

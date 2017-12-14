@@ -24,6 +24,7 @@ class VillageMap extends \app\models\BaseModel
     const STATUS_FREE = 2;
 
     const SIZE = 5;
+    const RESOURCE_COUNT = 3;
 
 
     const TYPE_IRON = 1;
@@ -82,7 +83,7 @@ class VillageMap extends \app\models\BaseModel
         return $this->hasOne(Village::className(), ['id' => 'village_id']);
     }
 
-    public static function generate($village_id, $grainCount = 3, $woodCount = 3, $ironCount = 3, $stoneCount = 3) {
+    public static function generate($village_id, $grainCount = self::RESOURCE_COUNT, $woodCount = self::RESOURCE_COUNT, $ironCount = self::RESOURCE_COUNT, $stoneCount = self::RESOURCE_COUNT) {
         $map = array_merge(
             array_fill(0, $grainCount, self::TYPE_GRAIN),
             array_fill(0, $woodCount, self::TYPE_WOOD),

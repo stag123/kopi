@@ -2,13 +2,21 @@
 
 namespace app\models;
 
+use app\components\InjectionAwareInterface;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 
 
-class BaseModel extends \yii\db\ActiveRecord {
+class BaseModel extends \yii\db\ActiveRecord implements InjectionAwareInterface {
 
     public static $behaviors = [];
+
+    public function __get($name) {
+        if (\Yii::$app->has($name)) {
+            return \Yii::$app->get($name);
+        }
+        return parent::__get($name);
+    }
 
     public function behaviors()
     {

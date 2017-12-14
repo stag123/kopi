@@ -213,7 +213,21 @@ a.desc:after {
   margin: 0;
 }
 .container {
-  background-image: url(/images/backgrounds/b2.png);
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+.container::before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .5;
+  z-index: -1;
+  background-image: url(/images/backgrounds/b3.png);
 }
 .village-container {
   text-align: center;
@@ -252,6 +266,7 @@ a.desc:after {
   display: inline-block;
 }
 .village-container .map .map-row .map-cell .index__background {
+  cursor: pointer;
   position: relative;
   background-repeat: no-repeat;
   background-size: 90px 90px;

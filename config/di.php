@@ -15,3 +15,11 @@ Yii::$app->set('currentUser', function() {
     $user = app\models\User::findOne(Yii::$app->user->id);
     return $user;
 });
+
+Yii::$app->set('commandVillageResourceCalculate', function() {
+    return new app\components\village\resource\commands\Calculate();
+});
+
+Yii::$app->set('villageResourceQuery', function() {
+    return new app\components\village\resource\Query();
+});

@@ -1,0 +1,95 @@
+@color-tooltip-background: #303030;
+
+.offscreen {
+    position: absolute;
+    top: -12000px;
+    left: -12000px;
+    opacity: .0000001;
+}
+
+.transform (@rule) {
+    -webkit-transform: @rule;
+    -moz-transform: @rule;
+    -ms-transform: @rule;
+    -o-transform: @rule;
+    transform: @rule;
+}
+
+.transition (@rule) {
+    -webkit-transition: @rule;
+    -moz-transition: @rule;
+    -ms-transition: @rule;
+    -o-transition: @rule;
+    transition: @rule;
+}
+
+.tooltip {
+    position: absolute;
+    display: block;
+    
+    max-width: 350px;
+    
+    padding: 5px 10px;
+    
+    border-radius: 3px;
+    
+    background: @color-tooltip-background;
+    
+    color: #fff;
+    opacity: 0;
+    
+    letter-spacing: 0.1px;
+    
+    z-index: 500;
+    
+    .transform(translateZ(0));
+    
+    .offscreen();
+    .transition(opacity 150ms ease);
+    
+    will-change: top, left, opacity;
+    
+    .tooltip-inner {
+        background-color: transparent;
+    }
+    .arrow {
+        content: '';
+        
+        display: block;
+        position: absolute;
+        
+        top: 100%;
+        left: 50%;
+        
+        margin-left: -5px;
+        
+        width: 0;
+        height: 0;
+        
+        border-style: solid;
+        border-width: 5px 5px 0 5px;
+        border-color: @color-tooltip-background transparent transparent transparent;
+    }
+    
+    &.below {
+        .arrow {
+            top: -5px;
+            
+            border-width: 0 5px 5px 5px;
+            border-color: transparent transparent @color-tooltip-background transparent;
+        }
+        
+    }
+    
+    p {
+        margin: 0;
+        padding: 0;
+        font-size: 12px !important;
+        line-height: 14px !important;
+    }
+    
+    a {
+        color: #FFF;
+    }
+    
+}

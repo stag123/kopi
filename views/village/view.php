@@ -6,7 +6,8 @@
  * @var app\models\VillageMap[][] $mapData
  */
 
-$villageResource = $village->villageResource;
+$villageResource = $this->villageResourceQuery->fetchActual($village);
+$speedResource = $this->villageResourceQuery->fetchHour($village);
 
 use app\assets\VillageAsset;
 
@@ -37,13 +38,13 @@ VillageAsset::register($this);
                         ?>
                         <div class="map-cell pos<?= $i;?>_<?= $j;?> <?=  $map->buildVillage ? 'build' : '';?>">
                             <div class="selector"></div>
-                            <a class="index__background <?= $map->buildVillage ? 'build" href="'. Url::to(['build/view', 'id' => $map->buildVillage->id]) .'"' : 'b' . $map->type . '"';?>">
+                            <a data-tooltip="Нажмите, чтобы строить" class="index__background <?= $map->buildVillage ? 'build" href="'. Url::to(['build/view', 'id' => $map->buildVillage->id]) .'"' : 'b' . $map->type . '"';?>">
                             </a>
                         </div>
                     <?php } else { ?>
                         <div class="map-cell pos<?= $i;?>_<?= $j;?>">
                             <div class="selector"></div>
-                            <a class="index__background"></a>
+                            <a data-tooltip="Нажмите, чтобы строить" class="index__background"></a>
                         </div>
                     <? } ?>
                 <?php } ?>
@@ -56,16 +57,16 @@ VillageAsset::register($this);
         <div class="resource-container">
 
             <div class="resource wood">
-                <span class="count"><span class="js_wood_speed">100</span> в час</span>
+                <span class="count"><span class="js_wood_speed"><?= $speedResource->wood;?></span> в час</span>
             </div>
             <div class="resource iron">
-                <span class="count"><span class="js_iron_speed">100</span> в час</span>
+                <span class="count"><span class="js_iron_speed"><?= $speedResource->iron;?></span> в час</span>
             </div>
             <div class="resource stone">
-                <span class="count"><span class="js_stone_speed">100</span> в час</span>
+                <span class="count"><span class="js_stone_speed"><?= $speedResource->stone;?></span> в час</span>
             </div>
             <div class="resource grain">
-                <span class="count"><span class="js_grain_speed">100</span> в час</span>
+                <span class="count"><span class="js_grain_speed"><?= $speedResource->grain;?></span> в час</span>
             </div>
         </div>
 

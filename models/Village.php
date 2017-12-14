@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Resource as ResourceModel;
 
 /**
  * This is the model class for table "{{%village}}".
@@ -22,7 +23,7 @@ use Yii;
  * @property TaskTrade[] $taskTrades0
  * @property TaskUnit[] $taskUnits
  * @property UnitGroup[] $unitGroups
- * @property Resource $villageResource
+ * @property ResourceModel $villageResource
  * @property Map $map
  * @property User $user
  * @property VillageMap[] $villageMaps

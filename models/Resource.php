@@ -8,10 +8,10 @@ use Yii;
  * This is the model class for table "{{%resource}}".
  *
  * @property integer $id
- * @property integer $wood
- * @property integer $grain
- * @property integer $iron
- * @property integer $stone
+ * @property double $wood
+ * @property double $grain
+ * @property double $iron
+ * @property double $stone
  *
  * @property Build[] $builds
  * @property Build $build
@@ -36,7 +36,7 @@ class Resource extends \app\models\BaseModel
     public function rules()
     {
         return [
-            [['wood', 'grain', 'iron', 'stone'], 'integer'],
+            [['wood', 'grain', 'iron', 'stone'], 'number'],
         ];
     }
 
