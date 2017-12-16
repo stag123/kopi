@@ -9,11 +9,11 @@ use Yii;
  *
  * @property integer $id
  * @property integer $village_id
- * @property integer $build_village_id
+ * @property integer $village_map_id
  * @property integer $task_id
  *
  * @property Task $task
- * @property BuildVillage $buildVillage
+ * @property VillageMap $villageMap
  * @property Village $village
  */
 class TaskBuild extends \app\models\BaseModel
@@ -32,11 +32,11 @@ class TaskBuild extends \app\models\BaseModel
     public function rules()
     {
         return [
-            [['village_id', 'build_village_id', 'task_id'], 'required'],
-            [['village_id', 'build_village_id', 'task_id'], 'integer'],
+            [['village_id', 'village_map_id', 'task_id'], 'required'],
+            [['village_id', 'village_map_id', 'task_id'], 'integer'],
             [['task_id'], 'unique'],
             [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['task_id' => 'id']],
-            [['build_village_id'], 'exist', 'skipOnError' => true, 'targetClass' => BuildVillage::className(), 'targetAttribute' => ['build_village_id' => 'id']],
+            [['village_map_id'], 'exist', 'skipOnError' => true, 'targetClass' => VillageMap::className(), 'targetAttribute' => ['village_map_id' => 'id']],
             [['village_id'], 'exist', 'skipOnError' => true, 'targetClass' => Village::className(), 'targetAttribute' => ['village_id' => 'id']],
         ];
     }
@@ -49,7 +49,7 @@ class TaskBuild extends \app\models\BaseModel
         return [
             'id' => 'ID',
             'village_id' => 'Village ID',
-            'build_village_id' => 'Build Village ID',
+            'village_map_id' => 'Village Map ID',
             'task_id' => 'Task ID',
         ];
     }
@@ -65,9 +65,9 @@ class TaskBuild extends \app\models\BaseModel
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBuildVillage()
+    public function getVillageMap()
     {
-        return $this->hasOne(BuildVillage::className(), ['id' => 'build_village_id']);
+        return $this->hasOne(VillageMap::className(), ['id' => 'village_map_id']);
     }
 
     /**

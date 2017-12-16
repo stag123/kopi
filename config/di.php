@@ -23,3 +23,7 @@ Yii::$app->set('commandVillageResourceCalculate', function() {
 Yii::$app->set('villageResourceQuery', function() {
     return new app\components\village\resource\Query();
 });
+
+Yii::$app->set('buildFactory', function() {
+    return new app\components\village\build\BuildFactory();
+});

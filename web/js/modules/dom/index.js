@@ -1,5 +1,6 @@
 /** DOM */
 const UNDIMESIONED_PROPS = "zoom,opacity,z-index";
+import Delegate from "dom-delegate/lib";
 
 class DOM {
     /**
@@ -48,6 +49,17 @@ class DOM {
         }
 
         return DOM;
+    }
+
+    static attr (element, name, value) {
+        if (typeof value === "undefined") {
+            return element.getAttribute(name);
+        }
+        element.setAttribute(name, value);
+    }
+
+    static data(element, name, value) {
+        return DOM.attr(element, "data-" + name, value);
     }
 
     /**
@@ -171,6 +183,16 @@ class DOM {
         box.rightOffset = Math.abs(window.innerWidth - box.right);
 
         return box;
+    }
+
+    static on(element, selector, type, callback) {
+        var delegate = new Delegate(element);
+        delegate.on(type, selector, callback);
+    }
+
+    static off(element, selector, type, callback) {
+        var delegate = new Delegate(element);
+        delegate.off(type, selector, callback);
     }
 }
 

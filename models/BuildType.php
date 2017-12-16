@@ -8,7 +8,9 @@ use Yii;
  * This is the model class for table "{{%build_type}}".
  *
  * @property integer $id
+ * @property integer $map_type
  * @property string $name
+ * @property string $description
  * @property string $code
  *
  * @property Build[] $builds
@@ -29,7 +31,9 @@ class BuildType extends \app\models\BaseModel
     public function rules()
     {
         return [
-            [['name', 'code'], 'string', 'max' => 255],
+            [['map_type'], 'required'],
+            [['map_type'], 'integer'],
+            [['name', 'description', 'code'], 'string', 'max' => 255],
         ];
     }
 
@@ -40,7 +44,9 @@ class BuildType extends \app\models\BaseModel
     {
         return [
             'id' => 'ID',
+            'map_type' => 'Map Type',
             'name' => 'Name',
+            'description' => 'Description',
             'code' => 'Code',
         ];
     }

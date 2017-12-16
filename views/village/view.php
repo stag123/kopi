@@ -30,23 +30,20 @@ VillageAsset::register($this);
 </div>
 
 <div class="village-container">
-    <div class="map">
+    <div class="map js_map">
         <?php foreach ($mapData as $i => $mapp) {?>
             <div class="map-row">
                 <?php foreach ($mapp as $j => $map ) {
                     if ($map) {
                         ?>
-                        <div class="map-cell pos<?= $i;?>_<?= $j;?> <?=  $map->buildVillage ? 'build' : '';?>">
+                        <div class="map-cell pos<?= $i;?>_<?= $j;?> <?=  $map->build_id ? 'build' : '';?>">
                             <div class="selector"></div>
-                            <a data-tooltip="Нажмите, чтобы строить" class="index__background <?= $map->buildVillage ? 'build" href="'. Url::to(['build/view', 'id' => $map->buildVillage->id]) .'"' : 'b' . $map->type . '"';?>">
+                            <a data-tooltip="Нажмите, чтобы строить"
+                               data-id="<?=$map->id;?>"
+                               class="js_build index__background <?= $map->build_id ? 'build" href="'. Url::to(['build/view', 'id' => $map->buildVillage->id]) .'"' : 'b' . $map->type . '"';?>">
                             </a>
                         </div>
-                    <?php } else { ?>
-                        <div class="map-cell pos<?= $i;?>_<?= $j;?>">
-                            <div class="selector"></div>
-                            <a data-tooltip="Нажмите, чтобы строить" class="index__background"></a>
-                        </div>
-                    <? } ?>
+                    <?php } ?>
                 <?php } ?>
             </div>
         <?php } ?>

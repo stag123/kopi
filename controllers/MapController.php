@@ -3,10 +3,9 @@
 namespace app\controllers;
 
 use yii\web\BadRequestHttpException;
-use yii\web\Controller;
 use app\models\Map;
 
-class MapController extends Controller
+class MapController extends BaseController
 {
     /**
      * Displays homepage.
@@ -15,8 +14,8 @@ class MapController extends Controller
      */
     public function actionIndex()
     {
-        $x = \Yii::$app->request->get('x');
-        $y = \Yii::$app->request->get('y');
+        $x = $this->request->get('x');
+        $y = $this->request->get('y');
 
         if (!Map::check($x, $y)) {
             throw new BadRequestHttpException("Error map position");

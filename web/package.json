@@ -12,6 +12,7 @@
     "node-lessify": "latest",
     "object-assign": "^4.1.1",
     "require-globify": "latest",
+    "dom-delegate": "^2.0.3",
     "watchify": "latest"
   },
   "browserify": {
@@ -35,6 +36,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babelify": "^8.0.0",
     "css-loader": "^0.28.7",
+    "dom-delegate": "^2.0.3",
     "file-loader": "^1.1.5",
     "handlebars": "^4.0.11",
     "less": "^2.7.3",

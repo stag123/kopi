@@ -1,4 +1,5 @@
 module.exports = {
+    devtool: 'eval-source-map',
     entry : {
         map: ["./js/pages/map.js"],
         site: ["./js/pages/site.js"],

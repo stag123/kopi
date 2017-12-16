@@ -14,7 +14,7 @@ use app\models\Resource as ResourceModel;
  * @property string $name
  * @property integer $village_resource_id
  * @property string $created_at
- * @property string $resource_updated_at
+ * @property integer $resource_updated_at
  *
  * @property TaskAttack[] $taskAttacks
  * @property TaskAttack[] $taskAttacks0
@@ -45,8 +45,8 @@ class Village extends \app\models\BaseModel
     {
         return [
             [['map_id', 'user_id', 'village_resource_id'], 'required'],
-            [['map_id', 'user_id', 'village_resource_id'], 'integer'],
-            [['created_at', 'resource_updated_at'], 'safe'],
+            [['map_id', 'user_id', 'village_resource_id', 'resource_updated_at'], 'integer'],
+            [['created_at'], 'safe'],
             [['name'], 'string', 'max' => 255],
             [['map_id'], 'unique'],
             [['village_resource_id'], 'unique'],
