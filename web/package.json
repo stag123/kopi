@@ -21,12 +21,8 @@
     ]
   },
   "scripts": {
-    "build-js": "webpack main.js bundle.js",
-    "watch-js": "watchify -g require-globify -g [ hbsfy -e html,hbs ] -g node-lessify app.js -o bundle.js",
-    "watch-css": "catw -c 'lessc -' '../css/*.less' -o ../css/bundle.css -v",
-    "build-css": "catw -c 'lessc -' '../css/*.less' > ../css/bundle.css",
-    "watch": "npm run watch-css & npm run watch-js",
-    "build": "npm run build-css && npm run build-js"
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
