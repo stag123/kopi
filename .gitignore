@@ -30,3 +30,5 @@ tests/_output/*
 tests/_support/_generated
 
 web/node_modules
+web/assets
+web/bundle/*.js

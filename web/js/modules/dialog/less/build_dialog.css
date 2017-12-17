@@ -1,0 +1,16 @@
+.dialog-wrapper {
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 150;
+  height: 100%;
+  width: 100%;
+  visibility: hidden;
+  opacity: 0;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.dialog-wrapper.open {
+  visibility: visible;
+  opacity: 1;
+}
