@@ -1,0 +1,28 @@
+.offscreen {
+    position: absolute;
+    top: -12000px;
+    left: -12000px;
+    opacity: .0000001;
+}
+
+.shadow(@params) {
+    -webkit-box-shadow: @params;
+    -moz-box-shadow: @params;
+    box-shadow: @params;
+}
+
+.transform (@rule) {
+    -webkit-transform: @rule;
+    -moz-transform: @rule;
+    -ms-transform: @rule;
+    -o-transform: @rule;
+    transform: @rule;
+}
+
+.transition (@rule) {
+    -webkit-transition: @rule;
+    -moz-transition: @rule;
+    -ms-transition: @rule;
+    -o-transition: @rule;
+    transition: @rule;
+}

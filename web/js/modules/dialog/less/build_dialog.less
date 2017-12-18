@@ -1,27 +1,68 @@
-.dialog-wrapper {
-    top: 0;
-    left: 0;
-    position: fixed;
-    z-index: 150;
+@import "./base.less";
+
+.list {
+    margin: 20px 0;
     
-    height: 100%;
-    width: 100%;
-    
-    visibility: hidden;
-    opacity: 0;
-    
-    overflow: auto;
-    
-    background-color: rgba(0, 0, 0, .6);
-    
-    &.open {
-        visibility: visible;
-        opacity: 1;
-        
-       // .transition(visibility 0s, opacity 0.3s ease);
+    .name {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 10px;
     }
     
-    &.closed {
-       // .transition(visibility 0.3s, opacity 0.3s ease);
+    .item {
+        margin: 20px 0;
+        padding-left: 70px;
+        
+        background-repeat: no-repeat;
+        background-size: 60px 60px;
+        
+        &.stone_farm {
+            background-image: url(/images/buildings/stone.png);
+        }
+    
+        &.army {
+            background-image: url(/images/buildings/army.png);
+        }
+    
+        &.grain_farm {
+            background-image: url(/images/buildings/grain.png);
+        }
+    
+        &.granary {
+            background-image: url(/images/buildings/granary.png);
+        }
+    
+        &.wood_farm {
+            background-image: url(/images/buildings/wood.png);
+        }
+    
+        &.iron_farm {
+            background-image: url(/images/buildings/iron.png);
+        }
+    
+        &.stock {
+            background-image: url(/images/buildings/stock.png);
+        }
+        
+        .desc {
+            margin-bottom:20px;
+        }
+        
+        .price {
+            margin-bottom:20px;
+        }
+        .controls {
+            margin-bottom:20px;
+            .button {
+                height: 20px;
+                padding: 5px 10px;
+                border-radius: 5px;
+                background-color: #ccc;
+                color: #303030;
+                font-size: 14px;
+                font-weight: 700;
+                text-decoration: none;
+            }
+        }
     }
 }

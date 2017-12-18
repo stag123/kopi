@@ -30,7 +30,7 @@ new ResourceVillage(domCache.resourceGrain, domCache.resourceGrainHour.innerText
 new ResourceVillage(domCache.resourceStone, domCache.resourceStoneHour.innerText, domCache.resourceStoneMax.innerText);
 new ResourceVillage(domCache.resourceIron, domCache.resourceIronHour.innerText, domCache.resourceIronMax.innerText);
 
-DOM.on(domCache.buildMap, ".js_build", "click", (e, target) => {
+DOM.on(domCache.buildMap, "click", ".js_build", (e, target) => {
    // debugger;
     new BuildDialog(DOM.data(target, "id"));
 });

@@ -14,3 +14,80 @@
   visibility: visible;
   opacity: 1;
 }
+.dialog-wrapper .modal {
+  position: relative;
+  top: 50px;
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  padding: 20px;
+  width: 600px;
+  height: auto;
+  margin-bottom: 30px;
+  background: transparent;
+  margin-left: -300px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 2px 40px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 2px 40px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 2px 40px;
+  background-color: #FFF;
+  border-radius: 5px;
+}
+.dialog-wrapper .modal .title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #303030;
+}
+.list {
+  margin: 20px 0;
+}
+.list .name {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.list .item {
+  margin: 20px 0;
+  padding-left: 70px;
+  background-repeat: no-repeat;
+  background-size: 60px 60px;
+}
+.list .item.stone_farm {
+  background-image: url(/images/buildings/stone.png);
+}
+.list .item.army {
+  background-image: url(/images/buildings/army.png);
+}
+.list .item.grain_farm {
+  background-image: url(/images/buildings/grain.png);
+}
+.list .item.granary {
+  background-image: url(/images/buildings/granary.png);
+}
+.list .item.wood_farm {
+  background-image: url(/images/buildings/wood.png);
+}
+.list .item.iron_farm {
+  background-image: url(/images/buildings/iron.png);
+}
+.list .item.stock {
+  background-image: url(/images/buildings/stock.png);
+}
+.list .item .desc {
+  margin-bottom: 20px;
+}
+.list .item .price {
+  margin-bottom: 20px;
+}
+.list .item .controls {
+  margin-bottom: 20px;
+}
+.list .item .controls .button {
+  height: 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #ccc;
+  color: #303030;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}

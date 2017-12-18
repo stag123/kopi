@@ -185,14 +185,14 @@ class DOM {
         return box;
     }
 
-    static on(element, selector, type, callback) {
+    static on(element, type, selectorOrCallback, callback) {
         var delegate = new Delegate(element);
-        delegate.on(type, selector, callback);
+        delegate.on(type, selectorOrCallback, callback);
     }
 
-    static off(element, selector, type, callback) {
+    static off(element, type, selectorOrCallback, callback) {
         var delegate = new Delegate(element);
-        delegate.off(type, selector, callback);
+        delegate.off(type, selectorOrCallback, callback);
     }
 }
 

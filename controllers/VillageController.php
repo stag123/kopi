@@ -39,7 +39,7 @@ class VillageController extends BaseController
                 $data = [$build->toArray()];
             }
         } else {
-            $this->buildFactory->createForVillage($map->village);
+            $data = $this->buildFactory->createForVillage($map->village);
         }
         return $this->asJson($data);
     }

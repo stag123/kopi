@@ -1,3 +1,39 @@
+.offscreen {
+  position: absolute;
+  top: -12000px;
+  left: -12000px;
+  opacity: .0000001;
+}
+.resource {
+  height: 20px;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  padding-left: 25px;
+  margin-right: 10px;
+  display: inline-block;
+  width: 50px;
+  text-align: left;
+}
+.resource:last-child {
+  margin-right: 0;
+}
+.resource .count {
+  vertical-align: middle;
+  line-height: 20px;
+  text-align: left;
+}
+.resource.wood {
+  background-image: url(/images/icons/wood2.png);
+}
+.resource.grain {
+  background-image: url(/images/icons/grain2.png);
+}
+.resource.iron {
+  background-image: url(/images/icons/iron2.png);
+}
+.resource.stone {
+  background-image: url(/images/icons/stone2.png);
+}
 html,
 body {
   height: 540px;

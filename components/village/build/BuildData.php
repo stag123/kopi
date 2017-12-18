@@ -11,7 +11,7 @@ class BuildData extends \yii\base\Model {
     public $resource_size = 0;
     public $level;
     public $build_time;
-    public $priceResource;
+    public $price;
     public $changeResource;
     public $build;
 
@@ -21,7 +21,7 @@ class BuildData extends \yii\base\Model {
         $model = new BuildData();
         $model->build_time = 200;
         $model->level = $level;
-        $model->priceResource = $priceResource;
+        $model->price = $priceResource;
         $model->changeResource = $changeResource;
         $model->build = Build::getGrainFarm();
         switch($level) {
@@ -68,9 +68,9 @@ class BuildData extends \yii\base\Model {
         $model = new BuildData();
         $model->build_time = 200;
         $model->level = $level;
-        $model->priceResource = $priceResource;
+        $model->price = $priceResource;
         $model->changeResource = $changeResource;
-        $model->build = Build::getGrainFarm();
+        $model->build = Build::getWoodFarm();
 
         switch($level) {
             case 1:
@@ -119,9 +119,9 @@ class BuildData extends \yii\base\Model {
         $model = new BuildData();
         $model->build_time = 200;
         $model->level = $level;
-        $model->priceResource = $priceResource;
+        $model->price = $priceResource;
         $model->changeResource = $changeResource;
-        $model->build = Build::getGrainFarm();
+        $model->build = Build::getIronFarm();
 
         switch($level) {
             case 1:
@@ -170,9 +170,9 @@ class BuildData extends \yii\base\Model {
         $model = new BuildData();
         $model->build_time = 200;
         $model->level = $level;
-        $model->priceResource = $priceResource;
+        $model->price = $priceResource;
         $model->changeResource = $changeResource;
-        $model->build = Build::getGrainFarm();
+        $model->build = Build::getStoneFarm();
 
         switch($level) {
             case 1:
@@ -221,9 +221,9 @@ class BuildData extends \yii\base\Model {
         $model = new BuildData();
         $model->build_time = 200;
         $model->level = $level;
-        $model->priceResource = $priceResource;
+        $model->price = $priceResource;
         $model->changeResource = $changeResource;
-        $model->build = Build::getGrainFarm();
+        $model->build = Build::getArmy();
 
         switch($level) {
             case 1:
@@ -249,9 +249,9 @@ class BuildData extends \yii\base\Model {
         $model = new BuildData();
         $model->build_time = 200;
         $model->level = $level;
-        $model->priceResource = $priceResource;
+        $model->price = $priceResource;
         $model->changeResource = $changeResource;
-        $model->build = Build::getGrainFarm();
+        $model->build = Build::getStock();
 
         switch($level) {
             case 1:
@@ -278,9 +278,9 @@ class BuildData extends \yii\base\Model {
         $model = new BuildData();
         $model->build_time = 200;
         $model->level = $level;
-        $model->priceResource = $priceResource;
+        $model->price = $priceResource;
         $model->changeResource = $changeResource;
-        $model->build = Build::getGrainFarm();
+        $model->build = Build::getGranary();
 
         switch($level) {
             case 1:

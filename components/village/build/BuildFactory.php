@@ -65,6 +65,6 @@ class BuildFactory extends BaseComponent {
             }
         }
 
-        return $builds;
+        return array_values($builds);
     }
 }

@@ -30,7 +30,7 @@ class VillageMap extends VillageMapModel
             array_fill(0, $woodCount, self::TYPE_WOOD),
             array_fill(0, $ironCount, self::TYPE_IRON),
             array_fill(0, $stoneCount, self::TYPE_STONE),
-            array_fill(0, self::SIZE * self::SIZE - $grainCount - $woodCount - $ironCount - $stoneCount, 0)
+            array_fill(0, self::SIZE * self::SIZE - $grainCount - $woodCount - $ironCount - $stoneCount, self::TYPE_EARTH)
         );
 
         shuffle($map);

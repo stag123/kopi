@@ -1,0 +1,28 @@
+<div class="modal">
+    <div class="title">Постройка здания</div>
+    <div class="list">
+        {{#each this}}
+            <div class="item {{build.code}}">
+                <div class="name">{{build.name}}</div>
+                <div class="desc">{{build.description}}</div>
+                <div class="price">
+                    <div class="resource wood">
+                        <span class="count">{{price.wood}}</span>
+                    </div>
+                    <div class="resource iron">
+                        <span class="count">{{price.iron}}</span>
+                    </div>
+                    <div class="resource stone">
+                        <span class="count">{{price.stone}}</span>
+                    </div>
+                    <div class="resource grain">
+                        <span class="count">{{price.grain}}</span>
+                    </div>
+                </div>
+                <div class="controls">
+                    <a href="/village/build/?id={{build.id}}&mapId={{mapId}}" class="button">Построить</a>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
