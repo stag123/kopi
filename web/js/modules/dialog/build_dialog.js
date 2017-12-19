@@ -26,8 +26,8 @@ class BuildDialog {
     open(data) {
         DOM.addClass(dialogWrapper, "open");
 
-        let renderData = Object.assign(data, {mapId: this.mapId});
-        dialogWrapper.innerHTML = Template(data);
+        let renderData = {mapId: this.mapId, builds: data};
+        dialogWrapper.innerHTML = Template(renderData);
     }
 
     close() {

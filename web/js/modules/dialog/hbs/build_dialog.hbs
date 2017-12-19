@@ -1,7 +1,7 @@
 <div class="modal">
     <div class="title">Постройка здания</div>
     <div class="list">
-        {{#each this}}
+        {{#each builds}}
             <div class="item {{build.code}}">
                 <div class="name">{{build.name}}</div>
                 <div class="desc">{{build.description}}</div>
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="controls">
-                    <a href="/village/build/?id={{build.id}}&mapId={{mapId}}" class="button">Построить</a>
+                    <a href="/village/build/?buildId={{build.id}}&mapId={{../mapId}}" class="button">Построить</a>
                 </div>
             </div>
         {{/each}}

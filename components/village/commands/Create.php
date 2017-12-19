@@ -7,7 +7,7 @@ use app\models\Resource;
 use app\models\Map;
 use app\models\User;
 use app\models\Village;
-use app\models\data\VillageMap;
+use app\models\VillageMap;
 use yii\web\BadRequestHttpException;
 
 class Create extends BaseComponent {

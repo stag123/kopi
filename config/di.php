@@ -27,3 +27,7 @@ Yii::$app->set('villageResourceQuery', function() {
 Yii::$app->set('buildFactory', function() {
     return new app\components\village\build\BuildFactory();
 });
+
+Yii::$app->set('commandTaskCreate', function() {
+    return new app\components\task\commands\Create();
+});

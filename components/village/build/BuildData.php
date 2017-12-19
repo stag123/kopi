@@ -3,7 +3,7 @@
 namespace app\components\village\build;
 
 use app\models\Resource;
-use app\models\data\Build;
+use app\components\village\build\models\Build;
 
 
 class BuildData extends \yii\base\Model {
@@ -14,6 +14,24 @@ class BuildData extends \yii\base\Model {
     public $price;
     public $changeResource;
     public $build;
+
+
+    /**
+     * @param $id
+     * @return BuildData
+     */
+    public static function GetByTypeAndLevel($typeId, $level) {
+        switch($typeId) {
+            case Build::ID_GRAIN_FARM: return self::getGrainFarm($level);
+            case Build::ID_WOOD_FARM: return self::getWoodFarm($level);
+            case Build::ID_STONE_FARM: return self::getStoneFarm($level);
+            case Build::ID_IRON_FARM: return self::getIronFarm($level);
+            case Build::ID_ARMY: return self::getArmy($level);
+            case Build::ID_STOCK: return self::getStock($level);
+            case Build::ID_GRANARY: return self::getGranary($level);
+            default: return null;
+        }
+    }
 
     public static function getGrainFarm($level = 1) {
         $priceResource = new Resource();
@@ -56,7 +74,7 @@ class BuildData extends \yii\base\Model {
                 $model->build_time = 23 * 60 + 28;
                 break;
             default:
-                return false;
+                return null;
         }
 
         return $model;
@@ -107,7 +125,7 @@ class BuildData extends \yii\base\Model {
                 $model->build_time = 23 * 60 + 28;
                 break;
             default:
-                return false;
+                return null;
         }
 
         return $model;
@@ -158,7 +176,7 @@ class BuildData extends \yii\base\Model {
                 $model->build_time = 23 * 60 + 28;
                 break;
             default:
-                return false;
+                return null;
         }
 
         return $model;
@@ -209,7 +227,7 @@ class BuildData extends \yii\base\Model {
                 $model->build_time = 23 * 60 + 28;
                 break;
             default:
-                return false;
+                return null;
         }
 
         return $model;
@@ -237,7 +255,7 @@ class BuildData extends \yii\base\Model {
                 $model->build_time = 60 * 4 + 34;
                 break;
             default:
-                return false;
+                return null;
         }
 
         return $model;
@@ -266,7 +284,7 @@ class BuildData extends \yii\base\Model {
                 $model->resource_size = 2000;
                 break;
             default:
-                return false;
+                return null;
         }
 
         return $model;
@@ -295,7 +313,7 @@ class BuildData extends \yii\base\Model {
                 $model->resource_size = 2000;
                 break;
             default:
-                return false;
+                return null;
         }
 
         return $model;

@@ -4,14 +4,13 @@ namespace app\components\village\build;
 
 use app\components\BaseComponent;
 use app\models\Village;
-use app\models\BuildType as BuildTypeModel;
-use app\models\data\Build;
-use app\models\data\VillageMap;
+use app\components\village\build\models\Build;
+use app\models\VillageMap;
 
 
 class BuildFactory extends BaseComponent {
 
-    public function create(BuildTypeModel $type, $level) {
+    public function create(Build $type, $level) {
         if ($type->id === Build::ID_GRAIN_FARM) {
             return BuildData::getGrainFarm($level);
         }

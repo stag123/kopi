@@ -39,15 +39,6 @@ class m171206_035646_schema extends BaseMigration
             'stone' => $this->double(3)->defaultValue(0),
         ], $tableOptions);
 
-        /** Строения */
-        $this->createTable('{{%build}}', [
-            'id'                => $this->primaryKey(),
-            'map_type'          => $this->integer()->notNull(),
-            'name'              => $this->string(),
-            'description'       => $this->string(),
-            'code'              => $this->string()
-        ], $tableOptions);
-
         /** Карта и деревня */
         $this->createTable('{{%map}}', [
             'id' => $this->primaryKey(),
@@ -99,10 +90,6 @@ class m171206_035646_schema extends BaseMigration
 
         $this->addForeignKey(
             'FK_village_map_village', '{{%village_map}}', 'village_id', '{{%village}}', 'id', 'CASCADE', 'CASCADE'
-        );
-
-        $this->addForeignKey(
-            'FK_village_map_build', '{{%village_map}}', 'build_id', '{{%build}}', 'id', 'CASCADE', 'CASCADE'
         );
 
         /** Войска */
@@ -168,6 +155,7 @@ class m171206_035646_schema extends BaseMigration
             'created_at' => $this->datetime(),
             'updated_at' => $this->datetime(),
             'duration' => $this->integer()->notNull(),
+            'status' => $this->integer(),
         ], $tableOptions);
 
         $this->createTable('{{%task_attack}}', [
@@ -196,7 +184,9 @@ class m171206_035646_schema extends BaseMigration
         $this->createTable('{{%task_build}}', [
             'id'                  => $this->primaryKey(),
             'village_id'          => $this->integer()->notNull(),
-            'village_map_id'    =>  $this->integer()->notNull(),
+            'village_map_id'      =>  $this->integer()->notNull(),
+            'build_id'            =>  $this->integer()->notNull(),
+            'level'               =>  $this->integer()->defaultValue(0),
             'task_id'             => $this->integer()->notNull(),
         ], $tableOptions);
 
@@ -271,9 +261,6 @@ class m171206_035646_schema extends BaseMigration
         $this->dropTable('{{%village_map}}');
         $this->dropTable('{{%village}}');
         $this->dropTable('{{%map}}');
-
-
-        $this->dropTable('{{%build}}');
 
         $this->dropTable('{{%resource}}');
 

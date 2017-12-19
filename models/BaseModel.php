@@ -51,7 +51,7 @@ class BaseModel extends \yii\db\ActiveRecord implements InjectionAwareInterface 
 
     /**
      * @param $id
-     * @return array|null|\yii\db\ActiveRecord
+     * @return static
      */
     public static function GetByID($id){
         return self::GetActive(['id' => (int)$id]);

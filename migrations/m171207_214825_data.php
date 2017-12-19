@@ -16,15 +16,6 @@ class m171207_214825_data extends BaseMigration
      */
     public function safeUp()
     {
-        Build::getGrainFarm()->save();
-        Build::getIronFarm()->save();
-        Build::getStoneFarm()->save();
-        Build::getGranary()->save();
-        Build::getWoodFarm()->save();
-        Build::getStock()->save();
-        Build::getArmy()->save();
-
-
         Map::generate();
     }
 
@@ -33,7 +24,6 @@ class m171207_214825_data extends BaseMigration
      */
     public function safeDown()
     {
-        Resource::deleteAll();
         Map::deleteAll();
     }
 

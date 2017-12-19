@@ -5,7 +5,7 @@ namespace app\components\village\resource;
 use app\components\BaseComponent;
 use app\models\Resource as ResourceModel;
 use app\models\Village;
-use app\models\data\VillageMap;
+use app\models\VillageMap;
 
 
 class Query extends BaseComponent {

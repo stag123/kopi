@@ -1,14 +1,19 @@
 <?php
 
-namespace app\models\data;
+namespace app\components\village\build\models;
 
-use app\models\Resource;
-use Yii;
-use app\models\Build as BuildModel;
+use app\components\BaseModel;
+use app\models\VillageMap;
 
-class Build extends BuildModel
+/**
+ * @property integer $id
+ * @property integer $map_type
+ * @property string $name
+ * @property string $description
+ * @property string $code
+ */
+class Build extends BaseModel
 {
-
     const ID_GRAIN_FARM = 1;
     const ID_WOOD_FARM = 2;
     const ID_STONE_FARM = 3;
@@ -17,9 +22,33 @@ class Build extends BuildModel
     const ID_STOCK = 6;
     const ID_GRANARY = 7;
 
+
+    public $id;
+    public $map_type;
+    public $name;
+    public $description;
+    public $code;
+
+    /**
+     * @param $id
+     * @return Build|null
+     */
+    public static function GetByID($id) {
+        switch($id) {
+            case self::ID_GRAIN_FARM: return self::getGrainFarm();
+            case self::ID_WOOD_FARM: return self::getWoodFarm();
+            case self::ID_STONE_FARM: return self::getStoneFarm();
+            case self::ID_IRON_FARM: return self::getIronFarm();
+            case self::ID_ARMY: return self::getArmy();
+            case self::ID_STOCK: return self::getStock();
+            case self::ID_GRANARY: return self::getGranary();
+            default: return null;
+        }
+    }
+
     public static function getGrainFarm()
     {
-        $model = new BuildModel();
+        $model = new self();
         $model->id = self::ID_GRAIN_FARM;
         $model->map_type = VillageMap::TYPE_GRAIN;
         $model->name = 'Ферма';
@@ -30,7 +59,7 @@ class Build extends BuildModel
 
     public static function getWoodFarm()
     {
-        $model = new BuildModel();
+        $model = new self();
         $model->id = self::ID_WOOD_FARM;
         $model->map_type = VillageMap::TYPE_WOOD;
         $model->name = 'Лесопилка';
@@ -41,7 +70,7 @@ class Build extends BuildModel
 
     public static function getStoneFarm()
     {
-        $model = new BuildModel();
+        $model = new self();
         $model->id = self::ID_STONE_FARM;
         $model->map_type = VillageMap::TYPE_STONE;
         $model->name = 'Каменоломня';
@@ -52,7 +81,7 @@ class Build extends BuildModel
 
     public static function getIronFarm()
     {
-        $model = new BuildModel();
+        $model = new self();
         $model->id = self::ID_IRON_FARM;
         $model->map_type = VillageMap::TYPE_IRON;
         $model->name = 'Рудная шахта';
@@ -63,7 +92,7 @@ class Build extends BuildModel
 
     public static function getArmy()
     {
-        $model = new BuildModel();
+        $model = new self();
         $model->id = self::ID_ARMY;
         $model->map_type = VillageMap::TYPE_EARTH;
         $model->description = 'В казарме строят войска';
@@ -74,7 +103,7 @@ class Build extends BuildModel
 
     public static function getStock()
     {
-        $model = new BuildModel();
+        $model = new self();
         $model->id = self::ID_STOCK;
         $model->map_type = VillageMap::TYPE_EARTH;
         $model->name = 'Склад';
@@ -85,7 +114,7 @@ class Build extends BuildModel
 
     public static function getGranary()
     {
-        $model = new BuildModel();
+        $model = new self();
         $model->id = self::ID_GRANARY;
         $model->map_type = VillageMap::TYPE_EARTH;
         $model->name = 'Амбар';

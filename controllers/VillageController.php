@@ -2,8 +2,10 @@
 
 namespace app\controllers;
 
+use app\components\village\build\models\Build;
 use app\models\Village;
-use app\models\data\VillageMap;
+use app\models\VillageMap;
+use yii\helpers\Url;
 
 
 class VillageController extends BaseController
@@ -42,5 +44,16 @@ class VillageController extends BaseController
             $data = $this->buildFactory->createForVillage($map->village);
         }
         return $this->asJson($data);
+    }
+
+    public function actionBuild() {
+        $mapId = $this->request->get('mapId');
+        $buildId = $this->request->get('buildId');
+
+        $map = VillageMap::GetByID($mapId);
+        $build = Build::GetByID($buildId);
+
+        $this->commandTaskCreate->createBuild($map, $build);
+        $this->redirect(Url::to(["village/view", "id" => $map->village_id]));
     }
 }

@@ -11,6 +11,7 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  * @property integer $duration
+ * @property integer $status
  *
  * @property TaskAttack $taskAttack
  * @property TaskBuild $taskBuild
@@ -35,7 +36,7 @@ class Task extends \app\models\BaseModel
         return [
             [['created_at', 'updated_at'], 'safe'],
             [['duration'], 'required'],
-            [['duration'], 'integer'],
+            [['duration', 'status'], 'integer'],
         ];
     }
 
@@ -49,6 +50,7 @@ class Task extends \app\models\BaseModel
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'duration' => 'Duration',
+            'status' => 'Status',
         ];
     }
 
