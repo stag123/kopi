@@ -3,7 +3,7 @@
 namespace app\components\village\resource;
 
 use app\components\BaseComponent;
-use app\models\Resource as ResourceModel;
+use app\models\Resources;
 use app\models\Village;
 use app\models\VillageMap;
 
@@ -13,10 +13,10 @@ class Query extends BaseComponent {
     /**
      * Получить у деревни добычу в час
      * @param Village $village
-     * @return ResourceModel
+     * @return Resources
      */
     public function fetchHour(Village $village) {
-        $resource = new ResourceModel;
+        $resource = new Resources;
         foreach($village->villageMaps as $map) {
             if ($map->type === VillageMap::TYPE_GRAIN) {
                 $resource->grain += self::BASE_RESOURCE_GROW;

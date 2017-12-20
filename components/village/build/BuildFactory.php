@@ -3,6 +3,14 @@
 namespace app\components\village\build;
 
 use app\components\BaseComponent;
+use app\components\village\build\models\Army;
+use app\components\village\build\models\BuildInfo;
+use app\components\village\build\models\GrainFarm;
+use app\components\village\build\models\Granary;
+use app\components\village\build\models\IronFarm;
+use app\components\village\build\models\Stock;
+use app\components\village\build\models\StoneFarm;
+use app\components\village\build\models\WoodFarm;
 use app\models\Village;
 use app\components\village\build\models\Build;
 use app\models\VillageMap;
@@ -10,50 +18,55 @@ use app\models\VillageMap;
 
 class BuildFactory extends BaseComponent {
 
-    public function create(Build $type, $level) {
-        if ($type->id === Build::ID_GRAIN_FARM) {
-            return BuildData::getGrainFarm($level);
+    /**
+     * @param $build_id
+     * @param $level
+     * @return BuildInfo
+     */
+    public function createForBuild($build_id, $level) {
+        if ($build_id === Build::ID_GRAIN_FARM) {
+            return GrainFarm::getByLevel($level);
         }
-        if ($type->id === Build::ID_IRON_FARM) {
-            return BuildData::getIronFarm($level);
+        if ($build_id === Build::ID_IRON_FARM) {
+            return IronFarm::getByLevel($level);
         }
-        if ($type->id === Build::ID_ARMY) {
-            return BuildData::getArmy($level);
+        if ($build_id === Build::ID_ARMY) {
+            return Army::getByLevel($level);
         }
-        if ($type->id === Build::ID_STOCK) {
-            return BuildData::getStock($level);
+        if ($build_id === Build::ID_STOCK) {
+            return Stock::getByLevel($level);
         }
-        if ($type->id === Build::ID_GRANARY) {
-            return BuildData::getGranary($level);
+        if ($build_id === Build::ID_GRANARY) {
+            return Granary::getByLevel($level);
         }
-        if ($type->id === Build::ID_STONE_FARM) {
-            return BuildData::getStoneFarm($level);
+        if ($build_id === Build::ID_STONE_FARM) {
+            return StoneFarm::getByLevel($level);
         }
-        if ($type->id === Build::ID_WOOD_FARM) {
-            return BuildData::getWoodFarm($level);
+        if ($build_id === Build::ID_WOOD_FARM) {
+            return WoodFarm::getByLevel($level);
         }
     }
 
-    public function createResource($mapType, $level = 1) {
+    public function createForResource($mapType, $level = 1) {
         if ($mapType === VillageMap::TYPE_GRAIN) {
-            return BuildData::getGrainFarm($level);
+            return GrainFarm::getByLevel($level);
         }
         if ($mapType === VillageMap::TYPE_IRON) {
-            return BuildData::getIronFarm($level);
+            return IronFarm::getByLevel($level);
         }
         if ($mapType === VillageMap::TYPE_STONE) {
-            return BuildData::getStoneFarm($level);
+            return StoneFarm::getByLevel($level);
         }
         if ($mapType === VillageMap::TYPE_WOOD) {
-            return BuildData::getWoodFarm($level);
+            return WoodFarm::getByLevel($level);
         }
     }
 
     public function createForVillage(Village $village) {
         $builds = [
-            Build::ID_STOCK => BuildData::getStock(1),
-            Build::ID_GRANARY => BuildData::getGranary(1),
-            Build::ID_ARMY => BuildData::getArmy(1)
+            Build::ID_STOCK => Stock::getByLevel(1),
+            Build::ID_GRANARY => Granary::getByLevel(1),
+            Build::ID_ARMY => Army::getByLevel(1)
         ];
 
         $maps = $village->villageMaps;

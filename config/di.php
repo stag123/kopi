@@ -31,3 +31,11 @@ Yii::$app->set('buildFactory', function() {
 Yii::$app->set('commandTaskCreate', function() {
     return new app\components\task\commands\Create();
 });
+
+Yii::$app->set('commandTaskCheck', function() {
+    return new app\components\task\commands\Check();
+});
+
+Yii::$app->set('logger', function() {
+    return new app\components\logger\Logger();
+});

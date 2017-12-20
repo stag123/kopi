@@ -3,6 +3,9 @@ import ResourceVillage from "../modules/resource/village";
 import "../modules/tooltip";
 import BuildDialog from "../modules/dialog/build_dialog";
 import DOM from "../modules/dom";
+import Net from "../modules/net";
+import Timer from "../modules/timer";
+import BuildTimerTemplate from "../modules/timer/hbs/build.hbs";
 
 let domCache = {
     resourceWood: document.querySelector('.js_wood_count'),
@@ -21,8 +24,9 @@ let domCache = {
     resourceStoneHour: document.querySelector('.js_stone_speed'),
     resourceStoneMax: document.querySelector('.js_stone_max'),
 
-    buildMap: document.querySelector('.js_map')
-}
+    buildMap: document.querySelector('.js_map'),
+    buildInfo: document.querySelector('.js_build_info')
+};
 
 new ResourceVillage(domCache.resourceWood, domCache.resourceWoodHour.innerText, domCache.resourceWoodMax.innerText);
 new ResourceVillage(domCache.resourceGrain, domCache.resourceGrainHour.innerText, domCache.resourceGrainMax.innerText);
@@ -33,3 +37,29 @@ DOM.on(domCache.buildMap, "click", ".js_build", (e, target) => {
    // debugger;
     new BuildDialog(DOM.data(target, "id"));
 });
+/*
+function updateVillage() {
+    let request = Net.ajax("GET", "/village/stat", {id: window.initials.villageId});
+    request.then(function(data) {
+        data.forEach(function(item) {
+            if (item.build) {
+                domCache.buildInfo.innerHTML = item.build.name + ' строится, будет готов через ';
+
+            }
+        });
+    }, function(error) {console.log(error)});
+}
+setInterval(updateVillage, 5000);
+    */
+
+if (window.initials.tasks) {
+    window.initials.tasks.forEach(function(item) {
+        if (item.build) {
+            let div = document.createElement('div');
+            div.innerHTML = BuildTimerTemplate({title: item.build.name + ' строится, до конца осталось: ', time: 0});
+            let cache = div.querySelector('.js_timer');
+            new Timer(cache, item.time_left);
+            domCache.buildInfo.appendChild(div);
+        }
+    });
+}

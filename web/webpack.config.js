@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
     devtool: 'eval-source-map',
     entry : {
@@ -6,7 +8,7 @@ module.exports = {
         village: ["./js/pages/village.js"],
     },
     output: {
-        path: __dirname + "/bundle",
+        path: path.resolve(__dirname, "bundle"),
         filename: "[name].page.js"
     },
     module: {
@@ -45,7 +47,12 @@ module.exports = {
             {
                 test: /\.hbs$/,
                 exclude: /node_modules/,
-                loader: "handlebars-loader"
+                loader: "handlebars-loader",
+                options: {
+                    helperDirs: [
+                        path.resolve(__dirname, "js/helpers")
+                    ]
+                }
             }
         ]
     }

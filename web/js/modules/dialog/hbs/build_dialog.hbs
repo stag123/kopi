@@ -20,7 +20,9 @@
                     </div>
                 </div>
                 <div class="controls">
-                    <a href="/village/build/?buildId={{build.id}}&mapId={{../mapId}}" class="button">Построить</a>
+                    <a href="/village/build/?buildId={{build.id}}&mapId={{../mapId}}" class="button">
+                        {{#equal level 1}}Построить{{else}}Улучшить до уровня {{level}}{{/equal}}
+                    </a>
                 </div>
             </div>
         {{/each}}

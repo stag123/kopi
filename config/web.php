@@ -7,6 +7,7 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'timeZone' => 'Asia/Nicosia',// 'Europe/Moscow',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -40,6 +41,15 @@ $config = [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
+                [
+                    'class' => 'yii\log\EmailTarget',
+                    'levels' => ['error'],
+                    'message' => [
+                        'from' => ['log@kopi.com'],
+                        'to' => ['tria-aa@mail.ru'],
+                        'subject' => 'Kopi error',
+                    ],
+                ]
             ],
         ],
         'db' => $db,

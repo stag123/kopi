@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\components\village\build\models\Build;
+use app\models\Task;
 use app\models\Village;
 use app\models\VillageMap;
 use yii\helpers\Url;
@@ -24,19 +25,27 @@ class VillageController extends BaseController
     {
         $village = Village::findOne(['id' => $this->request->get('id')]);
         $mapData = VillageMap::getByVillage($village);
+
+        $this->initials['villageId'] = $village->id;
+        $this->initials['tasks'] = Task::getVillageTasks($village->id);
         return $this->render('view', ['village' => $village, 'mapData' => $mapData]);
     }
+
+ /*   public function actionStat() {
+        $tasks = Task::getVillageTasks($this->ajaxData['id']);
+        return $this->asJson($tasks);
+    }*/
 
     public function actionBuildList() {
         $data = [];
         $map = VillageMap::GetByID($this->ajaxData['mapId']);
         if ($map->build_id) {
-            $build = $this->buildFactory->create($map->build->type, $map->build->level + 1);
+            $build = $this->buildFactory->createForBuild($map->build_id, $map->level + 1);
             if ($build) {
                 $data = [$build->toArray()];
             }
         } else if ($map->type !== VillageMap::TYPE_EARTH) {
-            $build = $this->buildFactory->createResource($map->type);
+            $build = $this->buildFactory->createForResource($map->type);
             if ($build) {
                 $data = [$build->toArray()];
             }

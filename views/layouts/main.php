@@ -2,6 +2,7 @@
 
 /* @var $this \app\components\BaseView */
 /* @var $content string */
+/* @var array $initials */
 
 use app\widgets\Alert;
 use yii\helpers\Html;
@@ -20,6 +21,9 @@ use yii\helpers\Url;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <script>
+        window.initials = <?= $this->params['initials'];?>;
+    </script>
     <?php $this->head() ?>
 </head>
 <body>

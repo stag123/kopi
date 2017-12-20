@@ -5,13 +5,6 @@ namespace app\components\village\build\models;
 use app\components\BaseModel;
 use app\models\VillageMap;
 
-/**
- * @property integer $id
- * @property integer $map_type
- * @property string $name
- * @property string $description
- * @property string $code
- */
 class Build extends BaseModel
 {
     const ID_GRAIN_FARM = 1;

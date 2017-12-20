@@ -40,6 +40,7 @@ body {
   min-width: 800px;
   min-height: 540px;
   background: #303030;
+  font-family: Arial, sans-serif;
 }
 .wrap {
   min-height: 100%;
@@ -180,12 +181,36 @@ a.desc:after {
 .menu .menu-item.exit {
   background-image: url(/images/icons/exit.png);
 }
+.build {
+  background-repeat: no-repeat;
+}
+.build.stone_farm {
+  background-image: url(/images/buildings/stone.png);
+}
+.build.army {
+  background-image: url(/images/buildings/army.png);
+}
+.build.grain_farm {
+  background-image: url(/images/buildings/grain.png);
+}
+.build.granary {
+  background-image: url(/images/buildings/granary.png);
+}
+.build.wood_farm {
+  background-image: url(/images/buildings/wood.png);
+}
+.build.iron_farm {
+  background-image: url(/images/buildings/iron.png);
+}
+.build.stock {
+  background-image: url(/images/buildings/stock.png);
+}
 .resource-container {
   color: #FFF;
   background: #707070;
   border-radius: 0 0 10px 10px;
   font-size: 12px;
-  width: 420px;
+  width: 450px;
   height: 20px;
   margin: 0 auto;
   margin-bottom: 30px;
@@ -194,7 +219,7 @@ a.desc:after {
   position: relative;
 }
 .resource-container .resource {
-  width: 70px;
+  width: 77px;
   color: #fff;
 }
 .menu-left {
@@ -242,6 +267,10 @@ a.desc:after {
   position: relative;
   margin: 0 auto;
 }
+.village-container .build-info {
+  color: #FFF;
+  font-size: 18px;
+}
 .village-container .map {
   padding: 2px;
   width: 544px;
@@ -273,13 +302,13 @@ a.desc:after {
 .village-container .map .map-row .map-cell .index__background {
   cursor: pointer;
   position: relative;
-  background-repeat: no-repeat;
   background-size: 90px 90px;
   height: 90px;
   width: 90px;
   display: inline-block;
   z-index: 1;
   background-image: url(/images/backgrounds/grass_05.png);
+  background-repeat: no-repeat;
 }
 .village-container .map .map-row .map-cell .index__background.b1 {
   background-image: url(/images/backgrounds/grass_16.png);
@@ -293,49 +322,29 @@ a.desc:after {
 .village-container .map .map-row .map-cell .index__background.b4 {
   background-image: url(/images/backgrounds/grass_04.png);
 }
-.village-container .map .map-row .map-cell .index__background.village {
-  background-image: url(/images/buildings/medieval_smallCastle.png);
-  cursor: pointer;
+.village-container .map .map-row .map-cell .index__background.stone_farm {
+  background-image: url(/images/buildings/stone.png);
+}
+.village-container .map .map-row .map-cell .index__background.army {
+  background-image: url(/images/buildings/army.png);
+}
+.village-container .map .map-row .map-cell .index__background.grain_farm {
+  background-image: url(/images/buildings/grain.png);
+}
+.village-container .map .map-row .map-cell .index__background.granary {
+  background-image: url(/images/buildings/granary.png);
+}
+.village-container .map .map-row .map-cell .index__background.wood_farm {
+  background-image: url(/images/buildings/wood.png);
+}
+.village-container .map .map-row .map-cell .index__background.iron_farm {
+  background-image: url(/images/buildings/iron.png);
+}
+.village-container .map .map-row .map-cell .index__background.stock {
+  background-image: url(/images/buildings/stock.png);
 }
 .village-container .map .map-row .map-cell .selector {
   margin-left: -2px;
-}
-.village-container .map .map-row .map-cell.my-village .selector {
-  z-index: 3;
-  width: 94px;
-  display: block;
-  margin-top: 21.5px;
-  height: 47px;
-  background-color: skyblue;
-  z-index: 2;
-  position: absolute;
-}
-.village-container .map .map-row .map-cell.my-village .selector:before {
-  content: "";
-  position: absolute;
-  z-index: 2;
-  top: -23.5px;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 47px solid transparent;
-  border-right: 47px solid transparent;
-  border-bottom: 23.5px solid skyblue;
-}
-.village-container .map .map-row .map-cell.my-village .selector:after {
-  content: "";
-  position: absolute;
-  z-index: 2;
-  bottom: -23.5px;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 47px solid transparent;
-  border-right: 47px solid transparent;
-  border-top: 23.5px solid skyblue;
-}
-.village-container .map .map-row .map-cell.my-village .index__background {
-  z-index: 4;
 }
 .village-container .map .map-row .map-cell:hover .selector {
   width: 94px;

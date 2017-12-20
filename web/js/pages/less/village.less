@@ -1,5 +1,6 @@
 @import "./site.less";
 @import "./cursor.less";
+@import "./build.less";
 
 @color-map-green: lawngreen;
 @color-map-blue: skyblue;
@@ -9,7 +10,7 @@
     background: #707070;
     border-radius: 0 0 10px 10px;
     font-size: 12px;
-    width: 420px;
+    width: 450px;
     height: 20px;
     margin: 0 auto;
     margin-bottom: 30px;
@@ -18,7 +19,7 @@
     position:relative;
     
     .resource {
-        width: 70px;
+        width: 77px;
         color: #fff;
     }
 }
@@ -72,6 +73,11 @@
     padding-right: 200px;
     position: relative;
     margin: 0 auto;
+    
+    .build-info {
+        color: #FFF;
+        font-size: 18px;
+    }
     .map {
         padding: 2px;
         width: 544px;
@@ -128,25 +134,12 @@
                     &.b4 {
                         background-image: url(/images/backgrounds/grass_04.png);
                     }
-                    
-                    &.village {
-                        background-image: url(/images/buildings/medieval_smallCastle.png);
-                        cursor: pointer;
-                    }
+    
+                    .build();
                 }
                 
                 .selector {
                     margin-left: -2px;
-                }
-                
-                &.my-village {
-                    .selector {
-                        z-index: 3;
-                        .active(94px, @color-map-blue);
-                    }
-                    .index__background {
-                        z-index: 4;
-                    }
                 }
                 
                 &:hover {

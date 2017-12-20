@@ -1,4 +1,5 @@
 @import "./base.less";
+@import "../../../pages/less/build.less";
 
 .list {
     margin: 20px 0;
@@ -13,36 +14,9 @@
         margin: 20px 0;
         padding-left: 70px;
         
-        background-repeat: no-repeat;
         background-size: 60px 60px;
         
-        &.stone_farm {
-            background-image: url(/images/buildings/stone.png);
-        }
-    
-        &.army {
-            background-image: url(/images/buildings/army.png);
-        }
-    
-        &.grain_farm {
-            background-image: url(/images/buildings/grain.png);
-        }
-    
-        &.granary {
-            background-image: url(/images/buildings/granary.png);
-        }
-    
-        &.wood_farm {
-            background-image: url(/images/buildings/wood.png);
-        }
-    
-        &.iron_farm {
-            background-image: url(/images/buildings/iron.png);
-        }
-    
-        &.stock {
-            background-image: url(/images/buildings/stock.png);
-        }
+        .build();
         
         .desc {
             margin-bottom:20px;

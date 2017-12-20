@@ -37,6 +37,30 @@
   font-weight: 700;
   color: #303030;
 }
+.build {
+  background-repeat: no-repeat;
+}
+.build.stone_farm {
+  background-image: url(/images/buildings/stone.png);
+}
+.build.army {
+  background-image: url(/images/buildings/army.png);
+}
+.build.grain_farm {
+  background-image: url(/images/buildings/grain.png);
+}
+.build.granary {
+  background-image: url(/images/buildings/granary.png);
+}
+.build.wood_farm {
+  background-image: url(/images/buildings/wood.png);
+}
+.build.iron_farm {
+  background-image: url(/images/buildings/iron.png);
+}
+.build.stock {
+  background-image: url(/images/buildings/stock.png);
+}
 .list {
   margin: 20px 0;
 }
@@ -48,8 +72,8 @@
 .list .item {
   margin: 20px 0;
   padding-left: 70px;
-  background-repeat: no-repeat;
   background-size: 60px 60px;
+  background-repeat: no-repeat;
 }
 .list .item.stone_farm {
   background-image: url(/images/buildings/stone.png);

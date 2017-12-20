@@ -10,7 +10,8 @@ namespace app\components;
  * @property \yii\web\Request $request
  * @property \app\components\village\build\BuildFactory buildFactory
  * @property \app\components\task\commands\Create commandTaskCreate
- *
+ * @property \app\components\task\commands\Check commandTaskCheck
+ * @property \app\components\logger\Logger logger
  */
 interface InjectionAwareInterface {
 

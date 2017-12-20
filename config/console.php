@@ -9,6 +9,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'app\commands',
+    'timeZone' => 'Asia/Nicosia', //'Europe/Moscow',
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -17,8 +18,17 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['error', 'warning', 'info'],
                 ],
+                [
+                    'class' => 'yii\log\EmailTarget',
+                    'levels' => ['error'],
+                    'message' => [
+                        'from' => ['log@kopi.com'],
+                        'to' => ['tria-aa@mail.ru'],
+                        'subject' => 'Kopi error',
+                    ],
+                ]
             ],
         ],
         'db' => $db,

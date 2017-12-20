@@ -40,6 +40,7 @@ body {
   min-width: 800px;
   min-height: 540px;
   background: #303030;
+  font-family: Arial, sans-serif;
 }
 .wrap {
   min-height: 100%;

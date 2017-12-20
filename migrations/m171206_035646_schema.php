@@ -31,7 +31,7 @@ class m171206_035646_schema extends BaseMigration
         ], $tableOptions);
 
         /** Ресурсы */
-        $this->createTable('{{%resource}}', [
+        $this->createTable('{{%resources}}', [
             'id' => $this->primaryKey(),
             'wood' => $this->double(3)->defaultValue(0),
             'grain' => $this->double(3)->defaultValue(0),
@@ -55,9 +55,9 @@ class m171206_035646_schema extends BaseMigration
             'map_id'              => $this->integer()->notNull(),
             'user_id'             => $this->integer()->notNull(),
             'name'                => $this->string(),
-            'village_resource_id' => $this->integer()->notNull(),
+            'village_resources_id' => $this->integer()->notNull(),
             'created_at'          => $this->datetime(),
-            'resource_updated_at' => $this->bigInteger(),
+            'resources_updated_at' => $this->bigInteger(),
         ], $tableOptions);
 
         $this->addForeignKey(
@@ -70,10 +70,10 @@ class m171206_035646_schema extends BaseMigration
         $this->createIndex('UQ_village_map', '{{%village}}', 'map_id', true);
 
         $this->addForeignKey(
-            'FK_village_resource', '{{%village}}', 'village_resource_id', '{{%resource}}', 'id', 'CASCADE', 'CASCADE'
+            'FK_village_resources', '{{%village}}', 'village_resources_id', '{{%resources}}', 'id', 'CASCADE', 'CASCADE'
         );
 
-        $this->createIndex('UQ_village_resource', '{{%village}}', 'village_resource_id', true);
+        $this->createIndex('UQ_village_resources', '{{%village}}', 'village_resources_id', true);
 
         $this->createTable('{{%village_map}}', [
             'id' => $this->primaryKey(),
@@ -98,26 +98,26 @@ class m171206_035646_schema extends BaseMigration
             'name'              => $this->string(),
             'code'              => $this->string(),
             'speed'             => $this->integer()->notNull(),
-            'price_resource_id' => $this->integer()->notNull(),
-            'resource_capacity' => $this->integer()->notNull(),
+            'price_resources_id' => $this->integer()->notNull(),
+            'resources_capacity' => $this->integer()->notNull(),
             'attack'            => $this->integer()->notNull(),
             'defence'           => $this->integer()->notNull(),
             'attack_archer'     => $this->integer()->notNull(),
             'defence_archer'    => $this->integer()->notNull(),
             'attack_horse'      => $this->integer()->notNull(),
             'defence_horse'     => $this->integer()->notNull(),
-            'change_resource_id'  => $this->integer()->notNull(),
+            'change_resources_id'  => $this->integer()->notNull(),
             'build_time'        => $this->integer()->notNull(),
         ], $tableOptions);
 
-        $this->createIndex('UQ_unit_price', '{{%unit}}', 'price_resource_id', true);
+        $this->createIndex('UQ_unit_price', '{{%unit}}', 'price_resources_id', true);
 
         $this->addForeignKey(
-            'FK_unit_price_resource', '{{%unit}}', 'price_resource_id', '{{%resource}}', 'id', 'CASCADE', 'CASCADE'
+            'FK_unit_price_resources', '{{%unit}}', 'price_resources_id', '{{%resources}}', 'id', 'CASCADE', 'CASCADE'
         );
 
         $this->addForeignKey(
-            'FK_unit_change_resource', '{{%unit}}', 'change_resource_id', '{{%resource}}', 'id', 'CASCADE', 'CASCADE'
+            'FK_unit_change_resources', '{{%unit}}', 'change_resources_id', '{{%resources}}', 'id', 'CASCADE', 'CASCADE'
         );
 
         $this->createTable('{{%unit_group}}', [
@@ -155,25 +155,25 @@ class m171206_035646_schema extends BaseMigration
             'created_at' => $this->datetime(),
             'updated_at' => $this->datetime(),
             'duration' => $this->integer()->notNull(),
+            'village_from_id' => $this->integer()->notNull(),
+            'village_to_id'   =>  $this->integer()->notNull(),
+            'worker' => $this->integer(),
             'status' => $this->integer(),
         ], $tableOptions);
 
         $this->createTable('{{%task_attack}}', [
             'id' => $this->primaryKey(),
-            'village_from_id' => $this->integer()->notNull(),
-            'village_to_id'   =>  $this->integer()->notNull(),
             'unit_group_id'     => $this->integer()->notNull(),
+            'resources_id'    =>  $this->integer()->notNull(),
             'task_id'  => $this->integer()->notNull(),
         ], $tableOptions);
 
         $this->createIndex('UQ_task_attack_task', '{{%task_attack}}', 'task_id', true);
 
         $this->addForeignKey(
-            'FK_task_attack_village_from', '{{%task_attack}}', 'village_from_id', '{{%village}}', 'id', 'CASCADE', 'CASCADE'
+            'FK_task_attack_resources', '{{%task_attack}}', 'resources_id', '{{%resources}}', 'id', 'CASCADE', 'CASCADE'
         );
-        $this->addForeignKey(
-            'FK_task_attack_village_to', '{{%task_attack}}', 'village_to_id', '{{%village}}', 'id', 'CASCADE', 'CASCADE'
-        );
+
         $this->addForeignKey(
             'FK_task_attack_task', '{{%task_attack}}', 'task_id', '{{%task}}', 'id', 'CASCADE', 'CASCADE'
         );
@@ -183,7 +183,6 @@ class m171206_035646_schema extends BaseMigration
 
         $this->createTable('{{%task_build}}', [
             'id'                  => $this->primaryKey(),
-            'village_id'          => $this->integer()->notNull(),
             'village_map_id'      =>  $this->integer()->notNull(),
             'build_id'            =>  $this->integer()->notNull(),
             'level'               =>  $this->integer()->defaultValue(0),
@@ -193,9 +192,6 @@ class m171206_035646_schema extends BaseMigration
         $this->createIndex('UQ_task_build_task', '{{%task_build}}', 'task_id', true);
 
         $this->addForeignKey(
-            'FK_task_village_map', '{{%task_build}}', 'village_id', '{{%village}}', 'id', 'CASCADE', 'CASCADE'
-        );
-        $this->addForeignKey(
             'FK_task_build_village_map', '{{%task_build}}', 'village_map_id', '{{%village_map}}', 'id', 'CASCADE', 'CASCADE'
         );
         $this->addForeignKey(
@@ -204,15 +200,11 @@ class m171206_035646_schema extends BaseMigration
 
         $this->createTable('{{%task_unit}}', [
             'id'                  => $this->primaryKey(),
-            'village_id'          => $this->integer()->notNull(),
             'count'               =>  $this->integer()->notNull(),
             'unit_id'             => $this->integer()->notNull(),
             'task_id'             => $this->integer()->notNull(),
         ], $tableOptions);
 
-        $this->addForeignKey(
-            'FK_task_unit_village', '{{%task_unit}}', 'village_id', '{{%village}}', 'id', 'CASCADE', 'CASCADE'
-        );
         $this->addForeignKey(
             'FK_task_unit_task', '{{%task_unit}}', 'task_id', '{{%task}}', 'id', 'CASCADE', 'CASCADE'
         );
@@ -221,23 +213,15 @@ class m171206_035646_schema extends BaseMigration
 
         $this->createTable('{{%task_trade}}', [
             'id'                   => $this->primaryKey(),
-            'village_from_id'      => $this->integer()->notNull(),
-            'village_to_id'        =>  $this->integer()->notNull(),
-            'resource_id'    =>  $this->integer()->notNull(),
+            'resources_id'    =>  $this->integer()->notNull(),
             'task_id'             => $this->integer()->notNull(),
         ], $tableOptions);
 
         $this->addForeignKey(
-            'FK_task_trade_village_from', '{{%task_trade}}', 'village_from_id', '{{%village}}', 'id', 'CASCADE', 'CASCADE'
-        );
-        $this->addForeignKey(
-            'FK_task_trade_village_to', '{{%task_trade}}', 'village_to_id', '{{%village}}', 'id', 'CASCADE', 'CASCADE'
-        );
-        $this->addForeignKey(
             'FK_task_trade_task', '{{%task_trade}}', 'task_id', '{{%task}}', 'id', 'CASCADE', 'CASCADE'
         );
         $this->addForeignKey(
-            'FK_task_trade_resource', '{{%task_trade}}', 'resource_id', '{{%resource}}', 'id', 'CASCADE', 'CASCADE'
+            'FK_task_trade_resources', '{{%task_trade}}', 'resources_id', '{{%resources}}', 'id', 'CASCADE', 'CASCADE'
         );
 
         $this->createIndex('UQ_task_trade_task', '{{%task_trade}}', 'task_id', true);
@@ -262,7 +246,7 @@ class m171206_035646_schema extends BaseMigration
         $this->dropTable('{{%village}}');
         $this->dropTable('{{%map}}');
 
-        $this->dropTable('{{%resource}}');
+        $this->dropTable('{{%resources}}');
 
         $this->dropTable('{{%user}}');
     }

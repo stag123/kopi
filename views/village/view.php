@@ -10,6 +10,8 @@ $villageResource = $this->villageResourceQuery->fetchActual($village);
 $speedResource = $this->villageResourceQuery->fetchHour($village);
 
 use app\assets\VillageAsset;
+use \app\components\village\build\models\Build;
+use yii\helpers\Url;
 
 VillageAsset::register($this);
 ?>
@@ -35,12 +37,16 @@ VillageAsset::register($this);
             <div class="map-row">
                 <?php foreach ($mapp as $j => $map ) {
                     if ($map) {
+
+                        if ($map->build_id) {
+                            $build = Build::GetByID($map->build_id);
+                        }
                         ?>
-                        <div class="map-cell pos<?= $i;?>_<?= $j;?> <?=  $map->build_id ? 'build' : '';?>">
+                        <div class="map-cell">
                             <div class="selector"></div>
-                            <a data-tooltip="Нажмите, чтобы строить"
+                            <a data-tooltip="<?= $map->build_id ? $build->name : 'Нажмите, чтобы строить';?>"
                                data-id="<?=$map->id;?>"
-                               class="js_build index__background <?= $map->build_id ? 'build" href="'. Url::to(['build/view', 'id' => $map->buildVillage->id]) .'"' : 'b' . $map->type . '"';?>">
+                               class="js_build index__background<?=$map->build_id ? ' ' .$build->code : ' b' . $map->type;?>">
                             </a>
                         </div>
                     <?php } ?>
@@ -48,6 +54,8 @@ VillageAsset::register($this);
             </div>
         <?php } ?>
     </div>
+
+    <div class="build-info js_build_info"></div>
 
     <div class="menu-left">
         Добыча ресурсов:

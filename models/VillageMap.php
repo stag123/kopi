@@ -134,4 +134,16 @@ class VillageMap extends \app\models\BaseModel
     public function getBuild() {
         return \app\components\village\build\models\Build::getById($this->build_id);
     }
+
+    public function startBuild() {
+        $this->status = self::STATUS_BUILDING;
+        $this->save();
+    }
+
+    public function build($build_id, $level) {
+        $this->status = self::STATUS_BUILD;
+        $this->build_id = $build_id;
+        $this->level = $level;
+        $this->save();
+    }
 }

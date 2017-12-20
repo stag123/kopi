@@ -11,18 +11,12 @@ use Yii;
  * @property integer $map_id
  * @property integer $user_id
  * @property string $name
- * @property integer $village_resource_id
+ * @property integer $village_resources_id
  * @property string $created_at
- * @property integer $resource_updated_at
+ * @property integer $resources_updated_at
  *
- * @property TaskAttack[] $taskAttacks
- * @property TaskAttack[] $taskAttacks0
- * @property TaskBuild[] $taskBuilds
- * @property TaskTrade[] $taskTrades
- * @property TaskTrade[] $taskTrades0
- * @property TaskUnit[] $taskUnits
  * @property UnitGroup[] $unitGroups
- * @property Resource $villageResource
+ * @property Resources $villageResources
  * @property Map $map
  * @property User $user
  * @property VillageMap[] $villageMaps
@@ -43,13 +37,13 @@ class Village extends \app\models\BaseModel
     public function rules()
     {
         return [
-            [['map_id', 'user_id', 'village_resource_id'], 'required'],
-            [['map_id', 'user_id', 'village_resource_id', 'resource_updated_at'], 'integer'],
+            [['map_id', 'user_id', 'village_resources_id'], 'required'],
+            [['map_id', 'user_id', 'village_resources_id', 'resources_updated_at'], 'integer'],
             [['created_at'], 'safe'],
             [['name'], 'string', 'max' => 255],
             [['map_id'], 'unique'],
-            [['village_resource_id'], 'unique'],
-            [['village_resource_id'], 'exist', 'skipOnError' => true, 'targetClass' => Resource::className(), 'targetAttribute' => ['village_resource_id' => 'id']],
+            [['village_resources_id'], 'unique'],
+            [['village_resources_id'], 'exist', 'skipOnError' => true, 'targetClass' => Resources::className(), 'targetAttribute' => ['village_resources_id' => 'id']],
             [['map_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map::className(), 'targetAttribute' => ['map_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -65,58 +59,10 @@ class Village extends \app\models\BaseModel
             'map_id' => 'Map ID',
             'user_id' => 'User ID',
             'name' => 'Name',
-            'village_resource_id' => 'Village Resource ID',
+            'village_resources_id' => 'Village Resources ID',
             'created_at' => 'Created At',
-            'resource_updated_at' => 'Resource Updated At',
+            'resources_updated_at' => 'Resources Updated At',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTaskAttacks()
-    {
-        return $this->hasMany(TaskAttack::className(), ['village_from_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTaskAttacks0()
-    {
-        return $this->hasMany(TaskAttack::className(), ['village_to_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTaskBuilds()
-    {
-        return $this->hasMany(TaskBuild::className(), ['village_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTaskTrades()
-    {
-        return $this->hasMany(TaskTrade::className(), ['village_from_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTaskTrades0()
-    {
-        return $this->hasMany(TaskTrade::className(), ['village_to_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTaskUnits()
-    {
-        return $this->hasMany(TaskUnit::className(), ['village_id' => 'id']);
     }
 
     /**
@@ -130,9 +76,9 @@ class Village extends \app\models\BaseModel
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getVillageResource()
+    public function getVillageResources()
     {
-        return $this->hasOne(Resource::className(), ['id' => 'village_resource_id']);
+        return $this->hasOne(Resources::className(), ['id' => 'village_resources_id']);
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace app\components\task\commands;
 
 use app\components\BaseComponent;
-use app\components\village\build\BuildData;
 use app\components\village\build\models\Build;
 use app\models\Task;
 use app\models\TaskBuild;
@@ -20,10 +19,12 @@ class Create extends BaseComponent
     const STATUS_CREATE = 1;
     const STATUS_DONE = 2;
 
-    private function newTask($duration) {
+    private function newTask($village_from_id, $village_to_id, $duration) {
         $task = new Task();
         $task->status = self::STATUS_CREATE;
         $task->duration = $duration;
+        $task->village_from_id = $village_from_id;
+        $task->village_to_id = $village_to_id;
         if (!$task->save()) {
             throw new BadRequestHttpException("Error create task");
         }
@@ -33,10 +34,16 @@ class Create extends BaseComponent
 
     public function createBuild(VillageMap $map, Build $build) {
         $level = ($map->level ?: 0) + 1;
-        $task = $this->newTask(BuildData::GetByTypeAndLevel($build->id, $level)->build_time);
+        $buildData = $this->buildFactory->createForBuild($build->id, $level);
+        if (!$map->village->villageResources->greaterThen($buildData->price)) {
+            throw new BadRequestHttpException("Недотаточно ресурсов");
+        }
+
+        $map->village->villageResources->remove($buildData->price);
+
+        $task = $this->newTask($map->village_id, $map->village_id, $buildData->buildTime);
 
         $taskBuild = new TaskBuild();
-        $taskBuild->village_id = $map->village_id;
         $taskBuild->village_map_id = $map->id;
         $taskBuild->task_id = $task->id;
         $taskBuild->build_id = $build->id;
@@ -48,8 +55,7 @@ class Create extends BaseComponent
             throw new BadRequestHttpException("Error create build task");
         }
 
-        $map->status = VillageMap::STATUS_BUILDING;
-        $map->save();
+        $map->startBuild();
     }
 
     public function createUnit() {
