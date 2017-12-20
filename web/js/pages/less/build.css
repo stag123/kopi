@@ -1,0 +1,24 @@
+.build {
+  background-repeat: no-repeat;
+}
+.build.stone_farm {
+  background-image: url(/images/buildings/stone.png);
+}
+.build.army {
+  background-image: url(/images/buildings/army.png);
+}
+.build.grain_farm {
+  background-image: url(/images/buildings/grain.png);
+}
+.build.granary {
+  background-image: url(/images/buildings/granary.png);
+}
+.build.wood_farm {
+  background-image: url(/images/buildings/wood.png);
+}
+.build.iron_farm {
+  background-image: url(/images/buildings/iron.png);
+}
+.build.stock {
+  background-image: url(/images/buildings/stock.png);
+}
