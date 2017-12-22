@@ -12,7 +12,7 @@ use Yii;
  * @property integer $resources_id
  * @property integer $task_id
  *
- * @property UnitGroup $unitGroup
+ * @property Units $unitGroup
  * @property Resources $resources
  * @property Task $task
  */
@@ -35,7 +35,7 @@ class TaskAttack extends \app\models\BaseModel
             [['unit_group_id', 'resources_id', 'task_id'], 'required'],
             [['unit_group_id', 'resources_id', 'task_id'], 'integer'],
             [['task_id'], 'unique'],
-            [['unit_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => UnitGroup::className(), 'targetAttribute' => ['unit_group_id' => 'id']],
+            [['unit_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => Units::className(), 'targetAttribute' => ['unit_group_id' => 'id']],
             [['resources_id'], 'exist', 'skipOnError' => true, 'targetClass' => Resources::className(), 'targetAttribute' => ['resources_id' => 'id']],
             [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['task_id' => 'id']],
         ];
@@ -59,7 +59,7 @@ class TaskAttack extends \app\models\BaseModel
      */
     public function getUnitGroup()
     {
-        return $this->hasOne(UnitGroup::className(), ['id' => 'unit_group_id']);
+        return $this->hasOne(Units::className(), ['id' => 'unit_group_id']);
     }
 
     /**

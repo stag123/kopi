@@ -2,6 +2,13 @@
 
 namespace app\models;
 
+use app\components\village\build\models\Build;
+use app\components\village\build\models\GrainFarm;
+use app\components\village\build\models\Granary;
+use app\components\village\build\models\IronFarm;
+use app\components\village\build\models\Stock;
+use app\components\village\build\models\StoneFarm;
+use app\components\village\build\models\WoodFarm;
 use Yii;
 
 /**
@@ -15,7 +22,7 @@ use Yii;
  * @property string $created_at
  * @property integer $resources_updated_at
  *
- * @property UnitGroup[] $unitGroups
+ * @property Units[] $units
  * @property Resources $villageResources
  * @property Map $map
  * @property User $user
@@ -23,6 +30,10 @@ use Yii;
  */
 class Village extends \app\models\BaseModel
 {
+    const BASE_STOCK = 500;
+    const BASE_GRANARY = 400;
+    const BASE_RESOURCE_SPEED = 36000;//VillageMap::RESOURCE_COUNT;
+    const NEW_VILLAGE_RESOURCE = 200;
     /**
      * @inheritdoc
      */
@@ -68,9 +79,9 @@ class Village extends \app\models\BaseModel
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUnitGroups()
+    public function getUnits()
     {
-        return $this->hasMany(UnitGroup::className(), ['village_id' => 'id']);
+        return $this->hasMany(Units::className(), ['village_id' => 'id']);
     }
 
     /**
@@ -103,5 +114,73 @@ class Village extends \app\models\BaseModel
     public function getVillageMaps()
     {
         return $this->hasMany(VillageMap::className(), ['village_id' => 'id']);
+    }
+
+    /**
+     * @return int
+     */
+    public function getStockSize()
+    {
+        $maps = $this->getVillageMaps()->where(['build_id' => Build::ID_STOCK])->all();
+        if ($maps) {
+            $result = 0;
+            foreach($maps as $map) {
+                $result += Stock::getByLevel($map->level)->size;
+            }
+            return $result;
+        }
+        return self::BASE_STOCK;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGranarySize() {
+        $maps = $this->getVillageMaps()->where(['build_id' => Build::ID_GRANARY])->all();
+        if ($maps) {
+            $result = 0;
+            foreach($maps as $map) {
+                $result += Stock::getByLevel($map->level)->size;
+            }
+            return $result;
+        }
+        return self::BASE_GRANARY;
+    }
+
+    /**
+     * @return Resources
+     */
+    public function getResourceHour() {
+        /** @var VillageMap[] $maps */
+        $maps = $this->getVillageMaps()->where(['build_id' => [
+            Build::ID_IRON_FARM,
+            Build::ID_STONE_FARM,
+            Build::ID_GRAIN_FARM,
+            Build::ID_WOOD_FARM
+        ]])->all();
+
+        $res = new Resources();
+
+        foreach ($maps as $map) {
+            switch ($map->build_id) {
+                case Build::ID_GRAIN_FARM:
+                    $res->add(GrainFarm::getByLevel($map->level)->changeResource);
+                    break;
+                case Build::ID_STONE_FARM:
+                    $res->add(StoneFarm::getByLevel($map->level)->changeResource);
+                    break;
+                case Build::ID_WOOD_FARM:
+                    $res->add(WoodFarm::getByLevel($map->level)->changeResource);
+                    break;
+                case Build::ID_IRON_FARM:
+                    $res->add(IronFarm::getByLevel($map->level)->changeResource);
+                    break;
+            }
+        }
+        $res->grain = max(self::BASE_RESOURCE_SPEED, $res->grain);
+        $res->wood = max(self::BASE_RESOURCE_SPEED, $res->wood);
+        $res->iron = max(self::BASE_RESOURCE_SPEED, $res->iron);
+        $res->stone = max(self::BASE_RESOURCE_SPEED, $res->stone);
+        return $res;
     }
 }

@@ -18,6 +18,14 @@ use app\models\VillageMap;
 
 class BuildFactory extends BaseComponent {
 
+
+    /**
+     * @param VillageMap $map
+     * @return BuildInfo
+     */
+    public function createForMap(VillageMap $map) {
+        return $this->createForBuild($map->build_id, $map->level);
+    }
     /**
      * @param $build_id
      * @param $level

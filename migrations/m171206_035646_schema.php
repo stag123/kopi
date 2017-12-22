@@ -92,61 +92,19 @@ class m171206_035646_schema extends BaseMigration
             'FK_village_map_village', '{{%village_map}}', 'village_id', '{{%village}}', 'id', 'CASCADE', 'CASCADE'
         );
 
-        /** Войска */
-        $this->createTable('{{%unit}}', [
-            'id'                => $this->primaryKey(),
-            'name'              => $this->string(),
-            'code'              => $this->string(),
-            'speed'             => $this->integer()->notNull(),
-            'price_resources_id' => $this->integer()->notNull(),
-            'resources_capacity' => $this->integer()->notNull(),
-            'attack'            => $this->integer()->notNull(),
-            'defence'           => $this->integer()->notNull(),
-            'attack_archer'     => $this->integer()->notNull(),
-            'defence_archer'    => $this->integer()->notNull(),
-            'attack_horse'      => $this->integer()->notNull(),
-            'defence_horse'     => $this->integer()->notNull(),
-            'change_resources_id'  => $this->integer()->notNull(),
-            'build_time'        => $this->integer()->notNull(),
-        ], $tableOptions);
-
-        $this->createIndex('UQ_unit_price', '{{%unit}}', 'price_resources_id', true);
-
-        $this->addForeignKey(
-            'FK_unit_price_resources', '{{%unit}}', 'price_resources_id', '{{%resources}}', 'id', 'CASCADE', 'CASCADE'
-        );
-
-        $this->addForeignKey(
-            'FK_unit_change_resources', '{{%unit}}', 'change_resources_id', '{{%resources}}', 'id', 'CASCADE', 'CASCADE'
-        );
-
-        $this->createTable('{{%unit_group}}', [
+        $this->createTable('{{%units}}', [
             'id'          => $this->primaryKey(),
             'village_id'  => $this->integer()->notNull(),
             'map_id'      => $this->integer(),
+            'sword'       => $this->integer()->defaultValue(0),
+            'catapult'       => $this->integer()->defaultValue(0)
         ], $tableOptions);
 
         $this->addForeignKey(
-            'FK_unit_group_village', '{{%unit_group}}', 'village_id', '{{%village}}', 'id', 'CASCADE', 'CASCADE'
+            'FK_unit_group_village', '{{%units}}', 'village_id', '{{%village}}', 'id', 'CASCADE', 'CASCADE'
         );
         $this->addForeignKey(
-            'FK_unit_group_map', '{{%unit_group}}', 'map_id', '{{%map}}', 'id', 'NO ACTION', 'NO ACTION'
-        );
-
-        $this->createTable('{{%unit_value}}', [
-            'id'                => $this->primaryKey(),
-            'unit_id'           => $this->integer()->notNull(),
-            'unit_group_id'     => $this->integer()->notNull(),
-            'value'             => $this->integer()->notNull(),
-        ], $tableOptions);
-
-        $this->createIndex('UQ_unit_value_unit_group', '{{%unit_value}}', ['unit_id', 'unit_group_id'], true);
-
-        $this->addForeignKey(
-            'FK_unit_value_group', '{{%unit_value}}', 'unit_group_id', '{{%unit_group}}', 'id', 'CASCADE', 'CASCADE'
-        );
-        $this->addForeignKey(
-            'FK_unit_value_unit', '{{%unit_value}}', 'unit_id', '{{%unit}}', 'id', 'CASCADE', 'CASCADE'
+            'FK_unit_group_map', '{{%units}}', 'map_id', '{{%map}}', 'id', 'NO ACTION', 'NO ACTION'
         );
 
         /** Очередь заданий */
@@ -178,7 +136,7 @@ class m171206_035646_schema extends BaseMigration
             'FK_task_attack_task', '{{%task_attack}}', 'task_id', '{{%task}}', 'id', 'CASCADE', 'CASCADE'
         );
         $this->addForeignKey(
-            'FK_task_attack_unit_group', '{{%task_attack}}', 'unit_group_id', '{{%unit_group}}', 'id', 'CASCADE', 'CASCADE'
+            'FK_task_attack_unit_group', '{{%task_attack}}', 'unit_group_id', '{{%units}}', 'id', 'CASCADE', 'CASCADE'
         );
 
         $this->createTable('{{%task_build}}', [
@@ -238,9 +196,7 @@ class m171206_035646_schema extends BaseMigration
         $this->dropTable('{{%task_attack}}');
         $this->dropTable('{{%task}}');
 
-        $this->dropTable('{{%unit_value}}');
-        $this->dropTable('{{%unit_group}}');
-        $this->dropTable('{{%unit}}');
+        $this->dropTable('{{%units}}');
 
         $this->dropTable('{{%village_map}}');
         $this->dropTable('{{%village}}');

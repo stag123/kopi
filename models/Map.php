@@ -13,7 +13,7 @@ use Yii;
  * @property integer $type
  * @property integer $status
  *
- * @property UnitGroup[] $unitGroups
+ * @property Units[] $units
  * @property Village $village
  */
 class Map extends \app\models\BaseModel
@@ -61,9 +61,9 @@ class Map extends \app\models\BaseModel
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUnitGroups()
+    public function getUnits()
     {
-        return $this->hasMany(UnitGroup::className(), ['map_id' => 'id']);
+        return $this->hasMany(Units::className(), ['map_id' => 'id']);
     }
 
     /**

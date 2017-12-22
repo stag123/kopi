@@ -12,8 +12,6 @@ use yii\web\BadRequestHttpException;
 
 class Create extends BaseComponent {
 
-    const NEW_VILLAGE_RESOURCE = 800;
-
     public function execute(User $user) {
         $map = Map::findFree();
         if (!$map) {
@@ -23,10 +21,10 @@ class Create extends BaseComponent {
         $map->save();
 
         $model = new Resources;
-        $model->grain = self::NEW_VILLAGE_RESOURCE;
-        $model->wood = self::NEW_VILLAGE_RESOURCE;
-        $model->stone = self::NEW_VILLAGE_RESOURCE;
-        $model->iron = self::NEW_VILLAGE_RESOURCE;
+        $model->grain = Village::NEW_VILLAGE_RESOURCE;
+        $model->wood = Village::NEW_VILLAGE_RESOURCE;
+        $model->stone = Village::NEW_VILLAGE_RESOURCE;
+        $model->iron = Village::NEW_VILLAGE_RESOURCE;
 
         $resource_group_id = $model->save();
 

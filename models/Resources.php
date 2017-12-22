@@ -15,8 +15,6 @@ use Yii;
  *
  * @property TaskAttack[] $taskAttacks
  * @property TaskTrade[] $taskTrades
- * @property Unit[] $units
- * @property Unit $unit
  * @property Village $village
  */
 class Resources extends \app\models\BaseModel
@@ -67,22 +65,6 @@ class Resources extends \app\models\BaseModel
     public function getTaskTrades()
     {
         return $this->hasMany(TaskTrade::className(), ['resources_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUnits()
-    {
-        return $this->hasMany(Unit::className(), ['change_resources_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUnit()
-    {
-        return $this->hasOne(Unit::className(), ['price_resources_id' => 'id']);
     }
 
     /**

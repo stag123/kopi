@@ -21,6 +21,7 @@ class SiteAsset extends AssetBundle
         'bundle/site.page.js'
     ];
     public $depends = [
-        'app\assets\BaseAsset'
+        'app\assets\BaseAsset',
+        'yii\bootstrap\BootstrapAsset',
     ];
 }

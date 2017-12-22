@@ -3,7 +3,6 @@
 namespace app\components\village\build\models;
 
 use app\models\Resources;
-use phpDocumentor\Reflection\Types\Resource;
 
 /**
  * @inheritdoc
@@ -65,7 +64,7 @@ class GrainFarm extends BuildInfo
     }
 
     public function getChangeResource() {
-        $changeResource = new Resource();
+        $changeResource = new Resources();
         switch($this->level) {
             case 1:
                 $changeResource->grain = 9;

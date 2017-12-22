@@ -132,7 +132,11 @@ class VillageMap extends \app\models\BaseModel
     }
 
     public function getBuild() {
-        return \app\components\village\build\models\Build::getById($this->build_id);
+        return $this->getBuildLevel() ? $this->getBuildLevel()->build: null;
+    }
+
+    public function getBuildLevel() {
+        return $this->buildFactory->createForMap($this);
     }
 
     public function startBuild() {

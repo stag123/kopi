@@ -5,26 +5,26 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%unit_group}}".
+ * This is the model class for table "{{%units}}".
  *
  * @property integer $id
  * @property integer $village_id
  * @property integer $map_id
+ * @property integer $sword
+ * @property integer $catapult
  *
  * @property TaskAttack[] $taskAttacks
  * @property Map $map
  * @property Village $village
- * @property UnitValue[] $unitValues
- * @property Unit[] $units
  */
-class UnitGroup extends \app\models\BaseModel
+class Units extends \app\models\BaseModel
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%unit_group}}';
+        return '{{%units}}';
     }
 
     /**
@@ -34,7 +34,7 @@ class UnitGroup extends \app\models\BaseModel
     {
         return [
             [['village_id'], 'required'],
-            [['village_id', 'map_id'], 'integer'],
+            [['village_id', 'map_id', 'sword', 'catapult'], 'integer'],
             [['map_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map::className(), 'targetAttribute' => ['map_id' => 'id']],
             [['village_id'], 'exist', 'skipOnError' => true, 'targetClass' => Village::className(), 'targetAttribute' => ['village_id' => 'id']],
         ];
@@ -49,6 +49,8 @@ class UnitGroup extends \app\models\BaseModel
             'id' => 'ID',
             'village_id' => 'Village ID',
             'map_id' => 'Map ID',
+            'sword' => 'Sword',
+            'catapult' => 'Catapult',
         ];
     }
 
@@ -74,21 +76,5 @@ class UnitGroup extends \app\models\BaseModel
     public function getVillage()
     {
         return $this->hasOne(Village::className(), ['id' => 'village_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUnitValues()
-    {
-        return $this->hasMany(UnitValue::className(), ['unit_group_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUnits()
-    {
-        return $this->hasMany(Unit::className(), ['id' => 'unit_id'])->viaTable('{{%unit_value}}', ['unit_group_id' => 'id']);
     }
 }

@@ -16,6 +16,9 @@
   line-height: 20px;
   text-align: left;
 }
+.resource .count.red {
+  color: red;
+}
 .resource.wood {
   background-image: url(/images/icons/wood2.png);
 }

@@ -4,7 +4,8 @@ class Timer {
         this.element = element;
         this.time_left = timeLeft;
         if (this.time_left <= 0) {
-            throw new Error('Error time left ' + this.time_left);
+           // setTimeout(() => {document.location.reload()}, 1000);
+            return;
         }
         this.startTimer();
     }
