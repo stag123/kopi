@@ -11,6 +11,7 @@ use app\components\village\build\models\IronFarm;
 use app\components\village\build\models\Stock;
 use app\components\village\build\models\StoneFarm;
 use app\components\village\build\models\WoodFarm;
+use app\models\Task;
 use app\models\Village;
 use app\components\village\build\models\Build;
 use app\models\VillageMap;

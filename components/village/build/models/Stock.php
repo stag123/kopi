@@ -3,7 +3,6 @@
 namespace app\components\village\build\models;
 
 use app\models\Resources;
-use phpDocumentor\Reflection\Types\Resource;
 
 /**
  * @inheritdoc
@@ -11,6 +10,7 @@ use phpDocumentor\Reflection\Types\Resource;
  */
 class Stock extends BuildInfo
 {
+    public $maxLevel = 2;
     public function getBuild()
     {
         return Build::getStock();
@@ -25,6 +25,12 @@ class Stock extends BuildInfo
                 $price->stone = 330;
                 $price->wood = 420;
                 break;
+            case 2:
+                $price->iron = 793;
+                $price->grain = 482;
+                $price->stone = 642;
+                $price->wood = 510;
+                break;
         }
         return $price;
     }
@@ -33,6 +39,8 @@ class Stock extends BuildInfo
         switch($this->level) {
             case 1:
                 return 60 * 13 + 20;
+            case 2:
+                return 60 * 21 + 9;
         }
     }
 
@@ -41,6 +49,8 @@ class Stock extends BuildInfo
         switch($this->level) {
             case 1:
                 return 3;
+            case 2:
+                return 5;
         }
     }
 
@@ -49,6 +59,8 @@ class Stock extends BuildInfo
         switch($this->level) {
             case 1:
                 return 1200;
+            case 2:
+                return 2000;
         }
     }
 

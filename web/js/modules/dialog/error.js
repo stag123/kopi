@@ -1,12 +1,12 @@
 import Template from "./hbs/error.hbs";
 import BaseDialog from "./base";
 
-class BuildDialog extends BaseDialog {
+class ErrorDialog extends BaseDialog {
 
-    open(data) {
+    open(message) {
         super.open();
-        dialogWrapper.innerHTML = Template(data);
+        dialogWrapper.innerHTML = Template({message: message});
     }
 }
 
-export default BuildDialog;
+export default ErrorDialog;

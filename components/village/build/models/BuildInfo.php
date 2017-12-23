@@ -14,6 +14,7 @@ use app\models\Resources;
 abstract class BuildInfo extends BaseModel
 {
     public $level;
+    public $maxLevel = 1;
 
     abstract public function getBuild();
 
@@ -25,11 +26,14 @@ abstract class BuildInfo extends BaseModel
 
     /**
      * @param $level
-     * @return static
+     * @return null|static
      */
     public static function getByLevel($level) {
         $obj = new static();
         $obj->level = $level;
+        if ($level > $obj->maxLevel) {
+            return null;
+        }
         return $obj;
     }
 

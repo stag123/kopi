@@ -3,7 +3,6 @@
 namespace app\components\village\build\models;
 
 use app\models\Resources;
-use phpDocumentor\Reflection\Types\Resource;
 
 /**
  * @inheritdoc
@@ -11,6 +10,7 @@ use phpDocumentor\Reflection\Types\Resource;
  */
 class IronFarm extends BuildInfo
 {
+    public $maxLevel = 3;
     public function getBuild()
     {
         return Build::getIronFarm();
@@ -65,7 +65,7 @@ class IronFarm extends BuildInfo
     }
 
     public function getChangeResource() {
-        $changeResource = new Resource();
+        $changeResource = new Resources();
         switch($this->level) {
             case 1:
                 $changeResource->iron = 9;

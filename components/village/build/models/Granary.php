@@ -3,7 +3,6 @@
 namespace app\components\village\build\models;
 
 use app\models\Resources;
-use phpDocumentor\Reflection\Types\Resource;
 
 /**
  * @inheritdoc

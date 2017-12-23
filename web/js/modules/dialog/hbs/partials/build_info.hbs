@@ -1,8 +1,34 @@
-{{#equal code "stock"}}
-    Максимальное количество ресурсов, которое вмещает {{build.name}}: {{build.size}}<br/>
+{{#equal currentBuild.build.code "stock"}}
+    Уровень: {{currentBuild.level}}<br/>
+    Вместиомсть ресурсов: {{currentBuild.size}}<br/>
+    {{#if nextBuild}}
+        <br/>Вместимость на уровне {{nextBuild.level}}: {{nextBuild.size}}
+    {{/if}}
 {{/equal}}
 
-{{log this}}
-{{#equal code "granary"}}
-    Максимальное количество зерна, которое вмещает {{build.name}}: {{build.size}}<br/>
+{{#equal currentBuild.build.code "granary"}}
+    Уровень: {{currentBuild.level}}<br/>
+    Вместиомсть зерна: {{currentBuild.size}}<br/>
+    {{#if nextBuild}}
+        <br/>Вместимость на уровне {{nextBuild.level}}: {{nextBuild.size}}
+    {{/if}}
 {{/equal}}
+
+{{#equal currentBuild.build.code "army"}}
+    Уровень: {{currentBuild.level}}<br/>
+
+    Построить войска: <br/>
+
+    <form method="POST" action="/village/build-units">
+        <div class="unit sword">
+            <input name="sword" type="text" size="4" value="0">
+        </div>
+        <div class="unit catapult">
+            <input name="catapult" type="text" size="4" value="0">
+        </div>
+
+        <input type="submit" class="button" href="/village/build-units" value="Построить"/>
+    </form>
+
+{{/equal}}
+

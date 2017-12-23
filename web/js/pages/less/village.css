@@ -346,6 +346,52 @@ a.desc:after {
 .village-container .map .map-row .map-cell .index__background.stock {
   background-image: url(/images/buildings/stock.png);
 }
+.village-container .map .map-row .map-cell.building .selector {
+  width: 94px;
+  display: block;
+  margin-top: 21.5px;
+  height: 47px;
+  background-color: lawngreen;
+  z-index: 2;
+  position: absolute;
+}
+.village-container .map .map-row .map-cell.building .selector:before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -23.5px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 47px solid transparent;
+  border-right: 47px solid transparent;
+  border-bottom: 23.5px solid lawngreen;
+}
+.village-container .map .map-row .map-cell.building .selector:after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  bottom: -23.5px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 47px solid transparent;
+  border-right: 47px solid transparent;
+  border-top: 23.5px solid lawngreen;
+}
+.village-container .map .map-row .map-cell.building .index__background {
+  z-index: 3;
+  opacity: 0.7;
+  /* &:before {
+                            background-image: url(/images/icons/banner.png);
+                            background-repeat: no-repeat;
+                            background-position: 0px 30px;
+                            content: '';
+                            position: absolute;
+                            width: 40px;
+                            height: 80px;
+                        }*/
+}
 .village-container .map .map-row .map-cell .selector {
   margin-left: -2px;
 }

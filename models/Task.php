@@ -97,6 +97,14 @@ class Task extends \app\models\BaseModel
         return $this->hasOne(TaskUnit::className(), ['task_id' => 'id']);
     }
 
+    public static function freeTasks() {
+        $condition = ['status' => self::STATUS_NEW];
+        Task::updateAll(
+            $condition,
+            'status = '. self::STATUS_PROGRESS.' AND DATE_ADD(created_at, INTERVAL duration SECOND) < DATE_ADD(NOW(), INTERVAL -5 SECOND)'
+        );
+    }
+
     /**
      * @param $worker
      * @param $timeLeft

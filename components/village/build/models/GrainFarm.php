@@ -10,6 +10,7 @@ use app\models\Resources;
  */
 class GrainFarm extends BuildInfo
 {
+    public $maxLevel = 3;
     public function getBuild()
     {
         return Build::getGrainFarm();

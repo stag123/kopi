@@ -1,13 +1,32 @@
 <div class="modal">
     <div class="title">Постройка здания</div>
+    {{#if currentBuild}}
+    <div class="list">
+        <div class="item {{currentBuild.build.code}}">
+            <div class="name">{{currentBuild.build.name}}</div>
+            <div class="desc">{{currentBuild.build.description}}</div>
+            <div class="info">
+                {{> partials/build_info currentBuild=currentBuild nextBuild=nextBuild}}
+            </div>
+            {{#if nextBuild}}
+                {{> partials/resource resource=nextBuild.price villageResource=../villageResource}}
+                <div class="controls">
+                    <a href="/village/build/?buildId={{currentBuild.build.id}}&mapId={{../mapId}}" class="button">
+                        {{#equal level 1}}Построить{{else}}Улучшить до уровня {{nextBuild.level}}{{/equal}}
+                    </a>
+                </div>
+            {{else}}
+                Здание достигло максимального уровня
+            {{/if}}
+        </div>
+    </div>
+    {{/if}}
+    {{#if builds}}
     <div class="list">
         {{#each builds}}
             <div class="item {{build.code}}">
                 <div class="name">{{build.name}}</div>
                 <div class="desc">{{build.description}}</div>
-                {{#if ../buildCode}}
-                    {{> partials/build_info build=build code=../buildCode}}
-                {{/if}}
                 {{> partials/resource resource=price villageResource=../villageResource}}
                 <div class="controls">
                     <a href="/village/build/?buildId={{build.id}}&mapId={{../mapId}}" class="button">
@@ -17,4 +36,5 @@
             </div>
         {{/each}}
     </div>
+    {{/if}}
 </div>

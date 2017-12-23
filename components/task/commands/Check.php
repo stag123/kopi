@@ -20,6 +20,9 @@ class Check extends BaseComponent
 
     public function execute() {
         $worker = round(microtime(true) * 1000) % 10000 + mt_rand(1, 1000);
+
+        Task::freeTasks();
+
         $tasks = Task::getTasks($worker, self::TIME_EXECUTE);
 
         $count = count($tasks);

@@ -1,4 +1,6 @@
 @import "../../../pages/less/build.less";
+@import "../../../pages/less/units.less";
+@import "../../../pages/less/button.less";
 
 .list {
     margin: 20px 0;
@@ -21,21 +23,21 @@
             margin-bottom:20px;
         }
         
+        .info {
+            margin-bottom:20px;
+            
+            .unit {
+                padding-left: 30px;
+                margin-bottom: 5px;
+                display: inline-block;
+            }
+        }
+        
         .price {
             margin-bottom:20px;
         }
         .controls {
             margin-bottom:20px;
-            .button {
-                height: 20px;
-                padding: 5px 10px;
-                border-radius: 5px;
-                background-color: #ccc;
-                color: #303030;
-                font-size: 14px;
-                font-weight: 700;
-                text-decoration: none;
-            }
         }
     }
 }

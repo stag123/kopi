@@ -32,7 +32,7 @@ class Village extends \app\models\BaseModel
 {
     const BASE_STOCK = 500;
     const BASE_GRANARY = 400;
-    const BASE_RESOURCE_SPEED = 36000;//VillageMap::RESOURCE_COUNT;
+    const BASE_RESOURCE_SPEED = 6000;//VillageMap::RESOURCE_COUNT;
     const NEW_VILLAGE_RESOURCE = 200;
     /**
      * @inheritdoc

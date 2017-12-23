@@ -4,6 +4,8 @@
 
 @color-map-green: lawngreen;
 @color-map-blue: skyblue;
+@color-map-red: orangered;
+
 
 .resource-container {
     color: #FFF;
@@ -136,6 +138,26 @@
                     }
     
                     .build();
+                }
+    
+                &.building {
+                    .selector {
+                        .active(94px, @color-map-green);
+                    }
+    
+                    .index__background {
+                        z-index: 3;
+                        opacity: 0.7;
+                       /* &:before {
+                            background-image: url(/images/icons/banner.png);
+                            background-repeat: no-repeat;
+                            background-position: 0px 30px;
+                            content: '';
+                            position: absolute;
+                            width: 40px;
+                            height: 80px;
+                        }*/
+                    }
                 }
                 
                 .selector {

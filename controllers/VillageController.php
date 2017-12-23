@@ -65,17 +65,22 @@ class VillageController extends BaseController
         $this->checkAccess($map->village);
 
         if ($map->build_id) {
+            $currentBuild = $this->buildFactory->createForMap($map);
+            $data = ['currentBuild' => $currentBuild];
             $build = $this->buildFactory->createForBuild($map->build_id, $map->level + 1);
             if ($build) {
-                $data = [$build->toArray()];
+                $data['nextBuild'] = $build;
             }
         } else if ($map->type !== VillageMap::TYPE_EARTH) {
             $build = $this->buildFactory->createForResource($map->type);
             if ($build) {
-                $data = [$build->toArray()];
+                $data = ['builds' => [$build]];
             }
         } else {
-            $data = $this->buildFactory->createForVillage($map->village);
+            $builds = $this->buildFactory->createForVillage($map->village);
+            if ($builds) {
+                $data = ['builds' => $builds];
+            }
         }
         return $this->asJson($data);
     }
@@ -92,6 +97,10 @@ class VillageController extends BaseController
         }
         $this->checkAccess($map->village);
 
+        // Чтобы это убрать нужно добавить проверку на активные таски при выборе строительства
+        if (Task::getVillageTasks($map->village_id)) {
+            throw new BadRequestHttpException("Все строители сейчас заняты");
+        }
         $this->commandTaskCreate->createBuild($map, $build);
         $this->redirect(Url::to(["village/view", "id" => $map->village_id]));
     }

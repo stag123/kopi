@@ -44,11 +44,10 @@ VillageAsset::register($this);
                             $build = Build::GetByID($map->build_id);
                         }
                         ?>
-                        <div class="map-cell">
+                        <div class="map-cell<?=$map->status === \app\models\VillageMap::STATUS_BUILDING ? ' building': '';?>">
                             <div class="selector"></div>
-                            <a data-tooltip="<?= $map->build_id ? $build->name : 'Нажмите, чтобы строить';?>"
+                            <a data-tooltip="<?= ($map->status === \app\models\VillageMap::STATUS_BUILDING ? 'Идет строительство...' : ($map->build_id ? $build->name : 'Нажмите, чтобы строить'));?>"
                                data-id="<?=$map->id;?>"
-                               data-build-code="<?= $map->build_id ? $map->getBuild()->code : '';?>"
                                class="js_build index__background<?=$map->build_id ? ' ' .$build->code : ' b' . $map->type;?>">
                             </a>
                         </div>

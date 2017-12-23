@@ -35,7 +35,7 @@ new ResourceVillage(domCache.resourceIron, domCache.resourceIronHour.innerText, 
 
 DOM.on(domCache.buildMap, "click", ".js_build", (e, target) => {
    // debugger;
-    new BuildDialog(DOM.data(target, "id"), DOM.data(target, "build-code"), window.initials.villageResource);
+    new BuildDialog(DOM.data(target, "id"), window.initials.villageResource);
 });
 /*
 function updateVillage() {
