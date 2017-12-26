@@ -130,4 +130,8 @@ class Map extends \app\models\BaseModel
         }
         return $data;
     }
+
+    public static function getDistance(Map $m1, Map $m2) {
+        return sqrt(abs($m1->x - $m2->x) ^ 2 + abs($m1->y - $m2->y) ^ 2);
+    }
 }

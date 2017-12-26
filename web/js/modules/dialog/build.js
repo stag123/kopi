@@ -2,11 +2,12 @@ import Template from "./hbs/build.hbs";
 import MessageTemplate from "./hbs/error.hbs";
 import "./less/build.less";
 import Net from "../net";
+import DOM from "../dom";
 import BaseDialog from "./base";
 
 class BuildDialog extends BaseDialog {
 
-    constructor(mapId, buildCode, villageResource) {
+    constructor(mapId, villageResource) {
         super();
         this.mapId = mapId;
         this.villageResource = villageResource;
@@ -29,6 +30,11 @@ class BuildDialog extends BaseDialog {
         } else {
             this.element.innerHTML = MessageTemplate({message: 'Нет доступных зданий для постройки'});
         }
+    }
+
+    close() {
+        super.close();
+        document.location.hash = '';
     }
 }
 

@@ -8,11 +8,11 @@ use Yii;
  * This is the model class for table "{{%task_attack}}".
  *
  * @property integer $id
- * @property integer $unit_group_id
+ * @property integer $units_id
  * @property integer $resources_id
  * @property integer $task_id
  *
- * @property Units $unitGroup
+ * @property Units $units
  * @property Resources $resources
  * @property Task $task
  */
@@ -32,10 +32,10 @@ class TaskAttack extends \app\models\BaseModel
     public function rules()
     {
         return [
-            [['unit_group_id', 'resources_id', 'task_id'], 'required'],
-            [['unit_group_id', 'resources_id', 'task_id'], 'integer'],
+            [['units_id', 'resources_id', 'task_id'], 'required'],
+            [['units_id', 'resources_id', 'task_id'], 'integer'],
             [['task_id'], 'unique'],
-            [['unit_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => Units::className(), 'targetAttribute' => ['unit_group_id' => 'id']],
+            [['units_id'], 'exist', 'skipOnError' => true, 'targetClass' => Units::className(), 'targetAttribute' => ['units_id' => 'id']],
             [['resources_id'], 'exist', 'skipOnError' => true, 'targetClass' => Resources::className(), 'targetAttribute' => ['resources_id' => 'id']],
             [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['task_id' => 'id']],
         ];
@@ -48,7 +48,7 @@ class TaskAttack extends \app\models\BaseModel
     {
         return [
             'id' => 'ID',
-            'unit_group_id' => 'Unit Group ID',
+            'units_id' => 'Units ID',
             'resources_id' => 'Resources ID',
             'task_id' => 'Task ID',
         ];
@@ -57,9 +57,9 @@ class TaskAttack extends \app\models\BaseModel
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUnitGroup()
+    public function getUnits()
     {
-        return $this->hasOne(Units::className(), ['id' => 'unit_group_id']);
+        return $this->hasOne(Units::className(), ['id' => 'units_id']);
     }
 
     /**

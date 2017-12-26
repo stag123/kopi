@@ -33,10 +33,10 @@ new ResourceVillage(domCache.resourceGrain, domCache.resourceGrainHour.innerText
 new ResourceVillage(domCache.resourceStone, domCache.resourceStoneHour.innerText, domCache.resourceStoneMax.innerText);
 new ResourceVillage(domCache.resourceIron, domCache.resourceIronHour.innerText, domCache.resourceIronMax.innerText);
 
-DOM.on(domCache.buildMap, "click", ".js_build", (e, target) => {
+/*DOM.on(domCache.buildMap, "click", ".js_build", (e, target) => {
    // debugger;
     new BuildDialog(DOM.data(target, "id"), window.initials.villageResource);
-});
+});*/
 /*
 function updateVillage() {
     let request = Net.ajax("GET", "/village/stat", {id: window.initials.villageId});
@@ -61,5 +61,27 @@ if (window.initials.tasks) {
             new Timer(cache, item.time_left);
             domCache.buildInfo.appendChild(div);
         }
+
+        if (item.unit) {
+            let div = document.createElement('div');
+            div.innerHTML = BuildTimerTemplate({title: item.unit.name + ' обучается, до конца осталось: ', time: 0});
+            let cache = div.querySelector('.js_timer');
+            new Timer(cache, item.time_left);
+            domCache.buildInfo.appendChild(div);
+        }
     });
+}
+
+function hashChange () {
+    let hash = document.location.hash.replace('#', '').replace('map', '');
+    if (hash) {
+        new BuildDialog(hash, window.initials.villageResource);
+    }
+};
+
+
+window.addEventListener("hashchange", hashChange);
+
+if (document.location.hash) {
+    hashChange();
 }

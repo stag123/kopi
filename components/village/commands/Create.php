@@ -5,6 +5,7 @@ namespace app\components\village\commands;
 use app\components\BaseComponent;
 use app\models\Resources;
 use app\models\Map;
+use app\models\Units;
 use app\models\User;
 use app\models\Village;
 use app\models\VillageMap;
@@ -33,7 +34,9 @@ class Create extends BaseComponent {
         $village->user_id = $user->id;
         $village->village_resources_id = $resource_group_id;
         $village->resources_updated_at = round(microtime(true) * 1000);
-        $village->save();
+        if (!$village->save()) {
+            throw new BadRequestHttpException("Erro create village " . serialize($village->errors));
+        }
 
         VillageMap::generate($village->id);
     }

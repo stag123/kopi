@@ -4,12 +4,14 @@ namespace app\components\task\commands;
 
 use app\components\BaseComponent;
 use app\components\village\build\models\Build;
+use app\components\village\build\unit\models\Unit;
 use app\models\Task;
 use app\models\TaskBuild;
 use app\models\TaskUnit;
 use app\models\TaskAttack;
 use app\models\TaskTrade;
 use app\models\VillageMap;
+use yii\db\Expression;
 use yii\web\BadRequestHttpException;
 
 
@@ -21,7 +23,9 @@ class Check extends BaseComponent
     public function execute() {
         $worker = round(microtime(true) * 1000) % 10000 + mt_rand(1, 1000);
 
-        Task::freeTasks();
+        $deleted = Task::freeTasks();
+
+        $this->logger->info('Deleted tasks: ' . $deleted);
 
         $tasks = Task::getTasks($worker, self::TIME_EXECUTE);
 
@@ -40,6 +44,19 @@ class Check extends BaseComponent
                 if ($dateTime->getTimestamp() + $task->duration <= time() && $task->status === Task::STATUS_PROGRESS) {
                     if ($task->taskBuild) {
                         $task->taskBuild->villageMap->build($task->taskBuild->build_id, $task->taskBuild->level);
+                    }
+                    if ($task->taskUnit) {
+                        $unit = Unit::GetByID($task->taskUnit->id);
+                        $village = $task->taskUnit->task->villageFrom;
+                        $villageUnits = $village->getVillageUnits();
+                        $villageUnits->{$unit->code} += 1;
+                        $villageUnits->save();
+                        $task->taskUnit->count -= 1;
+                        if ($task->taskUnit->count > 0) {
+                            $task->taskUnit->task->created_at = new Expression('DATE_ADD(created_at, INTERVAL duration SECOND)');
+                            $task->taskUnit->save();
+                            continue;
+                        }
                     }
                     $this->logger->info('Done task: ' . $task->id);
                     $task->done();

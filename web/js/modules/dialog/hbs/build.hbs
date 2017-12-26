@@ -6,12 +6,12 @@
             <div class="name">{{currentBuild.build.name}}</div>
             <div class="desc">{{currentBuild.build.description}}</div>
             <div class="info">
-                {{> partials/build_info currentBuild=currentBuild nextBuild=nextBuild}}
+                {{> partials/build_info mapId=mapId currentBuild=currentBuild nextBuild=nextBuild}}
             </div>
             {{#if nextBuild}}
                 {{> partials/resource resource=nextBuild.price villageResource=../villageResource}}
                 <div class="controls">
-                    <a href="/village/build/?buildId={{currentBuild.build.id}}&mapId={{../mapId}}" class="button">
+                    <a href="/village/build/?buildId={{currentBuild.build.id}}&mapId={{mapId}}" class="button">
                         {{#equal level 1}}Построить{{else}}Улучшить до уровня {{nextBuild.level}}{{/equal}}
                     </a>
                 </div>

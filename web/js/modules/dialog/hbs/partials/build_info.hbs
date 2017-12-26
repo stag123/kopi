@@ -17,18 +17,21 @@
 {{#equal currentBuild.build.code "army"}}
     Уровень: {{currentBuild.level}}<br/>
 
-    Построить войска: <br/>
+    Построить войска: <br/><br/>
 
-    <form method="POST" action="/village/build-units">
-        <div class="unit sword">
-            <input name="sword" type="text" size="4" value="0">
-        </div>
-        <div class="unit catapult">
-            <input name="catapult" type="text" size="4" value="0">
-        </div>
-
-        <input type="submit" class="button" href="/village/build-units" value="Построить"/>
-    </form>
+    {{#each currentBuild.units}}
+        <form method="POST" action="/village/build-units">
+            <div><b>{{name}}</b>: {{description}}</div>
+            {{> resource resource=price}}
+            <div class="unit {{code}}">
+                <input name="unitId" type="hidden" value="{{id}}">
+                <input name="count" type="text" size="4" value="0">
+                <input name="mapId" type="hidden" value="{{../mapId}}"/>
+                <input type="submit" class="button" href="/village/build-units" value="Построить"/>
+            </div>
+        </form>
+    {{/each}}
+    <br/><br/>
 
 {{/equal}}
 

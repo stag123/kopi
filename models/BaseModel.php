@@ -66,6 +66,12 @@ class BaseModel extends \yii\db\ActiveRecord implements InjectionAwareInterface 
         return $result;
     }
 
+    public static function CreateOne() {
+        $model = new static();
+        $model->save();
+        return $model;
+    }
+
     public static function GetOrCreate($where) {
         $model = self::find()->where($where)->one();
         if (!$model) {

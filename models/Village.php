@@ -22,9 +22,11 @@ use Yii;
  * @property string $created_at
  * @property integer $resources_updated_at
  *
+ * @property Task[] $tasks
+ * @property Task[] $tasks0
  * @property Units[] $units
- * @property Resources $villageResources
  * @property Map $map
+ * @property Resources $villageResources
  * @property User $user
  * @property VillageMap[] $villageMaps
  */
@@ -54,8 +56,8 @@ class Village extends \app\models\BaseModel
             [['name'], 'string', 'max' => 255],
             [['map_id'], 'unique'],
             [['village_resources_id'], 'unique'],
-            [['village_resources_id'], 'exist', 'skipOnError' => true, 'targetClass' => Resources::className(), 'targetAttribute' => ['village_resources_id' => 'id']],
             [['map_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map::className(), 'targetAttribute' => ['map_id' => 'id']],
+            [['village_resources_id'], 'exist', 'skipOnError' => true, 'targetClass' => Resources::className(), 'targetAttribute' => ['village_resources_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -69,6 +71,7 @@ class Village extends \app\models\BaseModel
             'id' => 'ID',
             'map_id' => 'Map ID',
             'user_id' => 'User ID',
+            'village_units_id' => 'Village Units ID',
             'name' => 'Name',
             'village_resources_id' => 'Village Resources ID',
             'created_at' => 'Created At',
@@ -87,17 +90,17 @@ class Village extends \app\models\BaseModel
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getVillageResources()
+    public function getMap()
     {
-        return $this->hasOne(Resources::className(), ['id' => 'village_resources_id']);
+        return $this->hasOne(Map::className(), ['id' => 'map_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMap()
+    public function getVillageResources()
     {
-        return $this->hasOne(Map::className(), ['id' => 'map_id']);
+        return $this->hasOne(Resources::className(), ['id' => 'village_resources_id']);
     }
 
     /**
@@ -182,5 +185,19 @@ class Village extends \app\models\BaseModel
         $res->iron = max(self::BASE_RESOURCE_SPEED, $res->iron);
         $res->stone = max(self::BASE_RESOURCE_SPEED, $res->stone);
         return $res;
+    }
+
+    /**
+     * @return Units
+     */
+    public function getVillageUnits() {
+        $units = $this->getUnits()->where(['map_id' => $this->map_id])->one();
+        if ($units) {
+            return $units;
+        }
+        $units = new Units();
+        $units->village_id = $this->id;
+        $units->map_id = $this->map_id;
+        return $units;
     }
 }

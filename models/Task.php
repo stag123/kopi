@@ -3,7 +3,9 @@
 namespace app\models;
 
 use app\components\village\build\models\Build;
+use app\components\village\build\unit\models\Unit;
 use Yii;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "{{%task}}".
@@ -17,11 +19,13 @@ use Yii;
  * @property integer $worker
  * @property integer $status
  *
+ * @property Village $villageFrom
+ * @property Village $villageTo
  * @property TaskAttack $taskAttack
  * @property TaskBuild $taskBuild
  * @property TaskTrade $taskTrade
  * @property TaskUnit $taskUnit
- */
+ **/
 class Task extends \app\models\BaseModel
 {
 
@@ -45,6 +49,8 @@ class Task extends \app\models\BaseModel
             [['created_at', 'updated_at'], 'safe'],
             [['duration', 'village_from_id', 'village_to_id'], 'required'],
             [['duration', 'village_from_id', 'village_to_id', 'worker', 'status'], 'integer'],
+            [['village_to_id'], 'exist', 'skipOnError' => true, 'targetClass' => Village::className(), 'targetAttribute' => ['village_to_id' => 'id']],
+            [['village_from_id'], 'exist', 'skipOnError' => true, 'targetClass' => Village::className(), 'targetAttribute' => ['village_from_id' => 'id']],
         ];
     }
 
@@ -63,6 +69,22 @@ class Task extends \app\models\BaseModel
             'worker' => 'Worker',
             'status' => 'Status',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVillageTo()
+    {
+        return $this->hasOne(Village::className(), ['id' => 'village_to_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVillageFrom()
+    {
+        return $this->hasOne(Village::className(), ['id' => 'village_from_id']);
     }
 
     /**
@@ -98,10 +120,7 @@ class Task extends \app\models\BaseModel
     }
 
     public static function freeTasks() {
-        $condition = ['status' => self::STATUS_NEW];
-        Task::updateAll(
-            $condition,
-            'status = '. self::STATUS_PROGRESS.' AND DATE_ADD(created_at, INTERVAL duration SECOND) < DATE_ADD(NOW(), INTERVAL -5 SECOND)'
+        return Task::deleteAll('status <> '. self::STATUS_DONE.' AND DATE_ADD(created_at, INTERVAL duration SECOND) < DATE_ADD(NOW(), INTERVAL -5 SECOND)'
         );
     }
 
@@ -138,6 +157,13 @@ class Task extends \app\models\BaseModel
                     'time_left' => strtotime($task->created_at) + $task->duration - time(),
                     'build' => Build::GetByID($task->taskBuild->build_id),
                     'level' => $task->taskBuild->level
+                ];
+            }
+            if ($task->taskUnit) {
+                $data[] = [
+                    'time_left' => strtotime($task->created_at) + $task->duration - time(),
+                    'unit' => Unit::GetByID($task->taskUnit->unit_id),
+                    'count' => $task->taskUnit->count
                 ];
             }
           // $task->

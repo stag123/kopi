@@ -2,14 +2,17 @@
 
 namespace app\components\village\build\models;
 
+use app\components\village\build\unit\models\Unit;
 use app\models\Resources;
 
 /**
  * @inheritdoc
- * @property int $units
+ * @property array $units
  */
 class Army extends BuildInfo
 {
+    public $maxLevel = 2;
+
     public function getBuild()
     {
         return Build::getArmy();
@@ -24,6 +27,12 @@ class Army extends BuildInfo
                 $price->stone = 330;
                 $price->wood = 420;
                 break;
+            case 2:
+                $price->iron = 700;
+                $price->grain = 480;
+                $price->stone = 530;
+                $price->wood = 670;
+                break;
         }
         return $price;
     }
@@ -32,6 +41,8 @@ class Army extends BuildInfo
         switch($this->level) {
             case 1:
                 return 60 * 13 + 20;
+            case 2:
+                return 60 * 23 + 20;
         }
     }
 
@@ -40,6 +51,8 @@ class Army extends BuildInfo
         switch($this->level) {
             case 1:
                 return 3;
+            case 2:
+                return 5;
         }
     }
 
@@ -47,7 +60,9 @@ class Army extends BuildInfo
     {
         switch($this->level) {
             case 1:
-                return 1;
+                return [Unit::getSword()];
+            case 2:
+                return [Unit::getCatapult(), Unit::getSword()];
         }
     }
 

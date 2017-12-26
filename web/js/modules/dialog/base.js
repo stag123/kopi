@@ -6,21 +6,25 @@ let dialogWrapper = document.createElement('div');
 dialogWrapper.setAttribute('class', 'dialog-wrapper');
 document.body.appendChild(dialogWrapper);
 
-DOM.on(dialogWrapper, "click", (e, target) => {
-    if (DOM.hasClass(e.target, "open")) {
-        DOM.removeClass(e.currentTarget, "open");
-    }
-});
-
 
 class BaseDialog {
 
     constructor() {
         this.element = dialogWrapper;
+
+        DOM.on(this.element, "click", (e, target) => {
+            if (DOM.hasClass(e.target, "open")) {
+                this.close();
+            }
+        });
     }
 
     open(data) {
         DOM.addClass(this.element, "open");
+    }
+
+    close () {
+        DOM.removeClass(this.element, "open");
     }
 }
 

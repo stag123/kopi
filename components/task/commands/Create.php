@@ -4,11 +4,16 @@ namespace app\components\task\commands;
 
 use app\components\BaseComponent;
 use app\components\village\build\models\Build;
+use app\components\village\build\unit\models\Unit;
+use app\models\Map;
+use app\models\Resources;
 use app\models\Task;
 use app\models\TaskBuild;
 use app\models\TaskUnit;
 use app\models\TaskAttack;
 use app\models\TaskTrade;
+use app\models\Units;
+use app\models\Village;
 use app\models\VillageMap;
 use yii\web\BadRequestHttpException;
 
@@ -58,11 +63,47 @@ class Create extends BaseComponent
         $map->startBuild();
     }
 
-    public function createUnit() {
+    public function createUnit(Village $village, Unit $unit, $count) {
+        $price = $unit->price->multiply($count);
+        if (!$village->villageResources->greaterThen($price)) {
+            throw new BadRequestHttpException("Недотаточно ресурсов");
+        }
 
+        if ($count <= 0) {
+            throw new BadRequestHttpException("Недопустимое количество");
+        }
+
+        $village->villageResources->remove($price);
+
+        $task = $this->newTask($village->id, $village->id, $unit->buildTime);
+
+        $taskUnit = new TaskUnit();
+        $taskUnit->count = $count;
+        $taskUnit->unit_id = $unit->id;
+        $taskUnit->task_id = $task->id;
+
+        if (!$taskUnit->save()) {
+            throw new BadRequestHttpException("Error create unit task");
+        }
     }
 
-    public function createAttack() {
+    public function createAttack(Units $units, Village $villageFrom, Village $villageTo) {
+        if (!$villageFrom->getVillageUnits()->greaterThen($units)) {
+            throw new BadRequestHttpException("Недотаточно войнов");
+        }
+        $villageFrom->getVillageUnits()->remove($units);
 
+        $distance = Map::getDistance($villageFrom->map, $villageTo->map);
+        $time = ceil($distance / $units->getSmallestSpeed() * 3600);
+
+        $task = $this->newTask($villageFrom->id, $villageTo->id, $time);
+
+        $taskAttack = new TaskAttack();
+        $taskAttack->units = $units;
+        $taskAttack->task_id = $task->id;
+        $taskAttack->resources_id = Resources::CreateOne()->id;
+        if (!$taskAttack->save()) {
+            throw new BadRequestHttpException("Error create attack task");
+        }
     }
 }

@@ -97,4 +97,12 @@ class Resources extends \app\models\BaseModel
         $this->stone -= $r->stone;
         $this->save();
     }
+
+    public function multiply($count) {
+        $this->grain *= $count;
+        $this->wood *= $count;
+        $this->iron *= $count;
+        $this->stone *= $count;
+        return $this;
+    }
 }

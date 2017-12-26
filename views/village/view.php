@@ -7,6 +7,7 @@
  */
 
 $villageResource = $this->commandVillageResourceCalculate->execute($village);
+$villageUnits = $village->getVillageUnits();
 $speedResource = $village->getResourceHour();
 $stockSize = $village->getStockSize();
 $granarySize = $village->getGranarySize();
@@ -46,7 +47,7 @@ VillageAsset::register($this);
                         ?>
                         <div class="map-cell<?=$map->status === \app\models\VillageMap::STATUS_BUILDING ? ' building': '';?>">
                             <div class="selector"></div>
-                            <a data-tooltip="<?= ($map->status === \app\models\VillageMap::STATUS_BUILDING ? 'Идет строительство...' : ($map->build_id ? $build->name : 'Нажмите, чтобы строить'));?>"
+                            <a href="#map<?=$map->id;?>" data-tooltip="<?= ($map->status === \app\models\VillageMap::STATUS_BUILDING ? 'Идет строительство...' : ($map->build_id ? $build->name : 'Нажмите, чтобы строить'));?>"
                                data-id="<?=$map->id;?>"
                                class="js_build index__background<?=$map->build_id ? ' ' .$build->code : ' b' . $map->type;?>">
                             </a>
@@ -78,6 +79,8 @@ VillageAsset::register($this);
         </div>
 
         Войска:
-        <div class="army">Нет войск</div>
+        <div class="army">
+
+        </div>
     </div>
 </div>

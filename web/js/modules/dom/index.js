@@ -194,6 +194,15 @@ class DOM {
         var delegate = new Delegate(element);
         delegate.off(type, selectorOrCallback, callback);
     }
+
+    static formData(element) {
+        var formElements=element.elements;
+        var postData={};
+        for (var i=0; i<formElements.length; i++)
+            if (formElements[i].type!="submit")//we dont want to include the submit-buttom
+                postData[formElements[i].name]=formElements[i].value;
+        return postData;
+    }
 }
 
 export default DOM;

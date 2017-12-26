@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\components\village\build\unit\models\Unit;
 use Yii;
 
 /**
@@ -16,6 +17,7 @@ use Yii;
  * @property TaskAttack[] $taskAttacks
  * @property Map $map
  * @property Village $village
+ * @property Village[] $villages
  */
 class Units extends \app\models\BaseModel
 {
@@ -59,7 +61,7 @@ class Units extends \app\models\BaseModel
      */
     public function getTaskAttacks()
     {
-        return $this->hasMany(TaskAttack::className(), ['unit_group_id' => 'id']);
+        return $this->hasMany(TaskAttack::className(), ['units_id' => 'id']);
     }
 
     /**
@@ -76,5 +78,43 @@ class Units extends \app\models\BaseModel
     public function getVillage()
     {
         return $this->hasOne(Village::className(), ['id' => 'village_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVillages()
+    {
+        return $this->hasMany(Village::className(), ['village_units_id' => 'id']);
+    }
+
+    public function greaterThen(Units $r) {
+        return $this->sword >= $r->sword
+        && $this->catapult >= $r->catapult;
+    }
+
+    public function add(Units $r) {
+        $this->sword += $r->sword;
+        $this->catapult += $r->catapult;
+        $this->save();
+    }
+
+    public function remove(Units $r) {
+        $this->sword -= $r->sword;
+        $this->catapult -= $r->catapult;
+        $this->save();
+    }
+
+    public function getSmallestSpeed() {
+        $speed = [];
+        if ($this->sword > 0) {
+            $speed[] = Unit::getSword()->speed;
+        }
+
+        if ($this->catapult > 0) {
+            $speed[] = Unit::getCatapult()->speed;
+        }
+
+        return min($speed);
     }
 }

@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\components\village\build\models\Build;
+use app\components\village\build\unit\models\Unit;
 use app\models\Task;
 use app\models\Village;
 use app\models\VillageMap;
@@ -12,6 +13,7 @@ use yii\web\BadRequestHttpException;
 
 class VillageController extends BaseController
 {
+    public $enableCsrfValidation = false;
     /**
     * Displays homepage.
     *
@@ -93,7 +95,7 @@ class VillageController extends BaseController
         $build = Build::GetByID($buildId);
 
         if (!$map) {
-            throw new BadRequestHttpException("Error");
+            throw new BadRequestHttpException("Map not found");
         }
         $this->checkAccess($map->village);
 
@@ -103,5 +105,21 @@ class VillageController extends BaseController
         }
         $this->commandTaskCreate->createBuild($map, $build);
         $this->redirect(Url::to(["village/view", "id" => $map->village_id]));
+    }
+
+    public function actionBuildUnits() {
+        $mapId = $this->request->post('mapId');
+        $unitId = $this->request->post('unitId');
+        $count = $this->request->post('count');
+        $map = VillageMap::GetByID($mapId);
+
+        if (!$map) {
+            throw new BadRequestHttpException("Map not found");
+        }
+        $this->checkAccess($map->village);
+
+        $this->commandTaskCreate->createUnit($map->village, Unit::GetByID($unitId), (int) $count);
+
+        $this->redirect(Url::to(["village/view", "id" => $map->village_id]) . '#map' .$mapId);
     }
 }

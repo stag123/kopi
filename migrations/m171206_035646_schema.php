@@ -119,9 +119,17 @@ class m171206_035646_schema extends BaseMigration
             'status' => $this->integer(),
         ], $tableOptions);
 
+        $this->addForeignKey(
+            'FK_task_village_from', '{{%task}}', 'village_from_id', '{{%village}}', 'id', 'CASCADE', 'CASCADE'
+        );
+
+        $this->addForeignKey(
+            'FK_task_village_to', '{{%task}}', 'village_to_id', '{{%village}}', 'id', 'CASCADE', 'CASCADE'
+        );
+
         $this->createTable('{{%task_attack}}', [
             'id' => $this->primaryKey(),
-            'unit_group_id'     => $this->integer()->notNull(),
+            'units_id'     => $this->integer()->notNull(),
             'resources_id'    =>  $this->integer()->notNull(),
             'task_id'  => $this->integer()->notNull(),
         ], $tableOptions);
@@ -136,7 +144,7 @@ class m171206_035646_schema extends BaseMigration
             'FK_task_attack_task', '{{%task_attack}}', 'task_id', '{{%task}}', 'id', 'CASCADE', 'CASCADE'
         );
         $this->addForeignKey(
-            'FK_task_attack_unit_group', '{{%task_attack}}', 'unit_group_id', '{{%units}}', 'id', 'CASCADE', 'CASCADE'
+            'FK_task_attack_units', '{{%task_attack}}', 'units_id', '{{%units}}', 'id', 'CASCADE', 'CASCADE'
         );
 
         $this->createTable('{{%task_build}}', [
