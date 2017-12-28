@@ -34,8 +34,8 @@ class Timer {
         if (dateDiff < dayLen) {
             // только кол-во часов минут
             diff.h = Math.floor(dateDiff / 3600);
-            diff.i = Math.ceil((dateDiff % 3600) / 60);
-            diff.s = Math.ceil(dateDiff % 60);
+            diff.i = Math.floor((dateDiff % 3600) / 60);
+            diff.s = Math.floor(dateDiff % 60);
         } else if (dateDiff < dayLen * 30) {
             //только кол-во дней и часов
             diff.d = Math.floor(dateDiff / dayLen);

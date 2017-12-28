@@ -3,12 +3,13 @@
 
 @color-map-green: lawngreen;
 @color-map-blue: skyblue;
+@color-map-red: orangered;
 
 .container {
     background-color: #303030;
 }
 
-.arrow {
+.arrow-map {
     width: 0;
     height: 0;
     border: 40px solid transparent;
@@ -90,6 +91,7 @@
                 display: inline-block;
                 
                 .index__background {
+                    cursor: pointer;
                     position: relative;
                     background-repeat: no-repeat;
                     background-size: 60px 60px;
@@ -144,6 +146,16 @@
                     .selector {
                         z-index: 3;
                         .active(64px, @color-map-blue);
+                    }
+                    .index__background {
+                        z-index: 4;
+                    }
+                }
+                
+                &.enemy-village {
+                    .selector {
+                        z-index: 3;
+                        .active(64px, @color-map-red);
                     }
                     .index__background {
                         z-index: 4;

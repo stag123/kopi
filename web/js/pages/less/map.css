@@ -187,7 +187,7 @@ a.desc:after {
 .container {
   background-color: #303030;
 }
-.arrow {
+.arrow-map {
   width: 0;
   height: 0;
   border: 40px solid transparent;
@@ -195,7 +195,7 @@ a.desc:after {
   margin: 30px 10px;
   position: absolute;
 }
-.arrow.bottom {
+.arrow-map.bottom {
   border-top-color: gold;
   border-bottom: 0;
   margin: 10px auto;
@@ -203,7 +203,7 @@ a.desc:after {
   left: 50%;
   margin-left: -20px;
 }
-.arrow.left {
+.arrow-map.left {
   border-right-color: gold;
   border-left: 0;
   vertical-align: top;
@@ -211,7 +211,7 @@ a.desc:after {
   margin-top: -40px;
   left: 0;
 }
-.arrow.top {
+.arrow-map.top {
   border-bottom-color: gold;
   border-top: 0;
   margin: 10px auto;
@@ -220,7 +220,7 @@ a.desc:after {
   left: 50%;
   margin-left: -20px;
 }
-.arrow.right {
+.arrow-map.right {
   border-left-color: gold;
   border-right: 0;
   right: -20px;
@@ -264,6 +264,7 @@ a.desc:after {
   display: inline-block;
 }
 .map-container .map .map-row .map-cell .index__background {
+  cursor: pointer;
   position: relative;
   background-repeat: no-repeat;
   background-size: 60px 60px;
@@ -345,6 +346,43 @@ a.desc:after {
   border-top: 16px solid skyblue;
 }
 .map-container .map .map-row .map-cell.my-village .index__background {
+  z-index: 4;
+}
+.map-container .map .map-row .map-cell.enemy-village .selector {
+  z-index: 3;
+  width: 64px;
+  display: block;
+  margin-top: 14px;
+  height: 32px;
+  background-color: orangered;
+  z-index: 2;
+  position: absolute;
+}
+.map-container .map .map-row .map-cell.enemy-village .selector:before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -16px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 32px solid transparent;
+  border-right: 32px solid transparent;
+  border-bottom: 16px solid orangered;
+}
+.map-container .map .map-row .map-cell.enemy-village .selector:after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  bottom: -16px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 32px solid transparent;
+  border-right: 32px solid transparent;
+  border-top: 16px solid orangered;
+}
+.map-container .map .map-row .map-cell.enemy-village .index__background {
   z-index: 4;
 }
 .map-container .map .map-row .map-cell:hover .selector {

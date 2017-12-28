@@ -240,10 +240,23 @@ a.desc:after {
   color: #FFF;
   background: none;
   border-radius: 0;
-  font-size: 12px;
+  font-size: 14px;
   width: 100px;
   height: auto;
   margin: 0;
+}
+.menu-left .resource-container .resource {
+  margin-bottom: 5px;
+}
+.menu-left .army {
+  padding: 10px;
+}
+.menu-left .army .unit {
+  color: #FFF;
+  padding-left: 25px;
+  font-size: 14px;
+  margin-bottom: 5px;
+  line-height: 20px;
 }
 .container {
   position: relative;

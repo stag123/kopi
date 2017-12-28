@@ -116,6 +116,7 @@ class m171206_035646_schema extends BaseMigration
             'village_from_id' => $this->integer()->notNull(),
             'village_to_id'   =>  $this->integer()->notNull(),
             'worker' => $this->integer(),
+            'type' => $this->integer(),
             'status' => $this->integer(),
         ], $tableOptions);
 

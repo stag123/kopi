@@ -80,7 +80,12 @@ VillageAsset::register($this);
 
         Войска:
         <div class="army">
-
+            <?php if ($villageUnits->sword) {?>
+                <div class="unit sword"><?= $villageUnits->sword;?></div>
+            <?php } ?>
+            <?php if ($villageUnits->catapult) {?>
+                <div class="unit catapult"><?= $villageUnits->catapult;?></div>
+            <?php } ?>
         </div>
     </div>
 </div>

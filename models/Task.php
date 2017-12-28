@@ -119,8 +119,8 @@ class Task extends \app\models\BaseModel
         return $this->hasOne(TaskUnit::className(), ['task_id' => 'id']);
     }
 
-    public static function freeTasks() {
-        return Task::deleteAll('status <> '. self::STATUS_DONE.' AND DATE_ADD(created_at, INTERVAL duration SECOND) < DATE_ADD(NOW(), INTERVAL -5 SECOND)'
+    public static function freeTasks($timeLeft) {
+        return Task::deleteAll('status <> '. self::STATUS_DONE.' AND DATE_ADD(created_at, INTERVAL duration SECOND) < DATE_ADD(NOW(), INTERVAL -'.$timeLeft.' SECOND)'
         );
     }
 
@@ -152,18 +152,17 @@ class Task extends \app\models\BaseModel
         $data = [];
         $tasks = $tasks ?: [];
         foreach($tasks as $task) {
-            if ($task->taskBuild) {
+            if ($taskBuild = $task->taskBuild) {
                 $data[] = [
                     'time_left' => strtotime($task->created_at) + $task->duration - time(),
-                    'build' => Build::GetByID($task->taskBuild->build_id),
-                    'level' => $task->taskBuild->level
+                    'build' => Build::GetByID($taskBuild->build_id),
+                    'level' => $taskBuild->level
                 ];
-            }
-            if ($task->taskUnit) {
+            } else if ($taskUnit = $task->taskUnit) {
                 $data[] = [
                     'time_left' => strtotime($task->created_at) + $task->duration - time(),
-                    'unit' => Unit::GetByID($task->taskUnit->unit_id),
-                    'count' => $task->taskUnit->count
+                    'unit' => Unit::GetByID($taskUnit->unit_id),
+                    'count' => $taskUnit->count
                 ];
             }
           // $task->

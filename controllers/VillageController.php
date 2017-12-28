@@ -52,6 +52,17 @@ class VillageController extends BaseController
         return $this->render('view', ['village' => $village, 'mapData' => $mapData]);
     }
 
+    public function actionEnemy()
+    {
+        $village = Village::findOne(['id' => $this->request->get('id')]);
+
+        if ($village->user_id === $this->currentUser->id) {
+            throw new BadRequestHttpException("Error view own village as enemy");
+        }
+
+        return $this->render('enemy', ['village' => $village]);
+    }
+
  /*   public function actionStat() {
         $tasks = Task::getVillageTasks($this->ajaxData['id']);
         return $this->asJson($tasks);

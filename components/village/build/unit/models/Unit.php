@@ -58,7 +58,7 @@ class Unit extends BaseModel
         $model->bag = 40;
         $model->speed = 5;
         $model->grainCost = 1;
-        $model->buildTime = 10 * 60 + 24;
+        $model->buildTime = 5;//10 * 60 + 24;
         $model->price = new Resources();
         $model->price->grain = 40;
         $model->price->iron = 100;
@@ -78,7 +78,7 @@ class Unit extends BaseModel
         $model->defenceHorse = 10;
         $model->speed = 3;
         $model->grainCost = 5;
-        $model->buildTime = 24 * 60 + 43;
+        $model->buildTime = 12;//24 * 60 + 43;
         $model->price = new Resources();
         $model->price->grain = 150;
         $model->price->iron = 400;

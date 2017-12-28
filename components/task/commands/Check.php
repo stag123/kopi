@@ -18,12 +18,12 @@ use yii\web\BadRequestHttpException;
 class Check extends BaseComponent
 {
 
-    const TIME_EXECUTE = 6000;
+    const TIME_EXECUTE = 10;
 
     public function execute() {
         $worker = round(microtime(true) * 1000) % 10000 + mt_rand(1, 1000);
 
-        $deleted = Task::freeTasks();
+        $deleted = Task::freeTasks(self::TIME_EXECUTE);
 
         $this->logger->info('Deleted tasks: ' . $deleted);
 
@@ -44,17 +44,24 @@ class Check extends BaseComponent
                 if ($dateTime->getTimestamp() + $task->duration <= time() && $task->status === Task::STATUS_PROGRESS) {
                     if ($task->taskBuild) {
                         $task->taskBuild->villageMap->build($task->taskBuild->build_id, $task->taskBuild->level);
-                    }
-                    if ($task->taskUnit) {
-                        $unit = Unit::GetByID($task->taskUnit->id);
-                        $village = $task->taskUnit->task->villageFrom;
+                    }else if ($task->taskUnit) {
+                        $unit = Unit::GetByID($task->taskUnit->unit_id);
+                        $village = $task->villageFrom;
                         $villageUnits = $village->getVillageUnits();
                         $villageUnits->{$unit->code} += 1;
+                        $this->logger->info('Count units: ' . $villageUnits->{$unit->code});
                         $villageUnits->save();
+                        if (!$villageUnits->save()) {
+                            $this->logger->error(serialize($villageUnits));
+                            exit();
+                        }
                         $task->taskUnit->count -= 1;
                         if ($task->taskUnit->count > 0) {
-                            $task->taskUnit->task->created_at = new Expression('DATE_ADD(created_at, INTERVAL duration SECOND)');
+                            $task->created_at = date('Y-m-d H:i:s', $dateTime->getTimestamp() + $task->duration);
+                            $task->status = Task::STATUS_NEW;
                             $task->taskUnit->save();
+                            $task->save();
+                            $count--;
                             continue;
                         }
                     }

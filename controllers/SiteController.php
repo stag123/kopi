@@ -65,12 +65,16 @@ class SiteController extends BaseController
      */
     public function actionIndex()
     {
-        if (!Yii::$app->user->isGuest) {
+        if (!$this->user->isGuest) {
             $village = $this->currentUser->getVillages()->one();
+            if (!$village) {
+                $this->commandVillageCreate->execute($this->currentUser);
+                return $this->goBack();
+            }
             return $this->redirect(Url::to(['map/index', 'x' => $village->map->x, 'y' => $village->map->y]));
         }
 
-        if (Yii::$app->request->isPost && $token = Yii::$app->request->post('token')) {
+        if ($this->request->isPost && $token = $this->request->post('token')) {
             if (function_exists('file_get_contents') && ini_get('allow_url_fopen')){
 
                 $result = file_get_contents('http://ulogin.ru/token.php?token=' . $token .
@@ -101,7 +105,7 @@ class SiteController extends BaseController
                     $this->commandVillageCreate->execute($user);
                     $user = UserIdentity::findIdentity($user->id);
                 }
-                Yii::$app->user->login($user, 3600*24*30);
+                $this->user->login($user, 3600*24*30);
             } else {
                 throw new BadRequestHttpException("Login failed");
             }

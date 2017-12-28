@@ -27,12 +27,12 @@ class Create extends BaseComponent {
         $model->stone = Village::NEW_VILLAGE_RESOURCE;
         $model->iron = Village::NEW_VILLAGE_RESOURCE;
 
-        $resource_group_id = $model->save();
+        $model->save();
 
         $village = new Village();
         $village->map_id = $map->id;
         $village->user_id = $user->id;
-        $village->village_resources_id = $resource_group_id;
+        $village->village_resources_id = $model->id;
         $village->resources_updated_at = round(microtime(true) * 1000);
         if (!$village->save()) {
             throw new BadRequestHttpException("Erro create village " . serialize($village->errors));
