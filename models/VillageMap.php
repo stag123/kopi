@@ -144,6 +144,12 @@ class VillageMap extends \app\models\BaseModel
         $this->save();
     }
 
+    public function destroyBuild() {
+        $this->build_id = null;
+        $this->level  = null;
+        $this->save();
+    }
+
     public function build($build_id, $level) {
         $this->status = self::STATUS_BUILD;
         $this->build_id = $build_id;

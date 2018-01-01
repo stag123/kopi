@@ -3,7 +3,6 @@
 namespace app\models;
 
 use app\components\village\build\unit\models\Unit;
-use Yii;
 
 /**
  * This is the model class for table "{{%units}}".
@@ -88,33 +87,132 @@ class Units extends \app\models\BaseModel
         return $this->hasMany(Village::className(), ['village_units_id' => 'id']);
     }
 
+    public function exist() {
+        foreach(Unit::GetTypes() as $type) {
+            if ($this->{$type}) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function greaterThen(Units $r) {
-        return $this->sword >= $r->sword
-        && $this->catapult >= $r->catapult;
+        foreach(Unit::GetTypes() as $type) {
+            if ($this->{$type} < $r->{$type}) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public function add(Units $r) {
-        $this->sword += $r->sword;
-        $this->catapult += $r->catapult;
+        foreach(Unit::GetTypes() as $type) {
+            $this->{$type} += $r->{$type};
+        }
         $this->save();
     }
 
     public function remove(Units $r) {
-        $this->sword -= $r->sword;
-        $this->catapult -= $r->catapult;
+        foreach(Unit::GetTypes() as $type) {
+            $this->{$type} -= $r->{$type};
+        }
+        $this->save();
+    }
+
+    public function removePercent($percent) {
+        foreach(Unit::GetTypes() as $type) {
+            $this->{$type} -= ceil($this->{$type} * $percent);
+        }
         $this->save();
     }
 
     public function getSmallestSpeed() {
         $speed = [];
-        if ($this->sword > 0) {
-            $speed[] = Unit::getSword()->speed;
-        }
-
-        if ($this->catapult > 0) {
-            $speed[] = Unit::getCatapult()->speed;
+        foreach(Unit::GetTypes() as $type) {
+            if ($this->{$type} > 0) {
+                $speed[] = Unit::GetByCode($type)->speed;
+            }
         }
 
         return min($speed);
     }
+
+    public function toNumbers() {
+        $result = [];
+        foreach($this->toArray(Unit::GetTypes()) as $key => $value) {
+            $result[$key] = $value;
+        }
+        return $result;
+    }
+
+    public function getDefence() {
+        $result = 0;
+        foreach(Unit::GetTypes() as $type) {
+            $result += Unit::GetByCode($type)->defence * $this->{$type};
+        }
+        return $result;
+    }
+
+    public function getAttack() {
+        $result = 0;
+        foreach(Unit::GetTypes() as $type) {
+            $result += Unit::GetByCode($type)->attack * $this->{$type};
+        }
+        return $result;
+    }
+
+    public function getArcherDefence() {
+        $result = 0;
+        foreach(Unit::GetTypes() as $type) {
+            $result += Unit::GetByCode($type)->defenceArcher * $this->{$type};
+        }
+        return $result;
+    }
+
+    public function getHorseDefence() {
+        $result = 0;
+        foreach(Unit::GetTypes() as $type) {
+            $result += Unit::GetByCode($type)->defenceHorse * $this->{$type};
+        }
+        return $result;
+    }
+
+
+    public function getHorseAttack() {
+        $result = 0;
+        foreach(Unit::GetTypes() as $type) {
+            $result += Unit::GetByCode($type)->attackHorse * $this->{$type};
+        }
+        return $result;
+    }
+
+    public function getAcrherAttack() {
+        $result = 0;
+        foreach(Unit::GetTypes() as $type) {
+            $result += Unit::GetByCode($type)->attackArcher * $this->{$type};
+        }
+        return $result;
+    }
+
+    public function getBag() {
+        $result = 0;
+        foreach(Unit::GetTypes() as $type) {
+            $result += Unit::GetByCode($type)->bag * $this->{$type};
+        }
+        return $result;
+    }
+
+    public function getDamage() {
+        $result = 0;
+        foreach(Unit::GetTypes() as $type) {
+            $result += Unit::GetByCode($type)->damage * $this->{$type};
+        }
+        return $result;
+    }
+
+    public function __toString()
+    {
+        return json_encode($this->toArray());
+    }
+
 }

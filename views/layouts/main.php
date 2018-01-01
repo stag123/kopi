@@ -39,6 +39,9 @@ use yii\helpers\Url;
         <a href="<?=Url::to(['/village/view', 'id' => $this->currentUser->getVillages()->one()->id]);?>" class="menu-item village">
             Деревня
         </a>
+        <a href="<?=Url::to(['/report/index']);?>" class="menu-item report">
+            Отчеты
+        </a>
         <?php /*<a href="<?=Url::to(['/user/index']);?>" class="menu-item profile">
             Профиль
         </a>*/?>

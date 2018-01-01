@@ -6,6 +6,7 @@ module.exports = {
         map: ["./js/pages/map.js"],
         site: ["./js/pages/site.js"],
         village: ["./js/pages/village.js"],
+        enemy: ["./js/pages/enemy.js"],
     },
     output: {
         path: path.resolve(__dirname, "bundle"),

@@ -31,6 +31,7 @@ class Create extends BaseComponent {
 
         $village = new Village();
         $village->map_id = $map->id;
+        $village->name = 'Деревня ' . $user->username . ' (' . $map->x . ', ' . $map->y . ')';
         $village->user_id = $user->id;
         $village->village_resources_id = $model->id;
         $village->resources_updated_at = round(microtime(true) * 1000);

@@ -27,12 +27,20 @@ class Unit extends BaseModel
     public $buildTime;
     public $attack = 0;
     public $defence = 0;
+    public $damage = 0;
     public $attackArcher = 0;
     public $defenceArcher = 0;
     public $attackHorse = 0;
     public $defenceHorse = 0;
     public $attackDestroy = 0;
 
+
+    public static function GetTypes() {
+        return [
+            self::CODE_SWORD,
+            self::CODE_CATAPULT
+        ];
+    }
     /**
      * @param $id
      * @return Unit|null
@@ -41,6 +49,14 @@ class Unit extends BaseModel
         switch($id) {
             case self::ID_SWORD: return self::getSword();
             case self::ID_CATAPULT: return self::getCatapult();
+            default: return null;
+        }
+    }
+
+    public static function GetByCode($type) {
+        switch($type) {
+            case self::CODE_SWORD: return self::getSword();
+            case self::CODE_CATAPULT: return self::getCatapult();
             default: return null;
         }
     }
@@ -74,6 +90,7 @@ class Unit extends BaseModel
         $model->description = 'Катапульта хороша в разрушении вражеских зданий';
         $model->code = self::CODE_CATAPULT;
         $model->defence = 10;
+        $model->damage = 4;
         $model->defenceArcher = 10;
         $model->defenceHorse = 10;
         $model->speed = 3;

@@ -38,6 +38,9 @@ class Army extends BuildInfo
     }
 
     public function getBuildTime() {
+        if (YII_ENV_DEV) {
+            return 10;
+        }
         switch($this->level) {
             case 1:
                 return 60 * 13 + 20;

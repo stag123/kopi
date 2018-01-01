@@ -29,6 +29,9 @@ abstract class BuildInfo extends BaseModel
      * @return null|static
      */
     public static function getByLevel($level) {
+        if ($level <= 0) {
+            return null;
+        }
         $obj = new static();
         $obj->level = $level;
         if ($level > $obj->maxLevel) {

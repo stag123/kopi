@@ -24,12 +24,13 @@ class Create extends BaseComponent
     const STATUS_CREATE = 1;
     const STATUS_DONE = 2;
 
-    private function newTask($village_from_id, $village_to_id, $duration) {
+    private function newTask($type, $village_from_id, $village_to_id, $duration) {
         $task = new Task();
         $task->status = self::STATUS_CREATE;
         $task->duration = $duration;
         $task->village_from_id = $village_from_id;
         $task->village_to_id = $village_to_id;
+        $task->type = $type;
         if (!$task->save()) {
             throw new BadRequestHttpException("Error create task");
         }
@@ -44,9 +45,10 @@ class Create extends BaseComponent
             throw new BadRequestHttpException("Недотаточно ресурсов");
         }
 
+        $this->commandVillageResourceCalculate->execute($map->village);
         $map->village->villageResources->remove($buildData->price);
 
-        $task = $this->newTask($map->village_id, $map->village_id, $buildData->buildTime);
+        $task = $this->newTask(Task::TYPE_BUILD, $map->village_id, $map->village_id, $buildData->buildTime);
 
         $taskBuild = new TaskBuild();
         $taskBuild->village_map_id = $map->id;
@@ -73,9 +75,10 @@ class Create extends BaseComponent
             throw new BadRequestHttpException("Недопустимое количество");
         }
 
+        $this->commandVillageResourceCalculate->execute($village);
         $village->villageResources->remove($price);
 
-        $task = $this->newTask($village->id, $village->id, $unit->buildTime);
+        $task = $this->newTask(Task::TYPE_BUILD_UNIT, $village->id, $village->id, $unit->buildTime);
 
         $taskUnit = new TaskUnit();
         $taskUnit->count = $count;
@@ -91,15 +94,20 @@ class Create extends BaseComponent
         if (!$villageFrom->getVillageUnits()->greaterThen($units)) {
             throw new BadRequestHttpException("Недотаточно войнов");
         }
+        $units->save();
         $villageFrom->getVillageUnits()->remove($units);
 
         $distance = Map::getDistance($villageFrom->map, $villageTo->map);
         $time = ceil($distance / $units->getSmallestSpeed() * 3600);
 
-        $task = $this->newTask($villageFrom->id, $villageTo->id, $time);
+        if (YII_ENV_DEV) {
+            $time = 10;
+        }
+
+        $task = $this->newTask(Task::TYPE_ATTACK, $villageFrom->id, $villageTo->id, $time);
 
         $taskAttack = new TaskAttack();
-        $taskAttack->units = $units;
+        $taskAttack->units_id = $units->id;
         $taskAttack->task_id = $task->id;
         $taskAttack->resources_id = Resources::CreateOne()->id;
         if (!$taskAttack->save()) {

@@ -52,9 +52,13 @@ function updateVillage() {
 setInterval(updateVillage, 5000);
     */
 
+const TYPE_ATTACK = 1;
+const TYPE_BUILD = 2;
+const TYPE_BUILD_UNIT = 3;
+
 if (window.initials.tasks) {
     window.initials.tasks.forEach(function(item) {
-        if (item.build) {
+        if (item.type == TYPE_BUILD) {
             let div = document.createElement('div');
             div.innerHTML = BuildTimerTemplate({title: item.build.name + ' строится, до конца осталось: ', time: 0});
             let cache = div.querySelector('.js_timer');
@@ -62,9 +66,21 @@ if (window.initials.tasks) {
             domCache.buildInfo.appendChild(div);
         }
 
-        if (item.unit) {
+        if (item.type == TYPE_BUILD_UNIT) {
             let div = document.createElement('div');
             div.innerHTML = BuildTimerTemplate({title: item.unit.name + ' обучается, до конца осталось: ', time: 0});
+            let cache = div.querySelector('.js_timer');
+            new Timer(cache, item.time_left);
+            domCache.buildInfo.appendChild(div);
+        }
+
+        if (item.type == TYPE_ATTACK) {
+            let div = document.createElement('div');
+            if (window.initials.villageId === item.villageFrom.id) {
+                div.innerHTML = BuildTimerTemplate({title: 'Нападаем на ' + item.villageTo.name + ', до конца осталось: ', time: 0});
+            } else {
+                div.innerHTML = BuildTimerTemplate({title: 'На деревню идет нападение из ' + item.villageFrom.name + ', до конца осталось: ', time: 0});
+            }
             let cache = div.querySelector('.js_timer');
             new Timer(cache, item.time_left);
             domCache.buildInfo.appendChild(div);

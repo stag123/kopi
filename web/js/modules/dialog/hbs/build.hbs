@@ -9,7 +9,7 @@
                 {{> partials/build_info mapId=mapId currentBuild=currentBuild nextBuild=nextBuild}}
             </div>
             {{#if nextBuild}}
-                {{> partials/resource resource=nextBuild.price villageResource=../villageResource}}
+                {{> partials/resource resource=nextBuild.price villageResource=../villageResource buildTime=nextBuild.buildTime}}
                 <div class="controls">
                     <a href="/village/build/?buildId={{currentBuild.build.id}}&mapId={{mapId}}" class="button">
                         {{#equal level 1}}Построить{{else}}Улучшить до уровня {{nextBuild.level}}{{/equal}}
@@ -27,7 +27,7 @@
             <div class="item {{build.code}}">
                 <div class="name">{{build.name}}</div>
                 <div class="desc">{{build.description}}</div>
-                {{> partials/resource resource=price villageResource=../villageResource}}
+                {{> partials/resource resource=price villageResource=../villageResource buildTime=this.buildTime}}
                 <div class="controls">
                     <a href="/village/build/?buildId={{build.id}}&mapId={{../mapId}}" class="button">
                         {{#equal level 1}}Построить{{else}}Улучшить до уровня {{level}}{{/equal}}

@@ -1,0 +1,28 @@
+.unit {
+  height: 20px;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+}
+.unit.sword {
+  background-image: url(/images/icons/sword.png);
+}
+.unit.catapult {
+  background-image: url(/images/icons/catapult.png);
+}
+.button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #ccc;
+  color: #303030;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  border: 0;
+  cursor: pointer;
+}
+.unit {
+  padding-left: 30px;
+  margin-bottom: 5px;
+  display: inline-block;
+}

@@ -27,7 +27,7 @@ MapAsset::register($this);
                     ?>
                     <div class="map-cell <?= $myVillage ? 'my-village' : ($map->village ? 'enemy-village': '');?>">
                         <div class="selector"></div>
-                        <a data-tooltip="(<?= $i;?>, <?=$j;?>)" class="index__background <?= $map->village ? 'village" href="'. ($myVillage ? Url::to(['village/view', 'id' => $map->village->id]) : Url::to(['village/enemy', 'id' => $map->village->id])) .'"' : 'b' . $map->type . '"';?>">
+                        <a data-tooltip="<?= $map->village ? $map->village->name : '('. $j.', '.$i.')';?>" class="index__background <?= $map->village ? 'village" href="'. ($myVillage ? Url::to(['village/view', 'id' => $map->village->id]) : Url::to(['village/enemy', 'id' => $map->village->id])) .'"' : 'b' . $map->type . '"';?>">
                         </a>
                     </div>
                     <?php } else { ?>

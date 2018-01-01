@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\village\build\models\Build;
+use app\components\village\build\models\BuildInfo;
 use app\components\village\build\models\GrainFarm;
 use app\components\village\build\models\Granary;
 use app\components\village\build\models\IronFarm;
@@ -34,7 +35,7 @@ class Village extends \app\models\BaseModel
 {
     const BASE_STOCK = 500;
     const BASE_GRANARY = 400;
-    const BASE_RESOURCE_SPEED = 6000;//VillageMap::RESOURCE_COUNT;
+    const BASE_RESOURCE_SPEED = VillageMap::RESOURCE_COUNT;
     const NEW_VILLAGE_RESOURCE = 200;
     /**
      * @inheritdoc
@@ -132,6 +133,9 @@ class Village extends \app\models\BaseModel
             }
             return $result;
         }
+        if (YII_ENV_DEV) {
+            return 80000;
+        }
         return self::BASE_STOCK;
     }
 
@@ -146,6 +150,9 @@ class Village extends \app\models\BaseModel
                 $result += Stock::getByLevel($map->level)->size;
             }
             return $result;
+        }
+        if (YII_ENV_DEV) {
+            return 80000;
         }
         return self::BASE_GRANARY;
     }
@@ -180,10 +187,14 @@ class Village extends \app\models\BaseModel
                     break;
             }
         }
-        $res->grain = max(self::BASE_RESOURCE_SPEED, $res->grain);
-        $res->wood = max(self::BASE_RESOURCE_SPEED, $res->wood);
-        $res->iron = max(self::BASE_RESOURCE_SPEED, $res->iron);
-        $res->stone = max(self::BASE_RESOURCE_SPEED, $res->stone);
+        $base = self::BASE_RESOURCE_SPEED;
+        if (YII_ENV_DEV) {
+            //$base = 100000;
+        }
+        $res->grain = max($base, $res->grain);
+        $res->wood = max($base, $res->wood);
+        $res->iron = max($base, $res->iron);
+        $res->stone = max($base, $res->stone);
         return $res;
     }
 
@@ -199,5 +210,44 @@ class Village extends \app\models\BaseModel
         $units->village_id = $this->id;
         $units->map_id = $this->map_id;
         return $units;
+    }
+
+    public function getPopulation() {
+        $population = 0;
+        $maps = $this->getVillageMaps()->andWhere('build_id>0')->all();
+        foreach($maps as $map) {
+            $build = $this->buildFactory->createForMap($map);
+            $population += $build->grainCost;
+        }
+        return $population;
+    }
+
+    /**
+     * @param $damage
+     * @return BuildInfo[]
+     */
+    public function damage($damage) {
+        $maps = $this->getVillageMaps()->andWhere('build_id>0')->all();
+        $startBuild = $build = null;
+        if ($maps) {
+            shuffle($maps);
+            /**
+             * @var $map VillageMap
+             */
+            $map = $maps[0];
+            $build = $this->buildFactory->createForMap($map);
+            $startBuild = clone($build);
+            while ($build && $damage > $build->grainCost) {
+                $damage -= $build->grainCost;
+                $build = $this->buildFactory->createForBuild($build->build->id, $build->level - 1);
+            }
+            if ($build) {
+                $map->level = $build->level;
+                $map->save();
+            } else {
+                $map->destroyBuild();
+            }
+        }
+        return array($startBuild, $build);
     }
 }

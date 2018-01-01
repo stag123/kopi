@@ -12,7 +12,7 @@ class BaseModel extends \yii\db\ActiveRecord implements InjectionAwareInterface 
     public static $behaviors = [];
 
     public function __get($name) {
-        if (\Yii::$app->has($name)) {
+        if (\Yii::$app->has($name) && !$this->canGetProperty($name)) {
             return \Yii::$app->get($name);
         }
         return parent::__get($name);

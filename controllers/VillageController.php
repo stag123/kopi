@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\components\village\build\models\Build;
 use app\components\village\build\unit\models\Unit;
 use app\models\Task;
+use app\models\Units;
 use app\models\Village;
 use app\models\VillageMap;
 use yii\helpers\Url;
@@ -60,6 +61,15 @@ class VillageController extends BaseController
             throw new BadRequestHttpException("Error view own village as enemy");
         }
 
+        /**
+         * @var Village $fromVillage
+         */
+        $fromVillage = $this->currentUser->getVillages()->one();
+
+        $this->initials['villageFromId'] = $fromVillage->id;
+        $this->initials['villageToId'] = $village->id;
+
+        $this->initials['units'] = $fromVillage->getVillageUnits()->toNumbers();
         return $this->render('enemy', ['village' => $village]);
     }
 
@@ -132,5 +142,25 @@ class VillageController extends BaseController
         $this->commandTaskCreate->createUnit($map->village, Unit::GetByID($unitId), (int) $count);
 
         $this->redirect(Url::to(["village/view", "id" => $map->village_id]) . '#map' .$mapId);
+    }
+
+    public function actionAttack() {
+        $villageFromId = (int) $this->request->post('villageFromId');
+        $villageToId = (int) $this->request->post('villageToId');
+
+        $villageFrom = Village::GetByID($villageFromId);
+        $this->checkAccess($villageFrom);
+        $villageTo = Village::GetByID($villageToId);
+
+        $units = new Units();
+        $units->setAttributes($this->request->post('units'));
+        $units->village_id = $villageFromId;
+
+        if (!$units->validate()) {
+            throw new BadRequestHttpException("Error units " . serialize($units->errors));
+        }
+
+        $this->commandTaskCreate->createAttack($units, $villageFrom, $villageTo);
+        $this->redirect(Url::to(["village/view", "id" => $villageFrom->id]));
     }
 }

@@ -105,4 +105,62 @@ class Resources extends \app\models\BaseModel
         $this->stone *= $count;
         return $this;
     }
+
+    public function steal($count, $resource = null) {
+        if (!$resource) {
+            $resource = new Resources();
+        }
+        $partCount = (($this->grain > 0) + ($this->wood > 0) + ($this->iron > 0) + ($this->stone > 0));
+        if (!$partCount) {
+            return $resource;
+        }
+        $this->logger->info('Part Count: ' . $partCount);
+        $part = $count / $partCount;
+        if ($this->grain >= $part) {
+            $this->grain -= $part;
+            $resource->grain += $part;
+            $count -= $part;
+        } else {
+            $count -= $this->grain;
+            $resource->grain += $this->grain;
+            $this->grain = 0;
+        }
+        if ($this->wood >= $part) {
+            $this->wood -= $part;
+            $resource->wood += $part;
+            $count -= $part;
+        } else {
+            $count -= $this->wood;
+            $resource->wood += $this->wood;
+            $this->wood = 0;
+        }
+        if ($this->iron >= $part) {
+            $this->iron -= $part;
+            $resource->iron += $part;
+            $count -= $part;
+        } else {
+            $resource->iron += $this->iron;
+            $count -= $this->iron;
+            $this->iron = 0;
+        }
+        if ($this->stone >= $part) {
+            $this->stone -= $part;
+            $resource->stone += $part;
+            $count -= $part;
+        } else {
+            $count -= $this->stone;
+            $resource->stone += $this->stone;
+            $this->stone = 0;
+        }
+        $this->save();
+        if ($count > 0) {
+            return $this->steal($count, $resource);
+        }
+        return $resource;
+    }
+
+    public function __toString()
+    {
+        return json_encode($this->toArray());
+    }
 }

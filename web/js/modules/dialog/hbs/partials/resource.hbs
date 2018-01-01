@@ -11,4 +11,7 @@
     <div class="resource grain">
         <span class="count {{#lt villageResource.grain resource.grain}}red{{/lt}}">{{resource.grain}}</span>
     </div>
+    {{#if buildTime}}
+        Время: {{fancyTime buildTime}}
+    {{/if}}
 </div>
