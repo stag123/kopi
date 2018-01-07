@@ -72,7 +72,7 @@ class Check extends BaseComponent
 
                     if ($attack > $defence) {
                         $def->remove($def);
-                        $off->removePercent($defence / $attack);
+                        $off->removePercent(($defence / $attack)^1.5);
                         $this->commandVillageResourceCalculate->execute($task->villageTo);
                         $resource = $task->villageTo->villageResources->steal($off->getBag());
                         $resource->save();
@@ -90,7 +90,7 @@ class Check extends BaseComponent
                     } else {
                         $resource = new Resources();
                         $off->remove($off);
-                        $def->removePercent($defence / $attack);
+                        $def->removePercent(($defence / $attack)^1.5);
                     }
 
                     $report = new Report();
@@ -159,7 +159,7 @@ class Check extends BaseComponent
         }
         $this->logger->info('Lost tasks: ' . count($lostTasks));
 
-        
+
         $tasks = Task::getTasks($worker, self::TIME_EXECUTE);
 
         $count = count($tasks);

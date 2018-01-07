@@ -36,7 +36,7 @@ class ReportController extends BaseController
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Report::find()->where(['user_id' => $this->currentUser->id]),
+            'query' => Report::find()->where(['user_id' => $this->currentUser->id])->orderBy(['created_at' => SORT_DESC]),
         ]);
 
         return $this->render('index', [

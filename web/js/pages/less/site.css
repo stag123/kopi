@@ -37,6 +37,18 @@
 .resource.stone {
   background-image: url(/images/icons/stone2.png);
 }
+.unit {
+  height: 20px;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  padding-left: 25px;
+}
+.unit.sword {
+  background-image: url(/images/icons/sword.png);
+}
+.unit.catapult {
+  background-image: url(/images/icons/catapult.png);
+}
 html,
 body {
   height: 540px;

@@ -13,7 +13,7 @@ ErrorAsset::register($this);
 $this->title = 'Reports';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="report-index" style="background-color:#FFF">
+<div class="report-index" style="background-color:#FFF; margin:0 auto; width: 600px;padding: 40px; border-radius: 5px">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
