@@ -1,4 +1,3 @@
-import "./less/enemy.less";
 import DOM from "../modules/dom";
 import AttackDialog from "../modules/dialog/attack";
 

@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property integer $type
+ * @property integer $status
  * @property integer $user_id
  * @property integer $village_id
  * @property string $title
@@ -21,9 +22,11 @@ use Yii;
  */
 class Report extends \app\models\BaseModel
 {
-
     const TYPE_ATTACK = 1;
     const TYPE_DEFENCE = 2;
+
+    const STATUS_NOREAD = 0;
+    const STATUS_READ = 1;
     /**
      * @inheritdoc
      */
@@ -39,7 +42,7 @@ class Report extends \app\models\BaseModel
     {
         return [
             [['type', 'user_id', 'village_id', 'title'], 'required'],
-            [['type', 'user_id', 'village_id'], 'integer'],
+            [['type', 'status', 'user_id', 'village_id'], 'integer'],
             [['details'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 255],
@@ -56,11 +59,12 @@ class Report extends \app\models\BaseModel
         return [
             'id' => 'ID',
             'type' => 'Type',
+            'status' => 'Status',
             'user_id' => 'User ID',
             'village_id' => 'Village ID',
-            'title' => 'Title',
+            'title' => 'Название',
             'details' => 'Details',
-            'created_at' => 'Created At',
+            'created_at' => 'Дата',
             'updated_at' => 'Updated At',
         ];
     }

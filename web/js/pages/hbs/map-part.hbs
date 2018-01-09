@@ -1,0 +1,18 @@
+{{#each mapData as |mapp i|}}
+<div class="map-row">
+    {{#each this as |map j|}}
+        {{#if map}}
+            <div class="map-cell {{#if map.my}}my-village{{/if}}{{#if map.enemy}}enemy-village{{/if}}">
+                <div class="selector"></div>
+                <a data-tooltip="{{#if map.village}}{{map.village.name}}{{else}}({{j}}, {{i}}){{/if}}" class="index__background {{#if map.village}}village{{else}}b{{map.type}}{{/if}}" {{#if map.url}}href="{{map.url}}"{{/if}}>
+                </a>
+            </div>
+                {{else}}
+            <div class="map-cell pos{{i}}_{{j}}">
+                <div class="selector"></div>
+                <a data-tooltip="({{i}}, {{j}})" class="index__background"></a>
+            </div>
+        {{/if}}
+    {{/each}}
+</div>
+{{/each}}

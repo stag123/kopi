@@ -60,5 +60,9 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
+    <?php if (isset($details->buildStart) && isset($details->build)) {?>
+    Разрушения<br/>
+    <div><?= $details->buildStart->build->name;?> ( <?= $details->buildStart->level;?> ) -&gt;  <?= $details->build->build->name;?> ( <?= $details->build->level;?> )</div>
+    <?php } ?>
 
 </div>

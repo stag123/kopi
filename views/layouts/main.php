@@ -42,6 +42,9 @@ use yii\helpers\Url;
         <a href="<?=Url::to(['/report/index']);?>" class="menu-item report">
             Отчеты
         </a>
+        <a href="<?=Url::to(['/message/index']);?>" class="menu-item message">
+            Сообщения
+        </a>
         <?php /*<a href="<?=Url::to(['/user/index']);?>" class="menu-item profile">
             Профиль
         </a>*/?>

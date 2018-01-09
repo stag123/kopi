@@ -20,6 +20,11 @@ class EnemyAsset extends AssetBundle
     public $js = [
         'bundle/enemy.page.js'
     ];
+
+    public $css = [
+        'js/pages/less/enemy.css'
+    ];
+
     public $depends = [
         'app\assets\SiteAsset'
     ];

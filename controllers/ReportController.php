@@ -51,6 +51,10 @@ class ReportController extends BaseController
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $model->status = Report::STATUS_READ;
+        $model->save();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

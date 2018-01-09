@@ -61,36 +61,39 @@ class Check extends BaseComponent
                     $offStart = $off->toArray();
                     $defStart = $def->toArray();
                     $resourceStart = $task->villageTo->villageResources->toArray();
+                    $resource = $startBuild = $endBuild = null;
 
                     $attack = $off->getAcrherAttack() + $off->getHorseAttack() + $off->getAttack();
 
-                    $defence = $def->getArcherDefence() * $off->getAcrherAttack() / $attack +
-                        $def->getHorseDefence() * $off->getHorseAttack() / $attack +
-                        $def->getDefence() * $off->getAttack() / $attack;
+                    if ($attack) {
+                        $defence = $def->getArcherDefence() * $off->getAcrherAttack() / $attack +
+                            $def->getHorseDefence() * $off->getHorseAttack() / $attack +
+                            $def->getDefence() * $off->getAttack() / $attack;
 
-                    $this->logger->info('Attack/ Defence: ' . $attack . '/' . $defence);
+                        $this->logger->info('Attack/ Defence: ' . $attack . '/' . $defence);
 
-                    if ($attack > $defence) {
-                        $def->remove($def);
-                        $off->removePercent(($defence / $attack)^1.5);
-                        $this->commandVillageResourceCalculate->execute($task->villageTo);
-                        $resource = $task->villageTo->villageResources->steal($off->getBag());
-                        $resource->save();
-                        $this->logger->info('Bag: ' . $off->getBag());
-                        $this->logger->info('Off after attack: ' . $off);
-                        $this->logger->info('Village resource: ' . $task->villageTo->villageResources);
-                        $this->logger->info('Resource steal: ' . $resource);
+                        if ($attack > $defence) {
+                            $def->remove($def);
+                            $this->logger->info("Percent: " . pow(($defence / $attack), 1.5));
+                            $off->removePercent(pow(($defence / $attack), 1.5));
+                            $this->commandVillageResourceCalculate->execute($task->villageTo);
+                            $resource = $task->villageTo->villageResources->steal($off->getBag());
+                            $resource->save();
+                            $this->logger->info('Bag: ' . $off->getBag());
+                            $this->logger->info('Off after attack: ' . $off);
+                            $this->logger->info('Village resource: ' . $task->villageTo->villageResources);
+                            $this->logger->info('Resource steal: ' . $resource);
 
-                        $damage = $off->getDamage();
-                        $startBuild = $endBuild = null;
-                        if ($damage > 0) {
-                            list($startBuild, $endBuild) = $task->villageTo->damage($damage);
+                            $damage = $off->getDamage();
+                            if ($damage > 0) {
+                                list($startBuild, $endBuild) = $task->villageTo->damage($damage);
+                            }
+                            $this->logger->info('Damage ' . $damage);
+                        } else {
+                            $resource = new Resources();
+                            $off->remove($off);
+                            $def->removePercent(pow(($defence / $attack), 1.5));
                         }
-                        $this->logger->info('Damage ' . $damage);
-                    } else {
-                        $resource = new Resources();
-                        $off->remove($off);
-                        $def->removePercent(($defence / $attack)^1.5);
                     }
 
                     $report = new Report();
@@ -103,11 +106,11 @@ class Check extends BaseComponent
                             'offStart' => $offStart,
                             'defStart' => $defStart,
                             'resourceStart' => $resourceStart,
-                            'buildStart' => $startBuild->toArray(),
+                            'buildStart' => $startBuild ? $startBuild->toArray(): $startBuild,
                             'off' => $off->toArray(),
                             'def' => $def->toArray(),
-                            'resource' => $resource->toArray(),
-                            'build' => $endBuild->toArray()
+                            'resource' => $resource ? $resource->toArray(): $resource,
+                            'build' => $endBuild ? $endBuild->toArray(): $endBuild
                         ]
                     );
                     $report->save();
@@ -122,9 +125,11 @@ class Check extends BaseComponent
                             'offStart' => $offStart,
                             'defStart' => $defStart,
                             'resourceStart' => $resourceStart,
+                            'buildStart' => $startBuild ? $startBuild->toArray(): $startBuild,
+                            'build' => $endBuild ? $endBuild->toArray(): $endBuild,
                             'off' => $off->toArray(),
                             'def' => $def->toArray(),
-                            'resource' => $resource->toArray(),
+                            'resource' => $resource ? $resource->toArray(): $resource,
                         ]
                     );
                     $report->save();

@@ -193,6 +193,9 @@ a.desc:after {
 .menu .menu-item.report {
   background-image: url(/images/icons/report.png);
 }
+.menu .menu-item.message {
+  background-image: url(/images/icons/message.png);
+}
 .menu .menu-item.profile {
   background-image: url(/images/icons/profile.png);
 }

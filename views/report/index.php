@@ -10,7 +10,7 @@ ErrorAsset::register($this);
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Reports';
+$this->title = 'Отчеты';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="report-index" style="background-color:#FFF; margin:0 auto; width: 600px;padding: 40px; border-radius: 5px">
@@ -22,9 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
 
             [
-                'attribute' => 'newstitle',
+                'attribute' => 'title',
                 'value' => function (Report $data) {
-                    return Html::a(Html::encode($data->title), Url::to(['view', 'id' => $data->id]));
+                    return ($data->status == 0 ? '<b>': '') . Html::a(Html::encode($data->title), Url::to(['view', 'id' => $data->id])) . ($data->status == 0 ? '</b>': '');
                 },
                 'format' => 'raw',
             ],

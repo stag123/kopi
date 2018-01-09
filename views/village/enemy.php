@@ -8,6 +8,7 @@
 
 
 use app\assets\EnemyAsset;
+use yii\helpers\Url;
 
 EnemyAsset::register($this);
 ?>
@@ -21,4 +22,5 @@ EnemyAsset::register($this);
         Координаты: (<?= $village->map->x;?>, <?=$village->map->y;?>)
     </div>
     <a class="button attack">Напасть</a>
+    <a href="<?= Url::to(["message/create", "user_id" => $village->user_id ]);?>" class="button">Написать сообщение</a>
 </div>

@@ -181,6 +181,7 @@ class Task extends \app\models\BaseModel
             } else if ($task->type == self::TYPE_ATTACK && $taskAttack = $task->taskAttack) {
                 $data[] = array_merge($item, [
                     'units' => $taskAttack->units->toNumbers(),
+                    'units_village_id' => $taskAttack->units->village_id,
                     'villageTo' => $task->villageTo->toArray(),
                     'villageFrom' => $task->villageFrom->toArray(),
                 ]);

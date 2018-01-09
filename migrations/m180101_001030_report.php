@@ -20,6 +20,7 @@ class m180101_001030_report extends Migration
         $this->createTable('{{%report}}', [
             'id' => $this->primaryKey(),
             'type' => $this->integer()->notNull(),
+            'status' => $this->integer()->defaultValue(0),
             'user_id' => $this->integer()->notNull(),
             'village_id' => $this->integer()->notNull(),
             'title' => $this->string()->notNull(),
@@ -35,6 +36,25 @@ class m180101_001030_report extends Migration
         $this->addForeignKey(
             'FK_report_user', '{{%report}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE'
         );
+
+        $this->createTable('{{%message}}', [
+            'id' => $this->primaryKey(),
+            'status' => $this->integer()->defaultValue(0),
+            'user_from_id' => $this->integer()->notNull(),
+            'user_to_id' => $this->integer()->notNull(),
+            'title' => $this->string()->defaultValue("Без темы"),
+            'text'     => $this->text(),
+            'created_at' => $this->datetime(),
+            'updated_at' => $this->datetime(),
+        ], $tableOptions);
+
+        $this->addForeignKey(
+            'FK_report_user_from', '{{%message}}', 'user_from_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE'
+        );
+
+        $this->addForeignKey(
+            'FK_report_user_to', '{{%message}}', 'user_to_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE'
+        );
     }
 
     /**
@@ -43,6 +63,7 @@ class m180101_001030_report extends Migration
     public function safeDown()
     {
         $this->dropTable('{{%report}}');
+        $this->dropTable('{{%message}}');
     }
 
     /*

@@ -20,6 +20,11 @@ class ErrorAsset extends AssetBundle
     public $js = [
         'bundle/site.page.js'
     ];
+
+    public $css = [
+        'js/pages/less/site.css'
+    ];
+
     public $depends = [
         'app\assets\BaseAsset',
         'yii\bootstrap\BootstrapAsset',

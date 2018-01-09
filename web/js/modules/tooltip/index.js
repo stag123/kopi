@@ -22,21 +22,24 @@ let _tooltipText = _tooltipElement.querySelector(".tooltip-inner"),
     _tooltipArrow = _tooltipElement.querySelector(".arrow");
 
 /** Initialization */
-
+/*
 let elements = document.querySelectorAll(_tooltipSelector);
 
 for (let i = 0; i < elements.length; i++) {
     elements[i].addEventListener("mouseover", _updateTooltip);
     elements[i].addEventListener("mouseout", _hideTooltip);
 }
+*/
+DOMUtils.on(document, "mouseover", _tooltipSelector, _updateTooltip);
+DOMUtils.on(document, "mouseout", _tooltipSelector, _hideTooltip);
 
 document.body.appendChild(_tooltipElement);
 
 /** Event handlers */
-function _updateTooltip (e) {
+function _updateTooltip (e, target) {
     e.stopPropagation();
 
-    let boundElement = e.currentTarget,
+    let boundElement = target,
         tooltipData = boundElement.getAttribute('data-' + _tooltipTextAttribute),
         elementBox;
 

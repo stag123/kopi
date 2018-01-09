@@ -20,6 +20,11 @@ class MapAsset extends AssetBundle
     public $js = [
         'bundle/map.page.js'
     ];
+
+    public $css = [
+        'js/pages/less/map.css'
+    ];
+
     public $depends = [
         'app\assets\BaseAsset'
     ];

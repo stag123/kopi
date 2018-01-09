@@ -1,4 +1,3 @@
-import "./less/village.less";
 import ResourceVillage from "../modules/resource/village";
 import "../modules/tooltip";
 import BuildDialog from "../modules/dialog/build";
@@ -79,7 +78,11 @@ if (window.initials.tasks) {
             if (window.initials.villageId === item.villageFrom.id) {
                 div.innerHTML = BuildTimerTemplate({title: 'Нападаем на ' + item.villageTo.name + ', до конца осталось: ', time: 0});
             } else {
-                div.innerHTML = BuildTimerTemplate({title: 'На деревню идет нападение из ' + item.villageFrom.name + ', до конца осталось: ', time: 0});
+                if (window.initials.villageId === item.units_village_id) {
+                    div.innerHTML = BuildTimerTemplate({title: 'Возвращение из ' + item.villageFrom.name + ', до конца осталось: ', time: 0});
+                } else {
+                    div.innerHTML = BuildTimerTemplate({title: 'На деревню идет нападение из ' + item.villageFrom.name + ', до конца осталось: ', time: 0});
+                }
             }
             let cache = div.querySelector('.js_timer');
             new Timer(cache, item.time_left);

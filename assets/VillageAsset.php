@@ -20,6 +20,10 @@ class VillageAsset extends AssetBundle
     public $js = [
         'bundle/village.page.js'
     ];
+
+    public $css = [
+        'js/pages/less/village.css'
+    ];
     public $depends = [
         'app\assets\BaseAsset'
     ];
