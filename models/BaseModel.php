@@ -11,6 +11,16 @@ class BaseModel extends \yii\db\ActiveRecord implements InjectionAwareInterface 
 
     public static $behaviors = [];
 
+    public static $proccessCache = [];
+    public function proccessCache($key, callable $callback) {
+        $key = $key . ":id:" . $this->id;
+        if (isset(self::$proccessCache[$key])) {
+            return self::$proccessCache[$key];
+        }
+        self::$proccessCache[$key] = $callback();
+        return self::$proccessCache[$key];
+    }
+
     public function __get($name) {
         if (\Yii::$app->has($name) && !$this->canGetProperty($name)) {
             return \Yii::$app->get($name);

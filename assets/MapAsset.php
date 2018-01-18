@@ -15,7 +15,7 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class MapAsset extends AssetBundle
+class MapAsset extends BaseAsset
 {
     public $js = [
         'bundle/map.page.js'

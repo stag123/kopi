@@ -1,12 +1,12 @@
 class ResourceVillage {
 
-    constructor(element, speedHour, max) {
+    constructor(element, speedHour, max, callback = null) {
         this.element = element;
         this.speed = speedHour;
         this.start_time = ResourceVillage.getTime();
         this.max = max;
         this.resource_start = parseInt(this.element.innerHTML);
-
+        this.callback = callback;
         this.startTimer();
     }
 
@@ -19,9 +19,10 @@ class ResourceVillage {
 
         if (this.resource_start + res > this.max) {
             this.element.innerHTML = this.max;
+            this.callback && this.callback(this.element.innerHTML);
             return;
         }
-
+        this.callback && this.callback(this.element.innerHTML);
         this.element.innerHTML = this.resource_start + res;
     }
 

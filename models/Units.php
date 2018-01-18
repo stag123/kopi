@@ -12,6 +12,7 @@ use app\components\village\build\unit\models\Unit;
  * @property integer $map_id
  * @property integer $sword
  * @property integer $catapult
+ * @property integer $archer
  *
  * @property TaskAttack[] $taskAttacks
  * @property Map $map
@@ -35,7 +36,7 @@ class Units extends \app\models\BaseModel
     {
         return [
             [['village_id'], 'required'],
-            [['village_id', 'map_id', 'sword', 'catapult'], 'integer'],
+            [array_merge(['village_id', 'map_id'], Unit::GetTypes()), 'integer'],
             [['map_id'], 'exist', 'skipOnError' => true, 'targetClass' => Map::className(), 'targetAttribute' => ['map_id' => 'id']],
             [['village_id'], 'exist', 'skipOnError' => true, 'targetClass' => Village::className(), 'targetAttribute' => ['village_id' => 'id']],
         ];

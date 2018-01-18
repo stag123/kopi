@@ -33,36 +33,37 @@ $this->params['breadcrumbs'][] = $this->title;
     Нападение<br/>
     <div class="army">
         <?php foreach (\app\components\village\build\unit\models\Unit::GetTypes() as $code) {?>
-            <div class="unit <?= $code;?>"><?= $details->offStart->{$code};?> -&gt; <?= $details->off->{$code};?></div>
+            <div class="unit <?= $code;?>"><?= isset($details->offStart->{$code}) ? $details->offStart->{$code} : '0';?> -&gt; <?= $details->off->{$code};?></div>
         <?php } ?>
     </div>
 
     Защита<br/>
     <div class="army">
         <?php foreach (\app\components\village\build\unit\models\Unit::GetTypes() as $code) {?>
-            <div class="unit <?= $code;?>"><?= $details->defStart->{$code};?> -&gt; <?= $details->def->{$code};?></div>
+            <div class="unit <?= $code;?>"><?= isset($details->defStart->{$code}) ? $details->defStart->{$code} : '0';?> -&gt; <?= $details->def->{$code};?></div>
         <?php } ?>
     </div>
-
+    <?php if ($res = $details->resource) {?>
     Добыча<br/>
     <div class="price">
         <div class="resource wood">
-            <span class="count"><?= $details->resource->wood;?></span>
+            <span class="count"><?= isset($res->wood) ? floor($res->wood) : '0';?></span>
         </div>
         <div class="resource iron">
-            <span class="count"><?= $details->resource->iron;?></span>
+            <span class="count"><?= isset($res->iron) ? floor($res->iron): '0';?></span>
         </div>
         <div class="resource stone">
-            <span class="count"><?= $details->resource->stone;?></span>
+            <span class="count"><?= isset($res->stone) ? floor($res->stone): '0';?></span>
         </div>
         <div class="resource grain">
-            <span class="count"><?= $details->resource->grain;?></span>
+            <span class="count"><?= isset($res->grain) ? floor($res->grain): '0';?></span>
         </div>
     </div>
+    <?php } ?>
 
-    <?php if (isset($details->buildStart) && isset($details->build)) {?>
+    <?php if (isset($details->buildStart)) { ?>
     Разрушения<br/>
-    <div><?= $details->buildStart->build->name;?> ( <?= $details->buildStart->level;?> ) -&gt;  <?= $details->build->build->name;?> ( <?= $details->build->level;?> )</div>
+    <div><?= $details->buildStart->build->name;?> ( <?= $details->buildStart->level;?> ) -&gt;  <?php if (isset($details->build)) {?> <?= $details->build->build->name;?> ( <?= $details->build->level;?> )<?php } else { ?>Здание разрушено<?php } ?></div>
     <?php } ?>
 
 </div>

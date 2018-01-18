@@ -5,6 +5,7 @@
 @color-map-green: lawngreen;
 @color-map-blue: skyblue;
 @color-map-red: orangered;
+@color-map-yellow: yellow;
 
 
 .resource-container {
@@ -36,6 +37,26 @@
     text-align: left;
     padding: 5px;
     padding-top: 100px;
+    
+    .red-info a,
+    .yellow-info a,
+    .green-info a{
+        text-decoration: none;
+        line-height: 30px;
+        font-size: 14px;
+    }
+    
+    .green-info a{
+        color: @color-map-green;
+    }
+    
+    .yellow-info a{
+        color: @color-map-yellow;
+    }
+    
+    .red-info a{
+        color: red;
+    }
     
     .resource-container {
         color: #FFF;

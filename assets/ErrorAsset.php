@@ -15,7 +15,7 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class ErrorAsset extends AssetBundle
+class ErrorAsset extends BaseAsset
 {
     public $js = [
         'bundle/site.page.js'

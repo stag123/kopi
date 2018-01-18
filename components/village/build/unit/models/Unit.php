@@ -9,9 +9,11 @@ class Unit extends BaseModel
 {
     const ID_SWORD = 1;
     const ID_CATAPULT = 2;
+    const ID_ARCHER = 3;
 
     const CODE_SWORD = 'sword';
     const CODE_CATAPULT = 'catapult';
+    const CODE_ARCHER = 'archer';
 
     public $name;
     public $description;
@@ -38,6 +40,7 @@ class Unit extends BaseModel
     public static function GetTypes() {
         return [
             self::CODE_SWORD,
+            self::CODE_ARCHER,
             self::CODE_CATAPULT
         ];
     }
@@ -48,6 +51,7 @@ class Unit extends BaseModel
     public static function GetByID($id) {
         switch($id) {
             case self::ID_SWORD: return self::getSword();
+            case self::ID_ARCHER: return self::getArcher();
             case self::ID_CATAPULT: return self::getCatapult();
             default: return null;
         }
@@ -57,6 +61,7 @@ class Unit extends BaseModel
         switch($type) {
             case self::CODE_SWORD: return self::getSword();
             case self::CODE_CATAPULT: return self::getCatapult();
+            case self::CODE_ARCHER: return self::getArcher();
             default: return null;
         }
     }
@@ -74,12 +79,36 @@ class Unit extends BaseModel
         $model->bag = 40;
         $model->speed = 5;
         $model->grainCost = 1;
-        $model->buildTime = 5;//10 * 60 + 24;
+        $model->buildTime = getSpeed(10 * 60 + 24);
         $model->price = new Resources();
         $model->price->grain = 40;
         $model->price->iron = 100;
         $model->price->wood = 120;
         $model->price->stone = 50;
+        return $model;
+    }
+
+    public static function getArcher() {
+        $model = new self();
+        $model->id = self::ID_ARCHER;
+        $model->name = 'Лучник';
+        $model->description = 'Лучник хорош в дальнем бое';
+        $model->code = self::CODE_ARCHER;
+        $model->attack = 20;
+        $model->defence = 20;
+        $model->attackArcher = 30;
+        $model->defenceArcher = 40;
+        $model->defenceHorse = 10;
+        $model->defenceArcher = 20;
+        $model->bag = 30;
+        $model->speed = 6;
+        $model->grainCost = 1;
+        $model->buildTime = getSpeed(8 * 60 + 45);
+        $model->price = new Resources();
+        $model->price->grain = 30;
+        $model->price->iron = 40;
+        $model->price->wood = 50;
+        $model->price->stone = 40;
         return $model;
     }
 
@@ -95,7 +124,7 @@ class Unit extends BaseModel
         $model->defenceHorse = 10;
         $model->speed = 3;
         $model->grainCost = 5;
-        $model->buildTime = 12;//24 * 60 + 43;
+        $model->buildTime = getSpeed(25 * 60 + 6);
         $model->price = new Resources();
         $model->price->grain = 150;
         $model->price->iron = 400;

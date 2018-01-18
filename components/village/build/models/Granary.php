@@ -10,6 +10,7 @@ use app\models\Resources;
  */
 class Granary extends BuildInfo
 {
+    public $maxLevel = 2;
     public function getBuild()
     {
         return Build::getGranary();
@@ -24,6 +25,12 @@ class Granary extends BuildInfo
                 $price->stone = 330;
                 $price->wood = 220;
                 break;
+            case 2:
+                $price->iron = 450;
+                $price->grain = 550;
+                $price->stone = 690;
+                $price->wood = 420;
+                break;
         }
         return $price;
     }
@@ -31,7 +38,9 @@ class Granary extends BuildInfo
     public function getBuildTime() {
         switch($this->level) {
             case 1:
-                return 60 * 13 + 20;
+                return getSpeed(60 * 13 + 20);
+            case 2:
+                return getSpeed(60 * 26 + 45);
         }
     }
 
@@ -40,6 +49,8 @@ class Granary extends BuildInfo
         switch($this->level) {
             case 1:
                 return 3;
+            case 1:
+                return 5;
         }
     }
 
@@ -48,6 +59,8 @@ class Granary extends BuildInfo
         switch($this->level) {
             case 1:
                 return 1200;
+            case 1:
+                return 1600;
         }
     }
 

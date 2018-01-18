@@ -97,6 +97,7 @@ class m171206_035646_schema extends BaseMigration
             'village_id'  => $this->integer()->notNull(),
             'map_id'      => $this->integer(),
             'sword'       => $this->integer()->defaultValue(0),
+            'archer'       => $this->integer()->defaultValue(0),
             'catapult'       => $this->integer()->defaultValue(0)
         ], $tableOptions);
 

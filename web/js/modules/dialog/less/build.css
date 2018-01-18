@@ -31,6 +31,9 @@
 .unit.sword {
   background-image: url(/images/icons/sword.png);
 }
+.unit.archer {
+  background-image: url(/images/icons/archer.png);
+}
 .unit.catapult {
   background-image: url(/images/icons/catapult.png);
 }
@@ -91,6 +94,7 @@
   padding-left: 30px;
   margin-bottom: 5px;
   display: inline-block;
+  margin: 10px 0;
 }
 .list .item .price {
   margin-bottom: 20px;

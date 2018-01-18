@@ -158,8 +158,8 @@ class Task extends \app\models\BaseModel
         /** @var Task[] $tasks */
         $tasks = Task::find()
             ->with('taskBuild', 'taskAttack', 'taskTrade', 'taskUnit')
-            ->where(['or', ['village_from_id' => $village_id], ['village_to_id' => $village_id]])
-            ->where(['status' => [self::STATUS_NEW, self::STATUS_PROGRESS]])
+            ->andWhere(['status' => [self::STATUS_NEW, self::STATUS_PROGRESS]])
+            ->andWhere(['or', ['village_from_id' => $village_id], ['village_to_id' => $village_id]])
             ->all();
         $data = [];
         $tasks = $tasks ?: [];
@@ -179,6 +179,9 @@ class Task extends \app\models\BaseModel
                     'count' => $taskUnit->count
                 ]);
             } else if ($task->type == self::TYPE_ATTACK && $taskAttack = $task->taskAttack) {
+                if ($task->village_from_id !== $taskAttack->units->village_id && $task->village_from_id == $village_id) {
+                    continue;
+                }
                 $data[] = array_merge($item, [
                     'units' => $taskAttack->units->toNumbers(),
                     'units_village_id' => $taskAttack->units->village_id,

@@ -64,7 +64,7 @@ class VillageController extends BaseController
         /**
          * @var Village $fromVillage
          */
-        $fromVillage = $this->currentUser->getVillages()->one();
+        $fromVillage = $this->currentUser->getVillage();
 
         $this->initials['villageFromId'] = $fromVillage->id;
         $this->initials['villageToId'] = $village->id;

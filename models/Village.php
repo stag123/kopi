@@ -133,9 +133,7 @@ class Village extends \app\models\BaseModel
             }
             return $result;
         }
-        if (YII_ENV_DEV) {
-            return 80000;
-        }
+
         return self::BASE_STOCK;
     }
 
@@ -151,9 +149,6 @@ class Village extends \app\models\BaseModel
             }
             return $result;
         }
-        if (YII_ENV_DEV) {
-            return 80000;
-        }
         return self::BASE_GRANARY;
     }
 
@@ -162,12 +157,15 @@ class Village extends \app\models\BaseModel
      */
     public function getResourceHour() {
         /** @var VillageMap[] $maps */
-        $maps = $this->getVillageMaps()->where(['build_id' => [
-            Build::ID_IRON_FARM,
-            Build::ID_STONE_FARM,
-            Build::ID_GRAIN_FARM,
-            Build::ID_WOOD_FARM
-        ]])->all();
+
+        $maps = $this->proccessCache('builds', function() {
+            return $this->getVillageMaps()->where(['build_id' => [
+                Build::ID_IRON_FARM,
+                Build::ID_STONE_FARM,
+                Build::ID_GRAIN_FARM,
+                Build::ID_WOOD_FARM
+            ]])->all();
+        });
 
         $res = new Resources();
 
@@ -187,14 +185,11 @@ class Village extends \app\models\BaseModel
                     break;
             }
         }
-        $base = self::BASE_RESOURCE_SPEED;
-        if (YII_ENV_DEV) {
-            //$base = 100000;
-        }
-        $res->grain = max($base, $res->grain);
-        $res->wood = max($base, $res->wood);
-        $res->iron = max($base, $res->iron);
-        $res->stone = max($base, $res->stone);
+        $base = self::BASE_RESOURCE_SPEED / SPEED;
+        $res->grain = max($base, $res->grain / SPEED );
+        $res->wood = max($base, $res->wood / SPEED);
+        $res->iron = max($base, $res->iron / SPEED);
+        $res->stone = max($base, $res->stone / SPEED);
         return $res;
     }
 
@@ -229,6 +224,7 @@ class Village extends \app\models\BaseModel
     public function damage($damage) {
         $maps = $this->getVillageMaps()->andWhere('build_id>0')->all();
         $startBuild = $build = null;
+
         if ($maps) {
             shuffle($maps);
             /**

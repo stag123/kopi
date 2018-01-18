@@ -11,7 +11,7 @@ use app\models\Resources;
  */
 class Army extends BuildInfo
 {
-    public $maxLevel = 2;
+    public $maxLevel = 3;
 
     public function getBuild()
     {
@@ -33,19 +33,24 @@ class Army extends BuildInfo
                 $price->stone = 530;
                 $price->wood = 670;
                 break;
+            case 3:
+                $price->iron = 1200;
+                $price->grain = 1320;
+                $price->stone = 980;
+                $price->wood = 890;
+                break;
         }
         return $price;
     }
 
     public function getBuildTime() {
-        if (YII_ENV_DEV) {
-            return 10;
-        }
         switch($this->level) {
             case 1:
-                return 60 * 13 + 20;
+                return getSpeed(60 * 13 + 23);
             case 2:
-                return 60 * 23 + 20;
+                return getSpeed(60 * 23 + 56);
+            case 3:
+                return getSpeed(60 * 31 + 6);
         }
     }
 
@@ -56,6 +61,8 @@ class Army extends BuildInfo
                 return 3;
             case 2:
                 return 5;
+            case 3:
+                return 9;
         }
     }
 
@@ -65,7 +72,9 @@ class Army extends BuildInfo
             case 1:
                 return [Unit::getSword()];
             case 2:
-                return [Unit::getCatapult(), Unit::getSword()];
+                return [Unit::getSword(), Unit::getArcher()];
+            case 3:
+                return [Unit::getSword(), Unit::getArcher(), Unit::getCatapult()];
         }
     }
 

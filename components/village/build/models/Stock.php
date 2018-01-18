@@ -38,9 +38,9 @@ class Stock extends BuildInfo
     public function getBuildTime() {
         switch($this->level) {
             case 1:
-                return 60 * 13 + 20;
+                return getSpeed(60 * 13 + 20);
             case 2:
-                return 60 * 21 + 9;
+                return getSpeed(60 * 21 + 9);
         }
     }
 

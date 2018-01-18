@@ -33,10 +33,10 @@ use yii\helpers\Url;
 
     <?php if ($this->currentUser) {?>
     <div class="menu">
-        <a href="<?=Url::to(['/map/index', 'x' => $this->currentUser->getVillages()->one()->map->x, 'y' => $this->currentUser->getVillages()->one()->map->y]);?>" class="menu-item map">
+        <a href="<?=Url::to(['/map/index', 'x' => $this->currentUser->getVillage()->map->x, 'y' => $this->currentUser->getVillage()->map->y]);?>" class="menu-item map">
             Карта
         </a>
-        <a href="<?=Url::to(['/village/view', 'id' => $this->currentUser->getVillages()->one()->id]);?>" class="menu-item village">
+        <a href="<?=Url::to(['/village/view', 'id' => $this->currentUser->getVillage()->id]);?>" class="menu-item village">
             Деревня
         </a>
         <a href="<?=Url::to(['/report/index']);?>" class="menu-item report">

@@ -44,25 +44,32 @@ class Create extends BaseComponent
         if (!$map->village->villageResources->greaterThen($buildData->price)) {
             throw new BadRequestHttpException("Недотаточно ресурсов");
         }
+        $connection = \Yii::$app->db;
+        $transaction = $connection->beginTransaction();
+        try {
+            $this->commandVillageResourceCalculate->execute($map->village);
+            $map->village->villageResources->remove($buildData->price);
 
-        $this->commandVillageResourceCalculate->execute($map->village);
-        $map->village->villageResources->remove($buildData->price);
+            $task = $this->newTask(Task::TYPE_BUILD, $map->village_id, $map->village_id, $buildData->buildTime);
 
-        $task = $this->newTask(Task::TYPE_BUILD, $map->village_id, $map->village_id, $buildData->buildTime);
+            $taskBuild = new TaskBuild();
+            $taskBuild->village_map_id = $map->id;
+            $taskBuild->task_id = $task->id;
+            $taskBuild->build_id = $build->id;
+            $taskBuild->level = $level;
 
-        $taskBuild = new TaskBuild();
-        $taskBuild->village_map_id = $map->id;
-        $taskBuild->task_id = $task->id;
-        $taskBuild->build_id = $build->id;
-        $taskBuild->level = $level;
+            $taskBuild->save();
 
-        $taskBuild->save();
+            if (!$taskBuild->save()) {
+                throw new BadRequestHttpException("Error create build task");
+            }
 
-        if (!$taskBuild->save()) {
-            throw new BadRequestHttpException("Error create build task");
+            $map->startBuild();
+            $transaction->commit();
+        } catch(\Exception $e) {
+            $transaction->rollback();
+            throw $e;
         }
-
-        $map->startBuild();
     }
 
     public function createUnit(Village $village, Unit $unit, $count) {
@@ -75,18 +82,33 @@ class Create extends BaseComponent
             throw new BadRequestHttpException("Недопустимое количество");
         }
 
-        $this->commandVillageResourceCalculate->execute($village);
-        $village->villageResources->remove($price);
+        if (Task::find()->where([
+            'type' => Task::TYPE_BUILD_UNIT,
+            'status' => [Task::STATUS_NEW, Task::STATUS_PROGRESS],
+            'village_from_id' => $village->id])->exists()) {
+            throw new BadRequestHttpException("Казарма занята строительством других войск");
+        }
+        $connection = \Yii::$app->db;
+        $transaction = $connection->beginTransaction();
+        try {
 
-        $task = $this->newTask(Task::TYPE_BUILD_UNIT, $village->id, $village->id, $unit->buildTime);
+            $this->commandVillageResourceCalculate->execute($village);
+            $village->villageResources->remove($price);
 
-        $taskUnit = new TaskUnit();
-        $taskUnit->count = $count;
-        $taskUnit->unit_id = $unit->id;
-        $taskUnit->task_id = $task->id;
+            $task = $this->newTask(Task::TYPE_BUILD_UNIT, $village->id, $village->id, $unit->buildTime);
 
-        if (!$taskUnit->save()) {
-            throw new BadRequestHttpException("Error create unit task");
+            $taskUnit = new TaskUnit();
+            $taskUnit->count = $count;
+            $taskUnit->unit_id = $unit->id;
+            $taskUnit->task_id = $task->id;
+
+            if (!$taskUnit->save()) {
+                throw new BadRequestHttpException("Error create unit task");
+            }
+            $transaction->commit();
+        } catch(\Exception $e) {
+            $transaction->rollback();
+            throw $e;
         }
     }
 
@@ -94,24 +116,28 @@ class Create extends BaseComponent
         if (!$villageFrom->getVillageUnits()->greaterThen($units)) {
             throw new BadRequestHttpException("Недотаточно войнов");
         }
-        $units->save();
-        $villageFrom->getVillageUnits()->remove($units);
+        $connection = \Yii::$app->db;
+        $transaction = $connection->beginTransaction();
+        try {
+            $units->save();
+            $villageFrom->getVillageUnits()->remove($units);
 
-        $distance = Map::getDistance($villageFrom->map, $villageTo->map);
-        $time = ceil($distance / $units->getSmallestSpeed() * 3600);
+            $distance = Map::getDistance($villageFrom->map, $villageTo->map);
+            $time = getSpeed(ceil($distance / $units->getSmallestSpeed() * 3600));
 
-        if (YII_ENV_DEV) {
-            $time = 10;
-        }
+            $task = $this->newTask(Task::TYPE_ATTACK, $villageFrom->id, $villageTo->id, $time);
 
-        $task = $this->newTask(Task::TYPE_ATTACK, $villageFrom->id, $villageTo->id, $time);
-
-        $taskAttack = new TaskAttack();
-        $taskAttack->units_id = $units->id;
-        $taskAttack->task_id = $task->id;
-        $taskAttack->resources_id = Resources::CreateOne()->id;
-        if (!$taskAttack->save()) {
-            throw new BadRequestHttpException("Error create attack task");
+            $taskAttack = new TaskAttack();
+            $taskAttack->units_id = $units->id;
+            $taskAttack->task_id = $task->id;
+            $taskAttack->resources_id = Resources::CreateOne()->id;
+            if (!$taskAttack->save()) {
+                throw new BadRequestHttpException("Error create attack task");
+            }
+            $transaction->commit();
+        } catch(\Exception $e) {
+            $transaction->rollback();
+            throw $e;
         }
     }
 }

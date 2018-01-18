@@ -15,7 +15,7 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class VillageAsset extends AssetBundle
+class VillageAsset extends BaseAsset
 {
     public $js = [
         'bundle/village.page.js'

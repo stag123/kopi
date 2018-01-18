@@ -44,11 +44,11 @@ class WoodFarm extends BuildInfo
     public function getBuildTime() {
         switch($this->level) {
             case 1:
-                return 60 * 2 + 20;
+                return getSpeed(60 * 2 + 20);
             case 2:
-                return 7 * 60 + 43;
+                return getSpeed(7 * 60 + 43);
             case 3:
-                return 23 * 60 + 28;
+                return getSpeed(23 * 60 + 28);
         }
     }
 

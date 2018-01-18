@@ -70,4 +70,10 @@ class User extends \app\models\BaseModel
     {
         return $this->hasMany(Village::className(), ['user_id' => 'id']);
     }
+
+    public function getVillage($num = 0) {
+        return $this->proccessCache('user_village' . $num, function() use ($num) {
+            return $this->getVillages()->joinWith('map')->one();
+        });
+    }
 }

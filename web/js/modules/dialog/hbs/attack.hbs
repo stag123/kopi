@@ -1,6 +1,6 @@
 <div class="modal">
     <div class="title">Отправка войск</div>
-    <form method="POST" action="/village/attack">
+    <form method="POST" action="{{initials "baseUrl"}}/village/attack">
         <input type="hidden" name="villageFromId" value="{{villageFromId}}"/>
         <input type="hidden" name="villageToId" value="{{villageToId}}"/>
         {{#each units}}

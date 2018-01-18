@@ -46,6 +46,9 @@
 .unit.sword {
   background-image: url(/images/icons/sword.png);
 }
+.unit.archer {
+  background-image: url(/images/icons/archer.png);
+}
 .unit.catapult {
   background-image: url(/images/icons/catapult.png);
 }
@@ -253,6 +256,22 @@ a.desc:after {
   text-align: left;
   padding: 5px;
   padding-top: 100px;
+}
+.menu-left .red-info a,
+.menu-left .yellow-info a,
+.menu-left .green-info a {
+  text-decoration: none;
+  line-height: 30px;
+  font-size: 14px;
+}
+.menu-left .green-info a {
+  color: lawngreen;
+}
+.menu-left .yellow-info a {
+  color: yellow;
+}
+.menu-left .red-info a {
+  color: red;
 }
 .menu-left .resource-container {
   color: #FFF;

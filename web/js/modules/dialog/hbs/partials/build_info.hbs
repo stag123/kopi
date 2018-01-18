@@ -20,18 +20,17 @@
     Построить войска: <br/><br/>
 
     {{#each currentBuild.units}}
-        <form method="POST" action="/village/build-units">
+        <form method="POST" action="{{initials "baseUrl"}}/village/build-units">
             <div><b>{{name}}</b>: {{description}}</div>
-            {{> resource resource=price}}
             <div class="unit {{code}}">
                 <input name="unitId" type="hidden" value="{{id}}">
                 <input name="count" type="text" size="4" value="0">
                 <input name="mapId" type="hidden" value="{{../mapId}}"/>
                 <input type="submit" class="button" value="Построить"/>
             </div>
+            {{> resource resource=price}}
         </form>
     {{/each}}
-    <br/><br/>
 
 {{/equal}}
 

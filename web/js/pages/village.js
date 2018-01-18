@@ -5,6 +5,7 @@ import DOM from "../modules/dom";
 import Net from "../modules/net";
 import Timer from "../modules/timer";
 import BuildTimerTemplate from "../modules/timer/hbs/build.hbs";
+import AttackTimerTemplate from "../modules/timer/hbs/attack.hbs";
 
 let domCache = {
     resourceWood: document.querySelector('.js_wood_count'),
@@ -24,13 +25,24 @@ let domCache = {
     resourceStoneMax: document.querySelector('.js_stone_max'),
 
     buildMap: document.querySelector('.js_map'),
-    buildInfo: document.querySelector('.js_build_info')
+    buildInfo: document.querySelector('.js_build_info'),
+    redInfo: document.querySelector('.js_red_info'),
+    greenInfo: document.querySelector('.js_green_info'),
+    yellowInfo: document.querySelector('.js_yellow_info'),
 };
 
-new ResourceVillage(domCache.resourceWood, domCache.resourceWoodHour.innerText, domCache.resourceWoodMax.innerText);
-new ResourceVillage(domCache.resourceGrain, domCache.resourceGrainHour.innerText, domCache.resourceGrainMax.innerText);
-new ResourceVillage(domCache.resourceStone, domCache.resourceStoneHour.innerText, domCache.resourceStoneMax.innerText);
-new ResourceVillage(domCache.resourceIron, domCache.resourceIronHour.innerText, domCache.resourceIronMax.innerText);
+new ResourceVillage(domCache.resourceWood, domCache.resourceWoodHour.innerText, domCache.resourceWoodMax.innerText, (resource) => {
+    window.initials.villageResource.wood = resource;
+});
+new ResourceVillage(domCache.resourceGrain, domCache.resourceGrainHour.innerText, domCache.resourceGrainMax.innerText, (resource) => {
+    window.initials.villageResource.grain = resource;
+});
+new ResourceVillage(domCache.resourceStone, domCache.resourceStoneHour.innerText, domCache.resourceStoneMax.innerText, (resource) => {
+    window.initials.villageResource.stone = resource;
+});
+new ResourceVillage(domCache.resourceIron, domCache.resourceIronHour.innerText, domCache.resourceIronMax.innerText, (resource) => {
+    window.initials.villageResource.iron = resource;
+});
 
 /*DOM.on(domCache.buildMap, "click", ".js_build", (e, target) => {
    // debugger;
@@ -59,7 +71,7 @@ if (window.initials.tasks) {
     window.initials.tasks.forEach(function(item) {
         if (item.type == TYPE_BUILD) {
             let div = document.createElement('div');
-            div.innerHTML = BuildTimerTemplate({title: item.build.name + ' строится, до конца осталось: ', time: 0});
+            div.innerHTML = BuildTimerTemplate({title: item.build.name + ' строится, до конца осталось: ', time: Timer.fancyDate(item.time_left)});
             let cache = div.querySelector('.js_timer');
             new Timer(cache, item.time_left);
             domCache.buildInfo.appendChild(div);
@@ -67,26 +79,29 @@ if (window.initials.tasks) {
 
         if (item.type == TYPE_BUILD_UNIT) {
             let div = document.createElement('div');
-            div.innerHTML = BuildTimerTemplate({title: item.unit.name + ' обучается, до конца осталось: ', time: 0});
+            div.innerHTML = BuildTimerTemplate({title: item.unit.name + ' обучается, до конца осталось: ', time: Timer.fancyDate(item.time_left)});
             let cache = div.querySelector('.js_timer');
             new Timer(cache, item.time_left);
             domCache.buildInfo.appendChild(div);
         }
 
         if (item.type == TYPE_ATTACK) {
+            let dom = domCache.yellowInfo;
             let div = document.createElement('div');
             if (window.initials.villageId === item.villageFrom.id) {
-                div.innerHTML = BuildTimerTemplate({title: 'Нападаем на ' + item.villageTo.name + ', до конца осталось: ', time: 0});
+                div.innerHTML = AttackTimerTemplate({title: 'Исходящая атака', href: "/village/enemy?id=" + item.villageTo.id, tooltip: "На " + item.villageTo.name, time: Timer.fancyDate(item.time_left)});
             } else {
                 if (window.initials.villageId === item.units_village_id) {
-                    div.innerHTML = BuildTimerTemplate({title: 'Возвращение из ' + item.villageFrom.name + ', до конца осталось: ', time: 0});
+                    dom = domCache.greenInfo;
+                    div.innerHTML = AttackTimerTemplate({title: 'Возвращение войск', href: "/village/enemy?id=" + item.villageFrom.id, tooltip: "Из " + item.villageFrom.name, time: Timer.fancyDate(item.time_left)});
                 } else {
-                    div.innerHTML = BuildTimerTemplate({title: 'На деревню идет нападение из ' + item.villageFrom.name + ', до конца осталось: ', time: 0});
+                    dom = domCache.redInfo;
+                    div.innerHTML = AttackTimerTemplate({title: 'Идет нападение', href: "/village/enemy?id=" + item.villageFrom.id, tooltip: "Из " + item.villageFrom.name, time: Timer.fancyDate(item.time_left)});
                 }
             }
             let cache = div.querySelector('.js_timer');
             new Timer(cache, item.time_left);
-            domCache.buildInfo.appendChild(div);
+            dom.appendChild(div);
         }
     });
 }

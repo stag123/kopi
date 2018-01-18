@@ -7,6 +7,9 @@
 .unit.sword {
   background-image: url(/images/icons/sword.png);
 }
+.unit.archer {
+  background-image: url(/images/icons/archer.png);
+}
 .unit.catapult {
   background-image: url(/images/icons/catapult.png);
 }

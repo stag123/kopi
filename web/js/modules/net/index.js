@@ -23,7 +23,7 @@ class Net {
             url = cache ? url + _separator + query : url + _separator + query + "&_=" + Math.random();
         }
 
-        xhr.open(method, url, true);
+        xhr.open(method, window.initials.baseUrl + url, true);
 
         if (!options.fetch) {
             xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");

@@ -74,7 +74,7 @@ class Timer {
 
         let date = [];
         for(let k in diff) {
-            if (diff[k]) {
+            if (diff[k] || k === 's') {
                 date.push(diff[k] + ' ' + Timer.plural(diff[k], ...diffLabel[k]));
                // break;
             }

@@ -20,7 +20,7 @@ use yii\web\BadRequestHttpException;
 class Check extends BaseComponent
 {
 
-    const TIME_EXECUTE = 10;
+    const TIME_EXECUTE = 65;
 
     public function completeTask(Task $task) {
 
@@ -61,39 +61,41 @@ class Check extends BaseComponent
                     $offStart = $off->toArray();
                     $defStart = $def->toArray();
                     $resourceStart = $task->villageTo->villageResources->toArray();
-                    $resource = $startBuild = $endBuild = null;
+                    $startBuild = $endBuild = null;
+
+                    $resource = $task->taskAttack->resources;
 
                     $attack = $off->getAcrherAttack() + $off->getHorseAttack() + $off->getAttack();
 
-                    if ($attack) {
-                        $defence = $def->getArcherDefence() * $off->getAcrherAttack() / $attack +
-                            $def->getHorseDefence() * $off->getHorseAttack() / $attack +
-                            $def->getDefence() * $off->getAttack() / $attack;
+                    if (!$attack) {
+                        $attack = 0.1;
+                    }
 
-                        $this->logger->info('Attack/ Defence: ' . $attack . '/' . $defence);
+                    $defence = $def->getArcherDefence() * $off->getAcrherAttack() / $attack +
+                        $def->getHorseDefence() * $off->getHorseAttack() / $attack +
+                        $def->getDefence() * $off->getAttack() / $attack;
 
-                        if ($attack > $defence) {
-                            $def->remove($def);
-                            $this->logger->info("Percent: " . pow(($defence / $attack), 1.5));
-                            $off->removePercent(pow(($defence / $attack), 1.5));
-                            $this->commandVillageResourceCalculate->execute($task->villageTo);
-                            $resource = $task->villageTo->villageResources->steal($off->getBag());
-                            $resource->save();
-                            $this->logger->info('Bag: ' . $off->getBag());
-                            $this->logger->info('Off after attack: ' . $off);
-                            $this->logger->info('Village resource: ' . $task->villageTo->villageResources);
-                            $this->logger->info('Resource steal: ' . $resource);
+                    $this->logger->info('Attack/ Defence: ' . $attack . '/' . $defence);
 
-                            $damage = $off->getDamage();
-                            if ($damage > 0) {
-                                list($startBuild, $endBuild) = $task->villageTo->damage($damage);
-                            }
-                            $this->logger->info('Damage ' . $damage);
-                        } else {
-                            $resource = new Resources();
-                            $off->remove($off);
-                            $def->removePercent(pow(($defence / $attack), 1.5));
+                    if ($attack > $defence) {
+                        $def->remove($def);
+                        $this->logger->info("Percent: " . pow(($defence / $attack), 1.5));
+                        $off->removePercent(pow(($defence / $attack), 1.5));
+                        $this->commandVillageResourceCalculate->execute($task->villageTo);
+                        $resource = $task->villageTo->villageResources->steal($off->getBag());
+                        $this->logger->info('Bag: ' . $off->getBag());
+                        $this->logger->info('Off after attack: ' . $off);
+                        $this->logger->info('Village resource: ' . $task->villageTo->villageResources);
+                        $this->logger->info('Resource steal: ' . $resource);
+
+                        $damage = $off->getDamage();
+                        if ($damage > 0) {
+                            list($startBuild, $endBuild) = $task->villageTo->damage($damage);
                         }
+                        $this->logger->info('Damage ' . $damage);
+                    } else {
+                        $off->remove($off);
+                        $def->removePercent(pow(($attack / $defence), 1.5));
                     }
 
                     $report = new Report();
@@ -109,7 +111,7 @@ class Check extends BaseComponent
                             'buildStart' => $startBuild ? $startBuild->toArray(): $startBuild,
                             'off' => $off->toArray(),
                             'def' => $def->toArray(),
-                            'resource' => $resource ? $resource->toArray(): $resource,
+                            'resource' => $resource ? $resource->toArray(): null,
                             'build' => $endBuild ? $endBuild->toArray(): $endBuild
                         ]
                     );

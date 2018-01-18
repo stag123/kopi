@@ -25,6 +25,8 @@ class BaseController extends Controller implements InjectionAwareInterface
         } else {
             $this->ajaxData = json_decode($this->request->getRawBody(), true);
         }
+
+        $this->initials['baseUrl'] = \Yii::getAlias('@web');
         return parent::beforeAction($action);
     }
 

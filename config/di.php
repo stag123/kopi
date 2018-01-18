@@ -35,3 +35,8 @@ Yii::$app->set('commandTaskCheck', function() {
 Yii::$app->set('logger', function() {
     return new app\components\logger\Logger();
 });
+
+define('SPEED', (YII_ENV_DEV ? 0.0001: 1));
+function getSpeed($time) {
+    return max(5, round(SPEED * $time));
+}

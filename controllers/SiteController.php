@@ -66,7 +66,7 @@ class SiteController extends BaseController
     public function actionIndex()
     {
         if (!$this->user->isGuest) {
-            $village = $this->currentUser->getVillages()->one();
+            $village = $this->currentUser->getVillage();
             if (!$village) {
                 $this->commandVillageCreate->execute($this->currentUser);
                 return $this->goBack();
@@ -113,6 +113,12 @@ class SiteController extends BaseController
             return $this->goBack();
         }
         return $this->render('index');
+    }
+
+	
+    public function actionTask() {
+        $this->commandTaskCheck->execute();
+        die('done');
     }
 
     /**
